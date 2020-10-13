@@ -22,8 +22,7 @@
   },
   "scripts": {
     "dev": "parcel serve ./src/index.html",
-    "build": "parcel build ./src/index.html",
-    "predeploy": "yarn build",
+    "build": "parcel build ./src/index.html --public-url jakehl.github.io/lameboy-camera",
     "deploy": "gh-pages -d ./dist"
   }
 }
