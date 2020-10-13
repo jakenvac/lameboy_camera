@@ -1,12 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import { render } from "react-dom";
+import styled from "styled-components";
 
-import Camera from './GameboyCamera';
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-const app = document.getElementById('app');
+  min-width: 100vw;
+  min-height: 100vh;
+`;
+
+import Camera from "./GameboyCamera";
+
+const app = document.getElementById("app");
 
 const Root = () => {
-    return <Camera />;
+  return (
+    <StyledContainer>
+      <Camera />
+    </StyledContainer>
+  );
 };
 
 render(<Root />, app);
