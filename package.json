@@ -22,6 +22,8 @@
   },
   "scripts": {
     "dev": "parcel serve ./src/index.html",
-    "build": "parcel build ./src/index.html"
+    "build": "parcel build ./src/index.html",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d ./dist"
   }
 }
