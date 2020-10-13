@@ -24,4 +24,4 @@ var t;!function(e,r){"object"==typeof exports&&"object"==typeof module?module.ex
 },{"react":"n8MK","./camera":"gs9Y","./filter":"teM1"}],"HTOX":[function(require,module,exports) {
 "use strict";var e=u(require("react")),r=require("react-dom"),t=u(require("./GameboyCamera"));function u(e){return e&&e.__esModule?e:{default:e}}var a=document.getElementById("app"),n=function(){return e.default.createElement(t.default,null)};(0,r.render)(e.default.createElement(n,null),a);
 },{"react":"n8MK","react-dom":"NKHc","./GameboyCamera":"LLrp"}]},{},["HTOX"], null)
-//# sourceMappingURL=jakehl.github.io/lameboy-camera/setup.65ace237.js.map
+//# sourceMappingURL=setup.65ace237.js.map
