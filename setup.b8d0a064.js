@@ -30666,7 +30666,7 @@ var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (
   return cooked;
 };
 
-var StyledFilter = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n\n  canvas {\n    image-rendering: pixelated;\n    min-width: 80vmin;\n    min-height: 80vmin;\n  }\n"], ["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n\n  canvas {\n    image-rendering: pixelated;\n    min-width: 80vmin;\n    min-height: 80vmin;\n  }\n"])));
+var StyledFilter = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n\n  h2 {\n    font-size: 30px;\n    font-family: \"Nunito Sans\", sans-serif;\n    margin: 0;\n    align-text: left;\n    width: 100%;\n    span {\n      color: #fff;\n      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n        1px 1px 0 #000;\n      -webkit-text-stroke: 1px black;\n    }\n  }\n\n  canvas {\n    image-rendering: pixelated;\n    min-width: 80vmin;\n    min-height: 80vmin;\n  }\n"], ["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n\n  h2 {\n    font-size: 30px;\n    font-family: \"Nunito Sans\", sans-serif;\n    margin: 0;\n    align-text: left;\n    width: 100%;\n    span {\n      color: #fff;\n      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n        1px 1px 0 #000;\n      -webkit-text-stroke: 1px black;\n    }\n  }\n\n  canvas {\n    image-rendering: pixelated;\n    min-width: 80vmin;\n    min-height: 80vmin;\n  }\n"])));
 
 var Filter = _react.default.forwardRef(function (_a, ref) {
   var frame = _a.frame;
@@ -30717,7 +30717,7 @@ var Filter = _react.default.forwardRef(function (_a, ref) {
     var ditheredFrame = fDither(frame);
     ctx.putImageData(ditheredFrame, 0, 0);
   }, [contrast, frame]);
-  return _react.default.createElement(StyledFilter, null, _react.default.createElement("canvas", {
+  return _react.default.createElement(StyledFilter, null, _react.default.createElement("h2", null, "LAME BOY ", _react.default.createElement("span", null, "camera")), _react.default.createElement("canvas", {
     ref: canvasRef,
     width: 128,
     height: 128
@@ -30857,7 +30857,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62275" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63011" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
