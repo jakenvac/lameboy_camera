@@ -8,6 +8,20 @@ const StyledFilter = styled.div`
   align-items: center;
   flex-direction: column;
 
+  h2 {
+    font-size: 30px;
+    font-family: "Nunito Sans", sans-serif;
+    margin: 0;
+    align-text: left;
+    width: 100%;
+    span {
+      color: #fff;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+      -webkit-text-stroke: 1px black;
+    }
+  }
+
   canvas {
     image-rendering: pixelated;
     min-width: 80vmin;
@@ -77,6 +91,9 @@ const Filter = React.forwardRef(
 
     return (
       <StyledFilter>
+        <h2>
+          LAME BOY <span>camera</span>
+        </h2>
         <canvas ref={canvasRef} width={128} height={128} />
         <input
           type="range"
