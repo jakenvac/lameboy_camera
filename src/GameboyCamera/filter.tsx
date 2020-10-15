@@ -2,41 +2,35 @@ import React, { useEffect, useRef, useState } from "react";
 import Dither from "ditherjs";
 import styled from "styled-components";
 
-const StyledFilter = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  h2 {
-    font-size: 30px;
-    font-family: "Nunito Sans", sans-serif;
-    margin: 0;
-    align-text: left;
-    width: 100%;
-    span {
-      color: #fff;
-      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-        1px 1px 0 #000;
-      -webkit-text-stroke: 1px black;
-    }
-  }
-
-  canvas {
-    image-rendering: pixelated;
-    min-width: 80vmin;
-    min-height: 80vmin;
-  }
+const StyledSquare = styled.div`
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
 `;
+
+const StyledCanvas = styled.canvas`
+  image-rendering: pixelated;
+  position: absolute;
+  top: 0;
+  min-width: 100%;
+  min-height: 100%;
+`;
+
+type FilterProps = {
+  frame?: ImageData,
+  contrast?: number,
+}
 
 const Filter = React.forwardRef(
   (
-    { frame }: { frame?: ImageData },
+    { frame, contrast }: FilterProps,
     ref: React.MutableRefObject<HTMLCanvasElement>
   ) => {
     const canvasRef = ref ?? useRef<HTMLCanvasElement>();
 
-    const [contrast, setContrast] = useState<number>(95);
+    contrast = contrast ?? 95;
+    contrast = contrast > 100 ? 100 : contrast;
+    contrast = contrast < -100 ? -100 : contrast;
 
     const ditherOptions = {
       step: 1,
@@ -70,7 +64,6 @@ const Filter = React.forwardRef(
         const b = d[i + 2];
 
         const luma = r * 0.299 + g * 0.587 + b * 0.114;
-        // const luma = r * 0.2126 + g * 0.7152 + b * 0.0722;
 
         d[i] = luma;
         d[i + 1] = luma;
@@ -89,20 +82,9 @@ const Filter = React.forwardRef(
       ctx.putImageData(ditheredFrame, 0, 0);
     }, [contrast, frame]);
 
-    return (
-      <StyledFilter>
-        <h2>
-          LAME BOY <span>camera</span>
-        </h2>
-        <canvas ref={canvasRef} width={128} height={128} />
-        <input
-          type="range"
-          min="-100"
-          max="100"
-          value={contrast}
-          onChange={(e) => setContrast((e.target.value as unknown) as number)}
-        />
-      </StyledFilter>
+    return (<StyledSquare>
+      <StyledCanvas ref={canvasRef} width={128} height={128} />
+    </StyledSquare>
     );
   }
 );
