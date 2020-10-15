@@ -30586,12 +30586,30 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var Camera = _react.default.forwardRef(function (props, ref) {
+var __rest = void 0 && (void 0).__rest || function (s, e) {
+  var t = {};
+
+  for (var p in s) {
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  }
+
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+var Camera = _react.default.forwardRef(function (_a, ref) {
+  var facing = _a.facing,
+      props = __rest(_a, ["facing"]);
+
   var videoRef = ref !== null && ref !== void 0 ? ref : (0, _react.useRef)();
 
-  var _a = (0, _react.useState)(),
-      stream = _a[0],
-      setStream = _a[1];
+  var _b = (0, _react.useState)(),
+      stream = _b[0],
+      setStream = _b[1];
+
+  facing = facing !== null && facing !== void 0 ? facing : "user";
 
   var tearDown = function tearDown() {
     stream === null || stream === void 0 ? void 0 : stream.getTracks().forEach(function (t) {
@@ -30608,7 +30626,8 @@ var Camera = _react.default.forwardRef(function (props, ref) {
         },
         height: {
           exact: 128
-        }
+        },
+        facingMode: facing
       }
     }).then(function (s) {
       return setStream(s);
@@ -30714,7 +30733,21 @@ var Filter = _react.default.forwardRef(function (_a, ref) {
       d[i + 2] = d[i + 2] * imgContrast + intercept;
     }
 
-    var ditheredFrame = fDither(frame);
+    var ditheredFrame = fDither(frame); // const ColorRecord: Record<string, number[]> = {
+    //   "0": [51, 44, 80],
+    //   "85": [70, 135, 143],
+    //   "171": [148, 227, 68],
+    //   "255": [226, 243, 228],
+    // };
+    // const dithered = ditheredFrame.data;
+    // for (let i = 0; i < dithered.length; i += 4) {
+    //   const color = dithered[i];
+    //   var newColors = ColorRecord[`${color}`];
+    //   dithered[i] = newColors[0];
+    //   dithered[i + 1] = newColors[1];
+    //   dithered[i + 2] = newColors[2];
+    // }
+
     ctx.putImageData(ditheredFrame, 0, 0);
   }, [contrast, frame]);
   return _react.default.createElement(StyledSquare, null, _react.default.createElement(StyledCanvas, {
@@ -30765,9 +30798,9 @@ var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (tem
 
 var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n"], ["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n"])));
 
-var StyledLabel = _styledComponents.default.label(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  font-family: \"Nunito Sans\", sans-serif;\n"], ["\n  font-family: \"Nunito Sans\", sans-serif;\n"])));
+var StyledLabel = _styledComponents.default.label(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  margin-top: 10px;\n  font-family: \"Nunito Sans\", sans-serif;\n"], ["\n  margin-top: 10px;\n  font-family: \"Nunito Sans\", sans-serif;\n"])));
 
-var StyledButton = _styledComponents.default.button(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n"], ["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n"])));
+var StyledButton = _styledComponents.default.button(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n\n  margin-bottom: 10px;\n  margin-top: 10px;\n"], ["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n\n  margin-bottom: 10px;\n  margin-top: 10px;\n"])));
 
 var GameboyCamera = function GameboyCamera() {
   var videoRef = (0, _react.useRef)();
@@ -30781,13 +30814,17 @@ var GameboyCamera = function GameboyCamera() {
       contrast = _b[0],
       setContrast = _b[1];
 
+  var _c = (0, _react.useState)(true),
+      frontCam = _c[0],
+      setFrontCam = _c[1];
+
   var interval = 16;
 
   var takePhoto = function takePhoto() {
     var cnvs = canvasRef.current;
     var link = document.createElement("a");
     var today = new Date();
-    link.download = "lbc_" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + ".png";
+    link.download = "lbc_" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + "_" + today.getMilliseconds() + ".png";
     link.href = cnvs.toDataURL();
     link.click();
   };
@@ -30814,7 +30851,8 @@ var GameboyCamera = function GameboyCamera() {
   }, []);
   return _react.default.createElement(StyledGameboyCamera, null, _react.default.createElement(StyledH2, null, "LAME BOY ", _react.default.createElement("span", null, "camera")), _react.default.createElement(_camera.default, {
     hidden: true,
-    ref: videoRef
+    ref: videoRef,
+    facing: frontCam ? "user" : "environment"
   }), _react.default.createElement(_filter.default, {
     frame: frame,
     contrast: contrast,
@@ -30834,7 +30872,11 @@ var GameboyCamera = function GameboyCamera() {
     onClick: function onClick() {
       return takePhoto();
     }
-  }, "Take Photo"));
+  }, "Take Photo"), _react.default.createElement(StyledButton, {
+    onClick: function onClick() {
+      return setFrontCam(!frontCam);
+    }
+  }, "Swap Cam"));
 };
 
 var _default = GameboyCamera;
@@ -30903,7 +30945,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53903" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56109" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
