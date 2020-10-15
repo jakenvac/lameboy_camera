@@ -30794,7 +30794,7 @@ var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (
   return cooked;
 };
 
-var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 80vmin;\n  padding: 20px;\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 80vmin;\n  padding: 20px;\n"])));
+var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 80vmin;\n  @media (min-width: 800px) {\n    min-width: 50vmin;\n  }\n  padding: 20px;\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 80vmin;\n  @media (min-width: 800px) {\n    min-width: 50vmin;\n  }\n  padding: 20px;\n"])));
 
 var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n"], ["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n"])));
 
@@ -30849,10 +30849,14 @@ var GameboyCamera = function GameboyCamera() {
   (0, _react.useEffect)(function () {
     frameTimer();
   }, []);
-  return _react.default.createElement(StyledGameboyCamera, null, _react.default.createElement(StyledH2, null, "LAME BOY ", _react.default.createElement("span", null, "camera")), _react.default.createElement(_camera.default, {
+  return _react.default.createElement(StyledGameboyCamera, null, _react.default.createElement(StyledH2, null, "LAME BOY ", _react.default.createElement("span", null, "camera")), frontCam ? _react.default.createElement(_camera.default, {
     hidden: true,
     ref: videoRef,
-    facing: frontCam ? "user" : "environment"
+    facing: "user"
+  }) : _react.default.createElement(_camera.default, {
+    hidden: true,
+    ref: videoRef,
+    facing: "environment"
   }), _react.default.createElement(_filter.default, {
     frame: frame,
     contrast: contrast,
@@ -30907,7 +30911,7 @@ var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (
   return cooked;
 };
 
-var StyledContainer = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n\n  min-width: 100vw;\n  min-height: 100vh;\n"], ["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n\n  min-width: 100vw;\n  min-height: 100vh;\n"])));
+var StyledContainer = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n"], ["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n"])));
 
 var app = document.getElementById("app");
 
@@ -30945,7 +30949,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56109" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56556" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
