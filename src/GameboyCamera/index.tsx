@@ -9,6 +9,9 @@ const StyledGameboyCamera = styled.div`
   flex-direction: column;
   flex: 1;
   min-width: 80vmin;
+  @media (min-width: 800px) {
+    min-width: 50vmin;
+  }
   padding: 20px;
 `;
 
@@ -99,11 +102,11 @@ const GameboyCamera = () => {
       <StyledH2>
         LAME BOY <span>camera</span>
       </StyledH2>
-      <Camera
-        hidden
-        ref={videoRef}
-        facing={frontCam ? "user" : "environment"}
-      />
+      {frontCam ? (
+        <Camera hidden ref={videoRef} facing="user" />
+      ) : (
+        <Camera hidden ref={videoRef} facing="environment" />
+      )}
       <Filter frame={frame} contrast={contrast} ref={canvasRef} />
       <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
       <input
