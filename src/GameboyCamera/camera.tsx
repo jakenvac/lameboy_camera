@@ -8,13 +8,19 @@ import React, {
 
 import useUserMedia from "./useUserMedia";
 
+type CameraProps = {
+  facing?: "user" | "environment";
+};
+
 const Camera = React.forwardRef(
   (
-    props: React.HTMLAttributes<HTMLVideoElement>,
+    { facing, ...props }: React.HTMLAttributes<HTMLVideoElement> & CameraProps,
     ref: MutableRefObject<HTMLVideoElement>
   ) => {
     const videoRef = ref ?? useRef<HTMLVideoElement>();
     const [stream, setStream] = useState<MediaStream>();
+
+    facing = facing ?? "user";
 
     const tearDown = () => {
       stream?.getTracks().forEach((t) => t.stop());
@@ -24,7 +30,11 @@ const Camera = React.forwardRef(
       navigator.mediaDevices
         .getUserMedia({
           audio: false,
-          video: { width: { exact: 128 }, height: { exact: 128 } },
+          video: {
+            width: { exact: 128 },
+            height: { exact: 128 },
+            facingMode: facing,
+          },
         })
         .then((s) => setStream(s));
       return tearDown();

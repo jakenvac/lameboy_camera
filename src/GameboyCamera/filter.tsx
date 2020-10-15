@@ -17,9 +17,9 @@ const StyledCanvas = styled.canvas`
 `;
 
 type FilterProps = {
-  frame?: ImageData,
-  contrast?: number,
-}
+  frame?: ImageData;
+  contrast?: number;
+};
 
 const Filter = React.forwardRef(
   (
@@ -79,12 +79,30 @@ const Filter = React.forwardRef(
       }
 
       const ditheredFrame = fDither(frame);
+
+      // const ColorRecord: Record<string, number[]> = {
+      //   "0": [51, 44, 80],
+      //   "85": [70, 135, 143],
+      //   "171": [148, 227, 68],
+      //   "255": [226, 243, 228],
+      // };
+
+      // const dithered = ditheredFrame.data;
+      // for (let i = 0; i < dithered.length; i += 4) {
+      //   const color = dithered[i];
+      //   var newColors = ColorRecord[`${color}`];
+      //   dithered[i] = newColors[0];
+      //   dithered[i + 1] = newColors[1];
+      //   dithered[i + 2] = newColors[2];
+      // }
+
       ctx.putImageData(ditheredFrame, 0, 0);
     }, [contrast, frame]);
 
-    return (<StyledSquare>
-      <StyledCanvas ref={canvasRef} width={128} height={128} />
-    </StyledSquare>
+    return (
+      <StyledSquare>
+        <StyledCanvas ref={canvasRef} width={128} height={128} />
+      </StyledSquare>
     );
   }
 );

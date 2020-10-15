@@ -27,6 +27,7 @@ const StyledH2 = styled.h2`
 `;
 
 const StyledLabel = styled.label`
+  margin-top: 10px;
   font-family: "Nunito Sans", sans-serif;
 `;
 
@@ -47,6 +48,9 @@ const StyledButton = styled.button`
     background: #ffcc00;
     cursor: pointer;
   }
+
+  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 const GameboyCamera = () => {
@@ -55,6 +59,7 @@ const GameboyCamera = () => {
 
   const [frame, setFrame] = useState<ImageData>();
   const [contrast, setContrast] = useState<number>(95);
+  const [frontCam, setFrontCam] = useState<boolean>(true);
 
   const interval = 16;
 
@@ -64,7 +69,7 @@ const GameboyCamera = () => {
     const today = new Date();
     link.download = `lbc_${today.getFullYear()}_${
       today.getMonth() + 1
-    }_${today.getDate()}.png`;
+    }_${today.getDate()}_${today.getMilliseconds()}.png`;
     link.href = cnvs.toDataURL();
     link.click();
   };
@@ -94,7 +99,11 @@ const GameboyCamera = () => {
       <StyledH2>
         LAME BOY <span>camera</span>
       </StyledH2>
-      <Camera hidden ref={videoRef} />
+      <Camera
+        hidden
+        ref={videoRef}
+        facing={frontCam ? "user" : "environment"}
+      />
       <Filter frame={frame} contrast={contrast} ref={canvasRef} />
       <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
       <input
@@ -106,6 +115,9 @@ const GameboyCamera = () => {
         onChange={(e) => setContrast((e.target.value as unknown) as number)}
       />
       <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
+      <StyledButton onClick={() => setFrontCam(!frontCam)}>
+        Swap Cam
+      </StyledButton>
     </StyledGameboyCamera>
   );
 };
