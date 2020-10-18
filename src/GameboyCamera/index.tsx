@@ -71,7 +71,7 @@ const GameboyCamera = () => {
     const devices = navigator.mediaDevices.enumerateDevices();
     const inputs = (await devices).filter((d) => d.kind === "videoinput");
     if (inputs.length > 0) {
-      setActiveDevice(inputs[1].deviceId);
+      setActiveDevice(inputs[0].deviceId);
       setDevices(inputs);
     }
   };

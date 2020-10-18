@@ -19,29 +19,32 @@ const Camera = React.forwardRef(
     ref: MutableRefObject<HTMLVideoElement>
   ) => {
     const videoRef = ref ?? useRef<HTMLVideoElement>();
-    const [stream, setStream] = useState<MediaStream>();
+    const stream = useRef<MediaStream>();
+
+    const setUp = async () => {
+      if (stream) tearDown();
+      const s = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          width: { exact: 128 },
+          height: { exact: 128 },
+          deviceId: deviceId,
+        },
+      });
+      if (s && videoRef.current) {
+        stream.current = s;
+        videoRef.current.srcObject = s;
+      }
+    };
 
     const tearDown = () => {
-      stream?.getTracks().forEach((t) => t.stop());
+      stream.current?.getTracks().forEach((t) => t.stop());
     };
 
     useEffect(() => {
-      if (stream) tearDown();
-      navigator.mediaDevices
-        .getUserMedia({
-          audio: false,
-          video: {
-            width: { exact: 128 },
-            height: { exact: 128 },
-            deviceId: deviceId,
-          },
-        })
-        .then((s) => setStream(s));
+      setUp();
       return tearDown();
     }, [deviceId]);
-
-    if (videoRef.current && !videoRef.current.srcObject && stream)
-      videoRef.current.srcObject = stream;
 
     return (
       <video
