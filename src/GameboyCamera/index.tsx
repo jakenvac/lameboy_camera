@@ -62,7 +62,7 @@ const GameboyCamera = () => {
 
   const [frame, setFrame] = useState<ImageData>();
   const [contrast, setContrast] = useState<number>(95);
-  const [deviceIDs, setDeviceIDs] = useState<string[]>();
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>();
   const [activeDevice, setActiveDevice] = useState<string>(undefined);
 
   const interval = 16;
@@ -71,8 +71,8 @@ const GameboyCamera = () => {
     const devices = navigator.mediaDevices.enumerateDevices();
     const inputs = (await devices).filter((d) => d.kind === "videoinput");
     if (inputs.length > 0) {
-      setActiveDevice(inputs[0].deviceId);
-      setDeviceIDs(inputs.map((d) => d.deviceId));
+      setActiveDevice(inputs[1].deviceId);
+      setDevices(inputs);
     }
   };
 
@@ -125,8 +125,15 @@ const GameboyCamera = () => {
         onChange={(e) => setContrast((e.target.value as unknown) as number)}
       />
       <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
-      <select onChange={(e) => setActiveDevice(e.target.value)}>
-        {deviceIDs && deviceIDs.map((d) => <option value={d}>{d}</option>)}
+      <select
+        value={activeDevice}
+        onChange={(e) => {
+          setActiveDevice(e.target.value);
+          console.log(e.target.value);
+        }}
+      >
+        {devices &&
+          devices.map((d) => <option value={d.deviceId}>{d.label}</option>)}
       </select>
     </StyledGameboyCamera>
   );

@@ -58,6 +58,9 @@ const Filter = React.forwardRef(
 
       const d = frame.data;
 
+      // ctx.putImageData(frame, 0, 0);
+      // return;
+
       for (var i = 0; i < d.length; i += 4) {
         const r = d[i];
         const g = d[i + 1];
