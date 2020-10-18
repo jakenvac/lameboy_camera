@@ -62,9 +62,19 @@ const GameboyCamera = () => {
 
   const [frame, setFrame] = useState<ImageData>();
   const [contrast, setContrast] = useState<number>(95);
-  const [frontCam, setFrontCam] = useState<boolean>(true);
+  const [deviceIDs, setDeviceIDs] = useState<string[]>();
+  const [activeDevice, setActiveDevice] = useState<string>(undefined);
 
   const interval = 16;
+
+  const updateDevices = async () => {
+    const devices = navigator.mediaDevices.enumerateDevices();
+    const inputs = (await devices).filter((d) => d.kind === "videoinput");
+    if (inputs.length > 0) {
+      setActiveDevice(inputs[0].deviceId);
+      setDeviceIDs(inputs.map((d) => d.deviceId));
+    }
+  };
 
   const takePhoto = () => {
     const cnvs = canvasRef.current;
@@ -94,6 +104,7 @@ const GameboyCamera = () => {
   };
 
   useEffect(() => {
+    updateDevices();
     frameTimer();
   }, []);
 
@@ -102,11 +113,7 @@ const GameboyCamera = () => {
       <StyledH2>
         LAME BOY <span>camera</span>
       </StyledH2>
-      {frontCam ? (
-        <Camera hidden ref={videoRef} facing="user" />
-      ) : (
-        <Camera hidden ref={videoRef} facing="environment" />
-      )}
+      <Camera hidden ref={videoRef} deviceId={activeDevice} />
       <Filter frame={frame} contrast={contrast} ref={canvasRef} />
       <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
       <input
@@ -118,9 +125,9 @@ const GameboyCamera = () => {
         onChange={(e) => setContrast((e.target.value as unknown) as number)}
       />
       <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
-      <StyledButton onClick={() => setFrontCam(!frontCam)}>
-        Swap Cam
-      </StyledButton>
+      <select onChange={(e) => setActiveDevice(e.target.value)}>
+        {deviceIDs && deviceIDs.map((d) => <option value={d}>{d}</option>)}
+      </select>
     </StyledGameboyCamera>
   );
 };
