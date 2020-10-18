@@ -30711,7 +30711,8 @@ var Filter = _react.default.forwardRef(function (_a, ref) {
     if (!frame || !frame.data) return;
     var ctx = canvasRef.current.getContext("2d");
     ctx.imageSmoothingEnabled = false;
-    var d = frame.data;
+    var d = frame.data; // ctx.putImageData(frame, 0, 0);
+    // return;
 
     for (var i = 0; i < d.length; i += 4) {
       var r = d[i];
@@ -30957,8 +30958,8 @@ var GameboyCamera = function GameboyCamera() {
       setContrast = _b[1];
 
   var _c = (0, _react.useState)(),
-      deviceIDs = _c[0],
-      setDeviceIDs = _c[1];
+      devices = _c[0],
+      setDevices = _c[1];
 
   var _d = (0, _react.useState)(undefined),
       activeDevice = _d[0],
@@ -30983,10 +30984,8 @@ var GameboyCamera = function GameboyCamera() {
             });
 
             if (inputs.length > 0) {
-              setActiveDevice(inputs[0].deviceId);
-              setDeviceIDs(inputs.map(function (d) {
-                return d.deviceId;
-              }));
+              setActiveDevice(inputs[1].deviceId);
+              setDevices(inputs);
             }
 
             return [2
@@ -31052,12 +31051,13 @@ var GameboyCamera = function GameboyCamera() {
     }
   }, "Take Photo"), _react.default.createElement("select", {
     onChange: function onChange(e) {
-      return setActiveDevice(e.target.value);
+      setActiveDevice(e.target.value);
+      console.log(e.target.value);
     }
-  }, deviceIDs && deviceIDs.map(function (d) {
+  }, devices && devices.map(function (d) {
     return _react.default.createElement("option", {
-      value: d
-    }, d);
+      value: d.deviceId
+    }, d.label);
   })));
 };
 
@@ -31127,7 +31127,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52999" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53404" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
