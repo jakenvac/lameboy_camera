@@ -57,13 +57,13 @@ const StyledButton = styled.button`
 `;
 
 const GameboyCamera = () => {
-  const videoRef = useRef<HTMLVideoElement>();
+  const cameraRef = useRef<HTMLCanvasElement>();
   const canvasRef = useRef<HTMLCanvasElement>();
 
   const [frame, setFrame] = useState<ImageData>();
   const [contrast, setContrast] = useState<number>(95);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>();
-  const [activeDevice, setActiveDevice] = useState<string>(undefined);
+  const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
 
   const interval = 16;
 
@@ -71,7 +71,7 @@ const GameboyCamera = () => {
     const devices = navigator.mediaDevices.enumerateDevices();
     const inputs = (await devices).filter((d) => d.kind === "videoinput");
     if (inputs.length > 0) {
-      setActiveDevice(inputs[0].deviceId);
+      setActiveDeviceId(inputs[0].deviceId);
       setDevices(inputs);
     }
   };
@@ -88,13 +88,8 @@ const GameboyCamera = () => {
   };
 
   const updateFrame = () => {
-    if (!videoRef.current) return;
-
-    const cnvs = document.createElement("canvas");
-    const ctx = cnvs.getContext("2d");
-    ctx.translate(128, 0);
-    ctx.scale(-1, 1);
-    ctx.drawImage(videoRef.current, 0, 0, 128, 128);
+    if (!cameraRef.current) return;
+    const ctx = cameraRef.current.getContext("2d");
     setFrame(ctx.getImageData(0, 0, 128, 128));
   };
 
@@ -113,8 +108,27 @@ const GameboyCamera = () => {
       <StyledH2>
         LAME BOY <span>camera</span>
       </StyledH2>
-      <Camera hidden ref={videoRef} deviceId={activeDevice} />
+      <Camera
+        ref={cameraRef}
+        deviceId={activeDeviceId}
+        frameInterval={interval}
+        hidden
+      />
       <Filter frame={frame} contrast={contrast} ref={canvasRef} />
+      <select
+        value={activeDeviceId}
+        onChange={(e) => {
+          setActiveDeviceId(e.target.value);
+          console.log(e.target.value);
+        }}
+      >
+        {devices &&
+          devices.map((d) => (
+            <option key={d.deviceId} value={d.deviceId}>
+              {d.label}
+            </option>
+          ))}
+      </select>
       <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
       <input
         name="contrast"
@@ -125,16 +139,6 @@ const GameboyCamera = () => {
         onChange={(e) => setContrast((e.target.value as unknown) as number)}
       />
       <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
-      <select
-        value={activeDevice}
-        onChange={(e) => {
-          setActiveDevice(e.target.value);
-          console.log(e.target.value);
-        }}
-      >
-        {devices &&
-          devices.map((d) => <option value={d.deviceId}>{d.label}</option>)}
-      </select>
     </StyledGameboyCamera>
   );
 };
