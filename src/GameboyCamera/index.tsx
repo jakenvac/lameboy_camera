@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Camera from "./camera";
-import Filter from "./filter";
+import ImageCanvas from "./ImageCanvas";
+import { filterPipeline } from "./filterPipeline";
 
 const StyledGameboyCamera = styled.div`
   display: flex;
@@ -57,11 +58,11 @@ const StyledButton = styled.button`
 `;
 
 const GameboyCamera = () => {
-  const cameraRef = useRef<HTMLCanvasElement>();
-  const canvasRef = useRef<HTMLCanvasElement>();
+  const cameraRef = useRef<HTMLVideoElement>();
 
   const [frame, setFrame] = useState<ImageData>();
-  const [contrast, setContrast] = useState<number>(95);
+  const contrast = useRef<number>(7);
+  const brightness = useRef<number>(0);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>();
   const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
 
@@ -77,20 +78,30 @@ const GameboyCamera = () => {
   };
 
   const takePhoto = () => {
-    const cnvs = canvasRef.current;
+    const workingCanvas = document.createElement("canvas");
+    const ctx = workingCanvas.getContext("2d");
+    ctx.putImageData(frame, 0, 0);
     const link = document.createElement("a");
     const today = new Date();
     link.download = `lbc_${today.getFullYear()}_${
       today.getMonth() + 1
     }_${today.getDate()}_${today.getMilliseconds()}.png`;
-    link.href = cnvs.toDataURL();
+    link.href = workingCanvas.toDataURL();
     link.click();
   };
 
   const updateFrame = () => {
     if (!cameraRef.current) return;
-    const ctx = cameraRef.current.getContext("2d");
-    setFrame(ctx.getImageData(0, 0, 128, 128));
+    const workingCanvas = document.createElement("canvas");
+    const ctx = workingCanvas.getContext("2d");
+    ctx.drawImage(cameraRef.current, 0, 0);
+    console.log("brightness", brightness);
+    const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 128), {
+      brightness: brightness.current,
+      contrast: contrast.current,
+    });
+
+    setFrame(imageData);
   };
 
   const frameTimer = () => {
@@ -114,7 +125,8 @@ const GameboyCamera = () => {
         frameInterval={interval}
         hidden
       />
-      <Filter frame={frame} contrast={contrast} ref={canvasRef} />
+      <ImageCanvas frame={frame} />
+      <StyledLabel>Select Camera</StyledLabel>
       <select
         value={activeDeviceId}
         onChange={(e) => {
@@ -133,10 +145,23 @@ const GameboyCamera = () => {
       <input
         name="contrast"
         type="range"
+        min="0"
+        max="15"
+        value={contrast.current}
+        onChange={(e) =>
+          (contrast.current = (e.target.value as unknown) as number)
+        }
+      />
+      <StyledLabel htmlFor="brightness">Brightness</StyledLabel>
+      <input
+        name="brightness"
+        type="range"
         min="-100"
         max="100"
-        value={contrast}
-        onChange={(e) => setContrast((e.target.value as unknown) as number)}
+        value={brightness.current}
+        onChange={(e) =>
+          (brightness.current = (e.target.value as unknown) as number)
+        }
       />
       <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
     </StyledGameboyCamera>

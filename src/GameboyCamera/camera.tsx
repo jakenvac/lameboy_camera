@@ -11,14 +11,11 @@ const Camera = React.forwardRef(
       deviceId,
       frameInterval,
       ...props
-    }: React.HTMLAttributes<HTMLCanvasElement> & CameraProps,
-    ref: MutableRefObject<HTMLCanvasElement>
+    }: React.HTMLAttributes<HTMLVideoElement> & CameraProps,
+    ref: MutableRefObject<HTMLVideoElement>
   ) => {
-    const canvasRef = ref ?? useRef<HTMLCanvasElement>();
-    const videoRef = useRef<HTMLVideoElement>();
+    const videoRef = ref ?? useRef<HTMLVideoElement>();
     const [stream, setStream] = useState<MediaStream>();
-
-    const frameIntervalMs = frameInterval || 16;
 
     const tearDown = () => {
       stream?.getTracks().forEach((t) => t.stop());
@@ -28,7 +25,6 @@ const Camera = React.forwardRef(
     };
 
     const setUp = async () => {
-      console.log("setting up");
       tearDown();
       const s = await navigator.mediaDevices.getUserMedia({
         audio: false,
@@ -44,20 +40,8 @@ const Camera = React.forwardRef(
       }
     };
 
-    const updateFrame = () => {
-      if (!videoRef.current || !canvasRef.current) return;
-      const ctx = canvasRef.current.getContext("2d");
-      ctx.drawImage(videoRef.current, 0, 0, 128, 128);
-    };
-
-    const frameTimer = () => {
-      updateFrame();
-      setTimeout(() => frameTimer(), frameIntervalMs);
-    };
-
     useEffect(() => {
       setUp();
-      frameTimer();
       return tearDown();
     }, [deviceId]);
 
@@ -72,8 +56,8 @@ const Camera = React.forwardRef(
           playsInline
           muted
           hidden
+          {...props}
         />
-        <canvas ref={canvasRef} {...props} />
       </>
     );
   }
