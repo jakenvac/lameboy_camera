@@ -1,19 +1,21 @@
 import { ditherMatricies } from "./ditherMatricies";
 
-const black = 0x00;
-const dark_gray = 0x55;
-const light_gray = 0xab;
-const white = 0xff;
+const defaultPalette = {
+  black: 0x00,
+  dark_gray: 0x55,
+  light_gray: 0xab,
+  white: 0xff,
+};
 
 let pixelCount = 0;
 const ditherFilter = (imageData: ImageData, contrast?: number) => {
   contrast = contrast > 15 ? 15 : contrast;
   contrast = contrast < 0 ? 0 : contrast;
   contrast = contrast ?? 7;
+  const { black, dark_gray, light_gray, white } = defaultPalette;
   const contrastMatrix = ditherMatricies[contrast];
 
   const w = imageData.width;
-  const h = imageData.height;
   const pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
     const x = (pixelCount % w) % 4;

@@ -1,6 +1,7 @@
 // import Dither from "ditherjs";
 
 import { ditherFilter } from "./dither";
+import { paletteMap, peaGreenPalette } from "./paletteMap";
 
 type filterOptions = {
   brightness: number;
@@ -84,19 +85,6 @@ const greyscaleFilter = (imageData: ImageData) => {
   return imageData;
 };
 
-const gbMapFilter = (imageData: ImageData) => {
-  const d = imageData.data;
-  for (var i = 0; i < d.length; i += 4) {
-    let r = d[i];
-    if (r < 64) r = 0;
-    else if (r < 128) r = 85;
-    else if (r < 191) r = 171;
-    else r = 255;
-    d[i] = d[i + 1] = d[i + 2] = r;
-  }
-  return imageData;
-};
-
 const filterPipeline = (
   imageData: ImageData,
   { brightness, contrast }: filterOptions
@@ -104,6 +92,7 @@ const filterPipeline = (
   imageData = greyscaleFilter(imageData);
   imageData = brightnessFilter(imageData, brightness);
   imageData = ditherFilter(imageData, contrast);
+  imageData = paletteMap(imageData, peaGreenPalette);
   return imageData;
 };
 
