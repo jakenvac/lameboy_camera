@@ -30744,10 +30744,25 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
 
 var Camera = _react.default.forwardRef(function (_a, ref) {
   var deviceId = _a.deviceId,
-      props = __rest(_a, ["deviceId"]);
+      frameInterval = _a.frameInterval,
+      props = __rest(_a, ["deviceId", "frameInterval"]);
 
   var videoRef = ref !== null && ref !== void 0 ? ref : (0, _react.useRef)();
-  var stream = (0, _react.useRef)();
+
+  var _b = (0, _react.useState)(),
+      stream = _b[0],
+      setStream = _b[1];
+
+  var tearDown = function tearDown() {
+    stream === null || stream === void 0 ? void 0 : stream.getTracks().forEach(function (t) {
+      return t.stop();
+    });
+    stream === null || stream === void 0 ? void 0 : stream.getAudioTracks().forEach(function (t) {
+      return t.stop();
+    });
+    setStream(undefined);
+    videoRef.current.srcObject = undefined;
+  };
 
   var setUp = function setUp() {
     return __awaiter(void 0, void 0, void 0, function () {
@@ -30755,7 +30770,7 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            if (stream) tearDown();
+            tearDown();
             return [4
             /*yield*/
             , navigator.mediaDevices.getUserMedia({
@@ -30775,7 +30790,7 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
             s = _a.sent();
 
             if (s && videoRef.current) {
-              stream.current = s;
+              setStream(s);
               videoRef.current.srcObject = s;
             }
 
@@ -30787,37 +30802,27 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
     });
   };
 
-  var tearDown = function tearDown() {
-    var _a;
-
-    (_a = stream.current) === null || _a === void 0 ? void 0 : _a.getTracks().forEach(function (t) {
-      return t.stop();
-    });
-  };
-
   (0, _react.useEffect)(function () {
     setUp();
     return tearDown();
   }, [deviceId]);
-  return _react.default.createElement("video", __assign({
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("video", __assign({
     ref: videoRef,
     onCanPlay: function onCanPlay() {
       var _a;
 
-      return (_a = videoRef.current) === null || _a === void 0 ? void 0 : _a.play();
+      (_a = videoRef.current) === null || _a === void 0 ? void 0 : _a.play();
     },
     autoPlay: true,
     playsInline: true,
-    muted: true
-  }, props));
+    muted: true,
+    hidden: true
+  }, props)));
 });
 
 var _default = Camera;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/ditherjs/dist/ditherjs.dist.js":[function(require,module,exports) {
-var define;
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.DitherJS=e():t.DitherJS=e()}(this,function(){return function(t){function e(o){if(r[o])return r[o].exports;var n=r[o]={exports:{},id:o,loaded:!1};return t[o].call(n.exports,n,n.exports,e),n.loaded=!0,n.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e,r){t.exports=r(4)},function(t,e){function r(t,e,r,o,n){for(var i,a,s,l,f,p,c,h,u,y,d,m,x,g,v=new Uint8ClampedArray(t),w=new Uint8ClampedArray(t),C=1/8,D=function(t,e){return 4*t+4*e*n},E=0;E<o;E+=r)for(var A=0;A<n;A+=r)for(p=4*A+4*E*n,i=p,a=p+1,s=p+2,l=p+3,c=new Array(v[i],v[a],v[s]),h=this.approximateColor(c,e),f=[],f[i]=v[i]-h[0],f[a]=v[a]-h[1],f[s]=v[s]-h[2],v[D(A+r,E)+0]+=C*f[i],v[D(A-r,E+r)+0]+=C*f[i],v[D(A,E+r)+0]+=C*f[i],v[D(A+r,E+r)+0]+=C*f[i],v[D(A+2*r,E)+0]+=C*f[i],v[D(A,E+2*r)+0]+=C*f[i],v[D(A+r,E)+1]+=C*f[a],v[D(A-r,E+r)+1]+=C*f[a],v[D(A,E+r)+1]+=C*f[a],v[D(A+r,E+r)+1]+=C*f[a],v[D(A+2*r,E)+1]+=C*f[a],v[D(A,E+2*r)+1]+=C*f[a],v[D(A+r,E)+2]+=C*f[s],v[D(A-r,E+r)+2]+=C*f[s],v[D(A,E+r)+2]+=C*f[s],v[D(A+r,E+r)+2]+=C*f[s],v[D(A+2*r,E)+2]+=C*f[s],v[D(A,E+2*r)+2]+=C*f[s],u=h[0],y=h[1],d=h[2],m=0;m<r;m++)for(x=0;x<r;x++)g=p+4*m+4*n*x,w[g]=u,w[g+1]=y,w[g+2]=d;return w}t.exports=r},function(t,e){function r(t,e,r,o,n){var i,a,s,l,f,p,c,h,u,d,m,g,v,w,C=new Uint8ClampedArray(t),D=new Uint8ClampedArray(t),E=1/16,A=function(t,e){return 4*t+4*e*n};for(y=0;y<o;y+=r)for(x=0;x<n;x+=r)for(p=4*x+4*y*n,i=p,a=p+1,s=p+2,l=p+3,c=new Array(C[i],C[a],C[s]),h=this.approximateColor(c,e),f=[],f[i]=C[i]-h[0],f[a]=C[a]-h[1],f[s]=C[s]-h[2],C[A(x+r,y)]=C[A(x+r,y)]+7*E*f[i],C[A(x-r,y+1)]=C[A(x-1,y+r)]+3*E*f[i],C[A(x,y+r)]=C[A(x,y+r)]+5*E*f[i],C[A(x+r,y+r)]=C[A(x+1,y+r)]+1*E*f[i],C[A(x+r,y)+1]=C[A(x+r,y)+1]+7*E*f[a],C[A(x-r,y+r)+1]=C[A(x-r,y+r)+1]+3*E*f[a],C[A(x,y+r)+1]=C[A(x,y+r)+1]+5*E*f[a],C[A(x+r,y+r)+1]=C[A(x+r,y+r)+1]+1*E*f[a],C[A(x+r,y)+2]=C[A(x+r,y)+2]+7*E*f[s],C[A(x-r,y+r)+2]=C[A(x-r,y+r)+2]+3*E*f[s],C[A(x,y+r)+2]=C[A(x,y+r)+2]+5*E*f[s],C[A(x+r,y+r)+2]=C[A(x+r,y+r)+2]+1*E*f[s],u=h[0],d=h[1],m=h[2],g=0;g<r;g++)for(v=0;v<r;v++)w=p+4*g+4*n*v,D[w]=u,D[w+1]=d,D[w+2]=m;return D}t.exports=r},function(t,e){function r(t,e,r,o,n){for(var i,a,s,l,f,p,c,h,u,y,d,m,x,g=new Uint8ClampedArray(t),v=3,w=new Array([1,9,3,11],[13,5,15,7],[4,12,2,10],[16,8,14,6]),C=0;C<o;C+=r)for(var D=0;D<n;D+=r)for(f=4*D+4*C*n,i=f,a=f+1,s=f+2,l=f+3,g[i]+=w[D%4][C%4]*v,g[a]+=w[D%4][C%4]*v,g[s]+=w[D%4][C%4]*v,p=new Array(g[i],g[a],g[s]),c=this.approximateColor(p,e),h=c[0],u=c[1],y=c[2],d=0;d<r;d++)for(m=0;m<r;m++)x=f+4*d+4*n*m,g[x]=h,g[x+1]=u,g[x+2]=y;return g}t.exports=r},function(t,e,r){var o=r(5);o.prototype.dither=function(t,e){"string"==typeof t&&this._fromSelector(t,e),"object"==typeof t&&t instanceof window.HTMLImageElement&&this._fromImgElement(t,e)},o.prototype._replaceElementWithCtx=function(t){var e,r=document.createElement("canvas");return r.height=t.clientHeight,r.width=t.clientWidth,t.parentNode.replaceChild(r,t),r.className=t.className,"hidden"===t.style.visibility&&(r.style.visibility="visible"),e=r.getContext("2d"),e.imageSmoothingEnabled=!1,e},o.prototype._fromImgElement=function(t,e){var r=t.clientHeight,o=t.clientWidth,n=this._replaceElementWithCtx(t);n.drawImage(t,0,0,o,r);var i=n.getImageData(0,0,o,r);this.ditherImageData(i,e),n.putImageData(i,0,0)},o.prototype._fromSelector=function(t,e){var r=this,o=document.querySelectorAll(t),n=function(t){return function(){r._fromImgElement(t,e)}};try{for(var i=0;i<o.length;i++){var a=o[i];a.style.visibility="hidden",a.src=a.src+"?"+Date.now(),a.onload=n(a)}}catch(s){console.error(s)}},t.exports=o},function(t,e,r){var o=r(6),n=function(t){this.options=t||{},this.options.algorithm=this.options.algorithm||"ordered",this.options.step=this.options.step||1,this.options.className=this.options.className||"dither",this.options.palette=this.options.palette||o.defaultPalette};n.orderedDither=r(3),n.atkinsonDither=r(1),n.errorDiffusionDither=r(2),n.prototype.ditherImageData=function(t,e){e=e||this.options;var r;if("diffusion"==e.algorithm)r=n.errorDiffusionDither;else if("ordered"==e.algorithm)r=n.orderedDither;else{if("atkinson"!=e.algorithm)throw o.errors.InvalidAlgorithm;r=n.atkinsonDither}var i;e.debug&&(i=Date.now());var a=r.call(this,t.data,e.palette,e.step,t.height,t.width);e.debug&&console.log("Microtime: ",Date.now()-i),t.data.set(a)},n.prototype.colorDistance=function(t,e){return Math.sqrt(Math.pow(t[0]-e[0],2)+Math.pow(t[1]-e[1],2)+Math.pow(t[2]-e[2],2))},n.prototype.approximateColor=function(t,e){var r=function(t,e,o,n){if(2==o.length)return t(e,n)<=t(e,o[1])?n:o[1];var i=o.slice(1);return n=t(e,n)<=t(e,o[1])?n:o[1],r(t,e,i,n)},o=r(this.colorDistance,t,e,e[0]);return o},t.exports=n},function(t,e,r){e.defaultPalette=[[0,0,0],[255,0,255],[0,255,255],[255,255,255]],e.errors={CanvasNotPresent:new Error("CanvasNotPresent"),TargetNotBuffer:new Error("TargetNotBuffer"),InvalidAlgorithm:new Error("InvalidAlgorithm")},e.targetTypes={selector:"SELECTOR",buffer:"BUFFER"},e.Canvas=null;try{e.Canvas=r(7)}catch(o){e.Canvas=null}},function(t,e){}])});
-},{}],"GameboyCamera/filter.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"GameboyCamera/filter.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30826,8 +30831,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
-
-var _ditherjs = _interopRequireDefault(require("ditherjs"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
@@ -30853,79 +30856,196 @@ var StyledSquare = _styledComponents.default.div(templateObject_1 || (templateOb
 
 var StyledCanvas = _styledComponents.default.canvas(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  min-width: 100%;\n  min-height: 100%;\n"], ["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  min-width: 100%;\n  min-height: 100%;\n"])));
 
-var Filter = _react.default.forwardRef(function (_a, ref) {
-  var frame = _a.frame,
-      contrast = _a.contrast;
-  var canvasRef = ref !== null && ref !== void 0 ? ref : (0, _react.useRef)();
-  contrast = contrast !== null && contrast !== void 0 ? contrast : 95;
-  contrast = contrast > 100 ? 100 : contrast;
-  contrast = contrast < -100 ? -100 : contrast;
-  var ditherOptions = {
-    step: 1,
-    algorithm: "ordered",
-    palette: [[0, 0, 0, 255], [85, 85, 85, 255], [171, 171, 171, 255], [255, 255, 255, 255]]
-  }; // Hack to make dithering seem more functional
-
-  var fDither = function fDither(image) {
-    var dither = new _ditherjs.default(ditherOptions);
-    dither.ditherImageData(image);
-    return image;
-  };
-
+var ImageCanvas = function ImageCanvas(_a) {
+  var frame = _a.frame;
+  var canvasRef = (0, _react.useRef)();
   (0, _react.useEffect)(function () {
     if (!frame || !frame.data) return;
     var ctx = canvasRef.current.getContext("2d");
     ctx.imageSmoothingEnabled = false;
-    var d = frame.data; // ctx.putImageData(frame, 0, 0);
-    // return;
-
-    for (var i = 0; i < d.length; i += 4) {
-      var r = d[i];
-      var g = d[i + 1];
-      var b = d[i + 2];
-      var luma = r * 0.299 + g * 0.587 + b * 0.114;
-      d[i] = luma;
-      d[i + 1] = luma;
-      d[i + 2] = luma;
-    }
-
-    var imgContrast = contrast / 100 + 1;
-    var intercept = 128 * (1 - imgContrast);
-
-    for (var i = 0; i < d.length; i += 4) {
-      d[i] = d[i] * imgContrast + intercept;
-      d[i + 1] = d[i + 1] * imgContrast + intercept;
-      d[i + 2] = d[i + 2] * imgContrast + intercept;
-    }
-
-    var ditheredFrame = fDither(frame); // const ColorRecord: Record<string, number[]> = {
-    //   "0": [51, 44, 80],
-    //   "85": [70, 135, 143],
-    //   "171": [148, 227, 68],
-    //   "255": [226, 243, 228],
-    // };
-    // const dithered = ditheredFrame.data;
-    // for (let i = 0; i < dithered.length; i += 4) {
-    //   const color = dithered[i];
-    //   var newColors = ColorRecord[`${color}`];
-    //   dithered[i] = newColors[0];
-    //   dithered[i + 1] = newColors[1];
-    //   dithered[i + 2] = newColors[2];
-    // }
-
-    ctx.putImageData(ditheredFrame, 0, 0);
-  }, [contrast, frame]);
+    ctx.putImageData(frame, 0, 0);
+  }, [frame]);
   return _react.default.createElement(StyledSquare, null, _react.default.createElement(StyledCanvas, {
     ref: canvasRef,
     width: 128,
     height: 128
   }));
-});
+};
 
-var _default = Filter;
+var _default = ImageCanvas;
 exports.default = _default;
 var templateObject_1, templateObject_2;
-},{"react":"../node_modules/react/index.js","ditherjs":"../node_modules/ditherjs/dist/ditherjs.dist.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"GameboyCamera/ditherMatricies.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ditherMatricies = void 0;
+var contrast0 = [[[0x80, 0x8f, 0xd0], [0x8b, 0xbf, 0xe0], [0x82, 0x9b, 0xd4], [0x8e, 0xcb, 0xe4]], [[0x87, 0xaf, 0xdb], [0x83, 0x9f, 0xd5], [0x8a, 0xbb, 0xdf], [0x86, 0xab, 0xd9]], [[0x81, 0x97, 0xd2], [0x8d, 0xc7, 0xe3], [0x80, 0x93, 0xd1], [0x8c, 0xc3, 0xe1]], [[0x89, 0xb7, 0xdd], [0x85, 0xa7, 0xd8], [0x88, 0xb3, 0xdc], [0x84, 0xa3, 0xd6]]];
+var contrast1 = [[[0x82, 0x90, 0xc8], [0x8c, 0xba, 0xdc], [0x84, 0x9a, 0xcd], [0x8f, 0xc4, 0xe1]], [[0x89, 0xac, 0xd5], [0x85, 0x9e, 0xce], [0x8b, 0xb6, 0xda], [0x88, 0xa8, 0xd3]], [[0x83, 0x97, 0xcb], [0x8e, 0xc1, 0xdf], [0x82, 0x93, 0xc9], [0x8d, 0xbd, 0xdd]], [[0x8a, 0xb3, 0xd8], [0x87, 0xa5, 0xd2], [0x89, 0xaf, 0xd7], [0x86, 0xa1, 0xd0]]];
+var contrast2 = [[[0x84, 0x90, 0xc0], [0x8d, 0xb4, 0xd8], [0x86, 0x99, 0xc6], [0x8f, 0xbd, 0xde]], [[0x8a, 0xa8, 0xd0], [0x87, 0x9c, 0xc8], [0x8c, 0xb1, 0xd6], [0x89, 0xa5, 0xce]], [[0x85, 0x96, 0xc4], [0x8e, 0xba, 0xdc], [0x84, 0x93, 0xc2], [0x8d, 0xb7, 0xda]], [[0x8b, 0xae, 0xd4], [0x88, 0xa2, 0xcc], [0x8a, 0xab, 0xd2], [0x87, 0x9f, 0xca]]];
+var contrast3 = [[[0x85, 0x91, 0xb8], [0x8e, 0xae, 0xd3], [0x87, 0x98, 0xbe], [0x90, 0xb5, 0xda]], [[0x8b, 0xa4, 0xca], [0x88, 0x9a, 0xc1], [0x8d, 0xab, 0xd1], [0x8a, 0xa2, 0xc8]], [[0x86, 0x95, 0xbc], [0x8f, 0xb3, 0xd8], [0x85, 0x93, 0xba], [0x8e, 0xb0, 0xd6]], [[0x8c, 0xa9, 0xcf], [0x89, 0x9f, 0xc5], [0x8b, 0xa6, 0xcc], [0x88, 0x9d, 0xc3]]];
+var contrast4 = [[[0x86, 0x91, 0xb1], [0x8e, 0xa9, 0xd0], [0x88, 0x97, 0xb8], [0x90, 0xaf, 0xd8]], [[0x8b, 0xa1, 0xc6], [0x88, 0x99, 0xbb], [0x8d, 0xa7, 0xcd], [0x8a, 0x9f, 0xc3]], [[0x87, 0x95, 0xb6], [0x8f, 0xad, 0xd5], [0x86, 0x93, 0xb3], [0x8e, 0xab, 0xd3]], [[0x8c, 0xa5, 0xcb], [0x8a, 0x9d, 0xc0], [0x8c, 0xa3, 0xc8], [0x89, 0x9b, 0xbe]]];
+var contrast5 = [[[0x87, 0x92, 0xaa], [0x8f, 0xa4, 0xcc], [0x89, 0x96, 0xb2], [0x91, 0xa8, 0xd5]], [[0x8c, 0x9e, 0xc1], [0x89, 0x98, 0xb5], [0x8e, 0xa2, 0xc9], [0x8b, 0x9c, 0xbe]], [[0x88, 0x95, 0xaf], [0x90, 0xa7, 0xd2], [0x87, 0x93, 0xac], [0x8f, 0xa5, 0xcf]], [[0x8d, 0xa1, 0xc6], [0x8b, 0x9b, 0xbb], [0x8d, 0x9f, 0xc3], [0x8a, 0x99, 0xb8]]];
+var contrast6 = [[[0x88, 0x92, 0xa5], [0x8f, 0xa0, 0xc9], [0x89, 0x95, 0xae], [0x91, 0xa3, 0xd2]], [[0x8d, 0x9b, 0xbd], [0x8a, 0x96, 0xb1], [0x8e, 0x9f, 0xc6], [0x8c, 0x9a, 0xba]], [[0x89, 0x94, 0xab], [0x90, 0xa2, 0xcf], [0x88, 0x93, 0xa8], [0x90, 0xa1, 0xcc]], [[0x8e, 0x9d, 0xc3], [0x8b, 0x99, 0xb7], [0x8d, 0x9c, 0xc0], [0x8b, 0x97, 0xb4]]];
+var contrast7 = [[[0x89, 0x92, 0xa2], [0x8f, 0x9e, 0xc6], [0x8a, 0x95, 0xab], [0x91, 0xa1, 0xcf]], [[0x8d, 0x9a, 0xba], [0x8b, 0x96, 0xae], [0x8f, 0x9d, 0xc3], [0x8c, 0x99, 0xb7]], [[0x8a, 0x94, 0xa8], [0x90, 0xa0, 0xcc], [0x89, 0x93, 0xa5], [0x90, 0x9f, 0xc9]], [[0x8e, 0x9c, 0xc0], [0x8c, 0x98, 0xb4], [0x8e, 0x9b, 0xbd], [0x8b, 0x97, 0xb1]]];
+var contrast8 = [[[0x8a, 0x92, 0xa1], [0x90, 0x9d, 0xbe], [0x8b, 0x94, 0xa8], [0x91, 0xa0, 0xc5]], [[0x8e, 0x99, 0xb4], [0x8c, 0x95, 0xaa], [0x8f, 0x9c, 0xbb], [0x8d, 0x98, 0xb2]], [[0x8b, 0x93, 0xa5], [0x91, 0x9f, 0xc3], [0x8a, 0x92, 0xa3], [0x90, 0x9e, 0xc0]], [[0x8f, 0x9b, 0xb9], [0x8d, 0x97, 0xaf], [0x8e, 0x9a, 0xb6], [0x8c, 0x96, 0xad]]];
+var contrast9 = [[[0x8b, 0x92, 0xa0], [0x90, 0x9c, 0xb6], [0x8c, 0x94, 0xa5], [0x91, 0x9f, 0xbc]], [[0x8e, 0x99, 0xaf], [0x8c, 0x95, 0xa7], [0x8f, 0x9b, 0xb4], [0x8e, 0x98, 0xad]], [[0x8b, 0x93, 0xa3], [0x91, 0x9e, 0xba], [0x8b, 0x92, 0xa1], [0x90, 0x9d, 0xb8]], [[0x8f, 0x9a, 0xb2], [0x8d, 0x97, 0xab], [0x8e, 0x99, 0xb0], [0x8d, 0x96, 0xa9]]];
+var contrast10 = [[[0x8c, 0x92, 0x9e], [0x90, 0x9b, 0xae], [0x8d, 0x94, 0xa2], [0x91, 0x9d, 0xb2]], [[0x8f, 0x98, 0xa9], [0x8d, 0x95, 0xa3], [0x90, 0x9a, 0xad], [0x8e, 0x97, 0xa7]], [[0x8c, 0x93, 0xa0], [0x91, 0x9c, 0xb1], [0x8c, 0x92, 0x9f], [0x90, 0x9b, 0xaf]], [[0x8f, 0x99, 0xab], [0x8e, 0x96, 0xa6], [0x8f, 0x98, 0xaa], [0x8d, 0x95, 0xa4]]];
+var contrast11 = [[[0x8d, 0x92, 0x9c], [0x90, 0x99, 0xa8], [0x8d, 0x93, 0x9f], [0x91, 0x9b, 0xab]], [[0x8f, 0x97, 0xa4], [0x8e, 0x94, 0xa0], [0x90, 0x98, 0xa7], [0x8f, 0x96, 0xa3]], [[0x8d, 0x93, 0x9e], [0x91, 0x9a, 0xaa], [0x8d, 0x92, 0x9d], [0x91, 0x9a, 0xa9]], [[0x90, 0x98, 0xa6], [0x8e, 0x95, 0xa2], [0x8f, 0x97, 0xa5], [0x8e, 0x95, 0xa1]]];
+var contrast12 = [[[0x8e, 0x92, 0x9b], [0x91, 0x98, 0xa2], [0x8e, 0x93, 0x9c], [0x91, 0x9a, 0xa4]], [[0x90, 0x96, 0xa0], [0x8f, 0x94, 0x9d], [0x90, 0x98, 0xa1], [0x8f, 0x95, 0x9f]], [[0x8e, 0x93, 0x9c], [0x91, 0x99, 0xa3], [0x8e, 0x92, 0x9b], [0x91, 0x99, 0xa3]], [[0x90, 0x97, 0xa1], [0x8f, 0x95, 0x9e], [0x90, 0x97, 0xa0], [0x8f, 0x94, 0x9e]]];
+var contrast13 = [[[0x8f, 0x92, 0x99], [0x91, 0x97, 0x9e], [0x8f, 0x93, 0x9a], [0x91, 0x98, 0x9f]], [[0x90, 0x95, 0x9c], [0x8f, 0x93, 0x9a], [0x91, 0x96, 0x9d], [0x90, 0x95, 0x9c]], [[0x8f, 0x92, 0x99], [0x91, 0x98, 0x9f], [0x8f, 0x92, 0x99], [0x91, 0x97, 0x9e]], [[0x90, 0x96, 0x9d], [0x90, 0x94, 0x9b], [0x90, 0x95, 0x9c], [0x8f, 0x94, 0x9b]]];
+var contrast14 = [[[0x90, 0x92, 0x97], [0x91, 0x95, 0x99], [0x90, 0x92, 0x97], [0x91, 0x96, 0x99]], [[0x91, 0x94, 0x98], [0x90, 0x93, 0x97], [0x91, 0x95, 0x99], [0x90, 0x94, 0x98]], [[0x90, 0x92, 0x97], [0x91, 0x96, 0x99], [0x90, 0x92, 0x97], [0x91, 0x96, 0x99]], [[0x91, 0x95, 0x98], [0x90, 0x93, 0x98], [0x91, 0x94, 0x98], [0x90, 0x93, 0x97]]];
+var contrast15 = [[[0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92]], [[0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92]], [[0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92]], [[0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92], [0x92, 0x92, 0x92]]];
+var ditherMatricies = [contrast0, contrast1, contrast2, contrast3, contrast4, contrast5, contrast6, contrast7, contrast8, contrast9, contrast10, contrast11, contrast12, contrast13, contrast14, contrast15];
+exports.ditherMatricies = ditherMatricies;
+},{}],"GameboyCamera/dither.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ditherFilter = void 0;
+
+var _ditherMatricies = require("./ditherMatricies");
+
+var black = 0x00;
+var dark_gray = 0x55;
+var light_gray = 0xab;
+var white = 0xff;
+var pixelCount = 0;
+
+var ditherFilter = function ditherFilter(imageData, contrast) {
+  contrast = contrast > 15 ? 15 : contrast;
+  contrast = contrast < 0 ? 0 : contrast;
+  contrast = contrast !== null && contrast !== void 0 ? contrast : 7;
+  var contrastMatrix = _ditherMatricies.ditherMatricies[contrast];
+  var w = imageData.width;
+  var h = imageData.height;
+  var pixels = imageData.data;
+
+  for (var i = 0; i < pixels.length; i += 4) {
+    var x = pixelCount % w % 4;
+    var y = Math.ceil(pixelCount / w) % 4;
+    var p = pixels[i];
+    var ditherGroup = contrastMatrix[x][y];
+    if (p < ditherGroup[0]) p = black;else if (p < ditherGroup[1]) p = dark_gray;else if (p < ditherGroup[2]) p = light_gray;else p = white;
+    pixels[i] = pixels[i + 1] = pixels[i + 2] = p;
+    pixelCount++;
+  }
+
+  return imageData;
+};
+
+exports.ditherFilter = ditherFilter;
+},{"./ditherMatricies":"GameboyCamera/ditherMatricies.ts"}],"GameboyCamera/filterPipeline.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.filterPipeline = void 0;
+
+var _dither = require("./dither");
+
+// import Dither from "ditherjs";
+var ditherOptions = {
+  step: 1,
+  algorithm: "ordered",
+  palette: [[0, 0, 0, 255], [85, 85, 85, 255], [171, 171, 171, 255], [255, 255, 255, 255]]
+};
+
+var minMax = function minMax(value, min, max) {
+  value = value > max ? max : value;
+  value = value < min ? min : value;
+  return value;
+}; // const ditherFilter = (imageData: ImageData) => {
+//   const dither = new Dither(ditherOptions);
+//   dither.ditherImageData(imageData);
+//   return imageData;
+// };
+
+
+var brightnessFilter = function brightnessFilter(imageData, value) {
+  value = minMax(value, -100, 100);
+  var d = imageData.data;
+
+  for (var i = 0; i < d.length; i += 4) {
+    d[i] += 255 * (value / 100);
+    d[i + 1] += 255 * (value / 100);
+    d[i + 2] += 255 * (value / 100);
+  }
+
+  return imageData;
+};
+
+var contrastFilter = function contrastFilter(imageData, value) {
+  value = minMax(value, -100, 300);
+  var d = imageData.data;
+  value = value / 100 + 1;
+  var intercept = 128 * (1 - value);
+
+  for (var i = 0; i < d.length; i += 4) {
+    d[i] = d[i] * value + intercept;
+    d[i + 1] = d[i + 1] * value + intercept;
+    d[i + 2] = d[i + 2] * value + intercept;
+  }
+
+  return imageData;
+};
+
+var lumaFilter = function lumaFilter(imageData) {
+  var d = imageData.data;
+
+  for (var i = 0; i < d.length; i += 4) {
+    var r = d[i];
+    var g = d[i + 1];
+    var b = d[i + 2];
+    var luma = r * 0.299 + g * 0.587 + b * 0.114;
+    d[i] = d[i + 1] = d[i + 2] = luma;
+  }
+
+  return imageData;
+};
+
+var greyscaleFilter = function greyscaleFilter(imageData) {
+  var d = imageData.data;
+
+  for (var i = 0; i < d.length; i += 4) {
+    var r = d[i];
+    var g = d[i + 1];
+    var b = d[i + 2];
+    var luma = (r + g + b) / 2;
+    d[i] = d[i + 1] = d[i + 2] = luma;
+  }
+
+  return imageData;
+};
+
+var gbMapFilter = function gbMapFilter(imageData) {
+  var d = imageData.data;
+
+  for (var i = 0; i < d.length; i += 4) {
+    var r = d[i];
+    if (r < 64) r = 0;else if (r < 128) r = 85;else if (r < 191) r = 171;else r = 255;
+    d[i] = d[i + 1] = d[i + 2] = r;
+  }
+
+  return imageData;
+};
+
+var filterPipeline = function filterPipeline(imageData, _a) {
+  var brightness = _a.brightness,
+      contrast = _a.contrast;
+  imageData = greyscaleFilter(imageData);
+  imageData = brightnessFilter(imageData, brightness);
+  imageData = (0, _dither.ditherFilter)(imageData, contrast);
+  return imageData;
+};
+
+exports.filterPipeline = filterPipeline;
+},{"./dither":"GameboyCamera/dither.ts"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30940,6 +31060,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 var _camera = _interopRequireDefault(require("./camera"));
 
 var _filter = _interopRequireDefault(require("./filter"));
+
+var _filterPipeline = require("./filterPipeline");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31111,24 +31233,22 @@ var StyledLabel = _styledComponents.default.label(templateObject_3 || (templateO
 var StyledButton = _styledComponents.default.button(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n\n  margin-bottom: 10px;\n  margin-top: 10px;\n"], ["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n\n  margin-bottom: 10px;\n  margin-top: 10px;\n"])));
 
 var GameboyCamera = function GameboyCamera() {
-  var videoRef = (0, _react.useRef)();
-  var canvasRef = (0, _react.useRef)();
+  var cameraRef = (0, _react.useRef)();
 
   var _a = (0, _react.useState)(),
       frame = _a[0],
       setFrame = _a[1];
 
-  var _b = (0, _react.useState)(95),
-      contrast = _b[0],
-      setContrast = _b[1];
+  var contrast = (0, _react.useRef)(7);
+  var brightness = (0, _react.useRef)(0);
 
-  var _c = (0, _react.useState)(),
-      devices = _c[0],
-      setDevices = _c[1];
+  var _b = (0, _react.useState)(),
+      devices = _b[0],
+      setDevices = _b[1];
 
-  var _d = (0, _react.useState)(undefined),
-      activeDevice = _d[0],
-      setActiveDevice = _d[1];
+  var _c = (0, _react.useState)(undefined),
+      activeDeviceId = _c[0],
+      setActiveDeviceId = _c[1];
 
   var interval = 16;
 
@@ -31149,7 +31269,7 @@ var GameboyCamera = function GameboyCamera() {
             });
 
             if (inputs.length > 0) {
-              setActiveDevice(inputs[0].deviceId);
+              setActiveDeviceId(inputs[0].deviceId);
               setDevices(inputs);
             }
 
@@ -31162,22 +31282,27 @@ var GameboyCamera = function GameboyCamera() {
   };
 
   var takePhoto = function takePhoto() {
-    var cnvs = canvasRef.current;
+    var workingCanvas = document.createElement("canvas");
+    var ctx = workingCanvas.getContext("2d");
+    ctx.putImageData(frame, 0, 0);
     var link = document.createElement("a");
     var today = new Date();
     link.download = "lbc_" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + "_" + today.getMilliseconds() + ".png";
-    link.href = cnvs.toDataURL();
+    link.href = workingCanvas.toDataURL();
     link.click();
   };
 
   var updateFrame = function updateFrame() {
-    if (!videoRef.current) return;
-    var cnvs = document.createElement("canvas");
-    var ctx = cnvs.getContext("2d");
-    ctx.translate(128, 0);
-    ctx.scale(-1, 1);
-    ctx.drawImage(videoRef.current, 0, 0, 128, 128);
-    setFrame(ctx.getImageData(0, 0, 128, 128));
+    if (!cameraRef.current) return;
+    var workingCanvas = document.createElement("canvas");
+    var ctx = workingCanvas.getContext("2d");
+    ctx.drawImage(cameraRef.current, 0, 0);
+    console.log("brightness", brightness);
+    var imageData = (0, _filterPipeline.filterPipeline)(ctx.getImageData(0, 0, 128, 128), {
+      brightness: brightness.current,
+      contrast: contrast.current
+    });
+    setFrame(imageData);
   };
 
   var frameTimer = function frameTimer() {
@@ -31192,45 +31317,56 @@ var GameboyCamera = function GameboyCamera() {
     frameTimer();
   }, []);
   return _react.default.createElement(StyledGameboyCamera, null, _react.default.createElement(StyledH2, null, "LAME BOY ", _react.default.createElement("span", null, "camera")), _react.default.createElement(_camera.default, {
-    hidden: true,
-    ref: videoRef,
-    deviceId: activeDevice
+    ref: cameraRef,
+    deviceId: activeDeviceId,
+    frameInterval: interval,
+    hidden: true
   }), _react.default.createElement(_filter.default, {
-    frame: frame,
-    contrast: contrast,
-    ref: canvasRef
-  }), _react.default.createElement(StyledLabel, {
+    frame: frame
+  }), _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement("select", {
+    value: activeDeviceId,
+    onChange: function onChange(e) {
+      setActiveDeviceId(e.target.value);
+      console.log(e.target.value);
+    }
+  }, devices && devices.map(function (d) {
+    return _react.default.createElement("option", {
+      key: d.deviceId,
+      value: d.deviceId
+    }, d.label);
+  })), _react.default.createElement(StyledLabel, {
     htmlFor: "contrast"
   }, "Contrast"), _react.default.createElement("input", {
     name: "contrast",
     type: "range",
+    min: "0",
+    max: "15",
+    value: contrast.current,
+    onChange: function onChange(e) {
+      return contrast.current = e.target.value;
+    }
+  }), _react.default.createElement(StyledLabel, {
+    htmlFor: "brightness"
+  }, "Brightness"), _react.default.createElement("input", {
+    name: "brightness",
+    type: "range",
     min: "-100",
     max: "100",
-    value: contrast,
+    value: brightness.current,
     onChange: function onChange(e) {
-      return setContrast(e.target.value);
+      return brightness.current = e.target.value;
     }
   }), _react.default.createElement(StyledButton, {
     onClick: function onClick() {
       return takePhoto();
     }
-  }, "Take Photo"), _react.default.createElement("select", {
-    value: activeDevice,
-    onChange: function onChange(e) {
-      setActiveDevice(e.target.value);
-      console.log(e.target.value);
-    }
-  }, devices && devices.map(function (d) {
-    return _react.default.createElement("option", {
-      value: d.deviceId
-    }, d.label);
-  })));
+  }, "Take Photo"));
 };
 
 var _default = GameboyCamera;
 exports.default = _default;
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./filter":"GameboyCamera/filter.tsx"}],"setup.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./filter":"GameboyCamera/filter.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts"}],"setup.tsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -31293,7 +31429,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56694" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
