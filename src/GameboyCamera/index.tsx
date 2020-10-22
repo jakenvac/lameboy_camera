@@ -62,7 +62,7 @@ const GameboyCamera = () => {
 
   const [frame, setFrame] = useState<ImageData>();
   const contrast = useRef<number>(7);
-  const brightness = useRef<number>(0);
+  const brightness = useRef<number>(50);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>();
   const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
 
@@ -79,6 +79,8 @@ const GameboyCamera = () => {
 
   const takePhoto = () => {
     const workingCanvas = document.createElement("canvas");
+    workingCanvas.width = 128;
+    workingCanvas.height = 112;
     const ctx = workingCanvas.getContext("2d");
     ctx.putImageData(frame, 0, 0);
     const link = document.createElement("a");
@@ -96,7 +98,7 @@ const GameboyCamera = () => {
     const ctx = workingCanvas.getContext("2d");
     ctx.drawImage(cameraRef.current, 0, 0);
     console.log("brightness", brightness);
-    const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 128), {
+    const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
       contrast: contrast.current,
     });
@@ -158,6 +160,7 @@ const GameboyCamera = () => {
         type="range"
         min="-100"
         max="100"
+        step={200 / 16}
         value={brightness.current}
         onChange={(e) =>
           (brightness.current = (e.target.value as unknown) as number)

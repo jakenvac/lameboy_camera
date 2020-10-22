@@ -25,12 +25,6 @@ const minMax = (value: number, min: number, max: number) => {
   return value;
 };
 
-// const ditherFilter = (imageData: ImageData) => {
-//   const dither = new Dither(ditherOptions);
-//   dither.ditherImageData(imageData);
-//   return imageData;
-// };
-
 const brightnessFilter = (imageData: ImageData, value: number) => {
   value = minMax(value, -100, 100);
 
@@ -64,7 +58,7 @@ const lumaFilter = (imageData: ImageData) => {
     const g = d[i + 1];
     const b = d[i + 2];
 
-    const luma = r * 0.299 + g * 0.587 + b * 0.114;
+    const luma = r * 0.2126 + g * 0.7152 + b * 0.0722;
 
     d[i] = d[i + 1] = d[i + 2] = luma;
   }
@@ -78,7 +72,7 @@ const greyscaleFilter = (imageData: ImageData) => {
     const g = d[i + 1];
     const b = d[i + 2];
 
-    const luma = (r + g + b) / 2;
+    const luma = (r + g + b) / 3;
 
     d[i] = d[i + 1] = d[i + 2] = luma;
   }
@@ -89,10 +83,11 @@ const filterPipeline = (
   imageData: ImageData,
   { brightness, contrast }: filterOptions
 ) => {
-  imageData = greyscaleFilter(imageData);
+  //imageData = greyscaleFilter(imageData);
   imageData = brightnessFilter(imageData, brightness);
+  imageData = lumaFilter(imageData);
   imageData = ditherFilter(imageData, contrast);
-  imageData = paletteMap(imageData, peaGreenPalette);
+  //imageData = paletteMap(imageData, peaGreenPalette);
   return imageData;
 };
 

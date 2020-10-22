@@ -1,4 +1,5 @@
-import { ditherMatricies } from "./ditherMatricies";
+import { highLightDitherMatricies } from "./highLightDitherMatricies";
+import { lowLightDitherMatricies } from "./lowLightDitherMatricies";
 
 const defaultPalette = {
   black: 0x00,
@@ -13,7 +14,7 @@ const ditherFilter = (imageData: ImageData, contrast?: number) => {
   contrast = contrast < 0 ? 0 : contrast;
   contrast = contrast ?? 7;
   const { black, dark_gray, light_gray, white } = defaultPalette;
-  const contrastMatrix = ditherMatricies[contrast];
+  const contrastMatrix = lowLightDitherMatricies[contrast];
 
   const w = imageData.width;
   const pixels = imageData.data;

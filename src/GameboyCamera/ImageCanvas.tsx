@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledSquare = styled.div`
   width: 100%;
-  padding-top: 100%;
+  padding-top: 87.5%;
   position: relative;
 `;
 
@@ -31,7 +31,7 @@ const ImageCanvas = ({ frame }: ImageCanvasProps) => {
 
   return (
     <StyledSquare>
-      <StyledCanvas ref={canvasRef} width={128} height={128} />
+      <StyledCanvas ref={canvasRef} width={128} height={112} />
     </StyledSquare>
   );
 };

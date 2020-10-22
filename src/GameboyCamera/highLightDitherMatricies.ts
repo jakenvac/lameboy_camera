@@ -416,7 +416,7 @@ const contrast15 = [
   ],
 ];
 
-const ditherMatricies = [
+const highLightDitherMatricies = [
   contrast0,
   contrast1,
   contrast2,
@@ -435,4 +435,4 @@ const ditherMatricies = [
   contrast15,
 ];
 
-export { ditherMatricies };
+export { highLightDitherMatricies };
