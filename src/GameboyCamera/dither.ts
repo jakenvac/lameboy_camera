@@ -9,12 +9,18 @@ const defaultPalette = {
 };
 
 let pixelCount = 0;
-const ditherFilter = (imageData: ImageData, contrast?: number) => {
+const ditherFilter = (
+  imageData: ImageData,
+  contrast?: number,
+  lowLight?: boolean
+) => {
   contrast = contrast > 15 ? 15 : contrast;
   contrast = contrast < 0 ? 0 : contrast;
   contrast = contrast ?? 7;
   const { black, dark_gray, light_gray, white } = defaultPalette;
-  const contrastMatrix = lowLightDitherMatricies[contrast];
+  const contrastMatrix = (lowLight
+    ? lowLightDitherMatricies
+    : highLightDitherMatricies)[contrast];
 
   const w = imageData.width;
   const pixels = imageData.data;

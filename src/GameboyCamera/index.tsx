@@ -63,6 +63,7 @@ const GameboyCamera = () => {
   const [frame, setFrame] = useState<ImageData>();
   const contrast = useRef<number>(7);
   const brightness = useRef<number>(50);
+  const lowLight = useRef<boolean>(false);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>();
   const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
 
@@ -97,10 +98,10 @@ const GameboyCamera = () => {
     const workingCanvas = document.createElement("canvas");
     const ctx = workingCanvas.getContext("2d");
     ctx.drawImage(cameraRef.current, 0, 0);
-    console.log("brightness", brightness);
     const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
       contrast: contrast.current,
+      lowLight: lowLight.current,
     });
 
     setFrame(imageData);
@@ -128,6 +129,7 @@ const GameboyCamera = () => {
         hidden
       />
       <ImageCanvas frame={frame} />
+      <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
       <StyledLabel>Select Camera</StyledLabel>
       <select
         value={activeDeviceId}
@@ -166,7 +168,15 @@ const GameboyCamera = () => {
           (brightness.current = (e.target.value as unknown) as number)
         }
       />
-      <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
+      <StyledLabel htmlFor="lowLight">Low Light</StyledLabel>
+      <input
+        type="checkbox"
+        checked={lowLight.current}
+        onChange={(e) => {
+          console.log(e.target.value);
+          lowLight.current = e.target.checked;
+        }}
+      />
     </StyledGameboyCamera>
   );
 };

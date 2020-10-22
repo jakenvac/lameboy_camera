@@ -6,6 +6,7 @@ import { paletteMap, peaGreenPalette } from "./paletteMap";
 type filterOptions = {
   brightness: number;
   contrast: number;
+  lowLight: boolean;
 };
 
 const ditherOptions = {
@@ -65,28 +66,13 @@ const lumaFilter = (imageData: ImageData) => {
   return imageData;
 };
 
-const greyscaleFilter = (imageData: ImageData) => {
-  const d = imageData.data;
-  for (var i = 0; i < d.length; i += 4) {
-    const r = d[i];
-    const g = d[i + 1];
-    const b = d[i + 2];
-
-    const luma = (r + g + b) / 3;
-
-    d[i] = d[i + 1] = d[i + 2] = luma;
-  }
-  return imageData;
-};
-
 const filterPipeline = (
   imageData: ImageData,
-  { brightness, contrast }: filterOptions
+  { brightness, contrast, lowLight }: filterOptions
 ) => {
-  //imageData = greyscaleFilter(imageData);
   imageData = brightnessFilter(imageData, brightness);
   imageData = lumaFilter(imageData);
-  imageData = ditherFilter(imageData, contrast);
+  imageData = ditherFilter(imageData, contrast, lowLight);
   //imageData = paletteMap(imageData, peaGreenPalette);
   return imageData;
 };
