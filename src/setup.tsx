@@ -21,7 +21,6 @@ const GlobalCSS = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
-    color: white;
     font-family: Nunito, sans-serif;
   }
 `;

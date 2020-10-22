@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const StyledButton = styled.button<{ color?: string }>`
-  border: 2px solid #ffcc00;
+  border: 2px solid ${(p) => p.color ?? "#ffcc00"};
   background: ${(p) => p.color ?? "#ffcc00"};
   color: black;
   border-radius: 2rem;
@@ -33,6 +33,28 @@ type LameButtonProps = {
 
 const LameButton: FC<LameButtonProps> = ({ children, ...props }) => {
   return <StyledButton {...props}>{children}</StyledButton>;
+};
+
+const StyledButtonInverted = styled(StyledButton)<{ color?: string }>`
+  background: black;
+  border-color: ${(p) => p.color ?? "white"};
+  color: ${(p) => p.color ?? "white"};
+  &:hover {
+    @media (hover: hover) and (pointer: fine) {
+      background: ${(p) => p.color ?? "white"};
+      color: black;
+      cursor: pointer;
+    }
+  }
+  &:active {
+    background: ${(p) => p.color ?? "white"};
+    color: black;
+    cursor: pointer;
+  }
+`;
+
+const LameButtonInverted: FC<LameButtonProps> = ({ children, ...props }) => {
+  return <StyledButtonInverted {...props}>{children}</StyledButtonInverted>;
 };
 
 const StyledShutterButton = styled(StyledButton)`
@@ -72,4 +94,4 @@ const LameShutterButton: FC<LameButtonProps> = ({ ...props }) => {
   );
 };
 
-export { LameButton, LameShutterButton };
+export { LameButton, LameButtonInverted, LameShutterButton };

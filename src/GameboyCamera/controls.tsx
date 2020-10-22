@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { LameShutterButton } from "./components/button";
+import { PaletteButton, PaletteTile } from "./components/paletteTile";
+import { PaletteList } from "./components/paletteList";
+import palettes from "./data/palettes.json";
 
 const ControlsRoot = styled.div`
   flex: 1;
@@ -79,6 +82,12 @@ const StyledLabel = styled.label`
   }
 `;
 
+const StyledPaletteButton = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+`;
+
 type CameraDescriptor = {
   label: string;
   deviceId: string;
@@ -90,6 +99,7 @@ type ControlsProps = {
   onBrightnessChange: (value: number) => void;
   onLowLightChange: (value: boolean) => void;
   onCameraChange: (value: string) => void;
+  onPaletteChange: (value: string) => void;
   onShutterButton: () => void;
 };
 
@@ -110,9 +120,13 @@ const CameraList = ({
 );
 
 const Controls = (props: ControlsProps) => {
+  const [showPalettes, setShowPalettes] = useState<boolean>(false);
   const [cameraList, setCameraList] = useState<CameraDescriptor[]>(
     props.cameras
   );
+
+  const [paletteName, setPaletteName] = useState<string>("default");
+  const palette = palettes.find((p) => p.name === paletteName);
 
   useEffect(() => {
     setCameraList(props.cameras);
@@ -130,10 +144,23 @@ const Controls = (props: ControlsProps) => {
   const handleCameraChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     props.onCameraChange(e.target.value);
 
+  const handlePaletteButton = () => {
+    setShowPalettes(true);
+  };
+
   const handleShutterButton = () => props.onShutterButton();
 
   return (
     <ControlsRoot>
+      {showPalettes && (
+        <PaletteList
+          onPaletteSelect={(p) => {
+            setShowPalettes(false);
+            setPaletteName(p);
+            props.onPaletteChange(p);
+          }}
+        />
+      )}
       <ControlsContainer>
         <Scroller>
           {cameraList && cameraList.length > 1 && (
@@ -170,6 +197,13 @@ const Controls = (props: ControlsProps) => {
               <input type="checkbox" onChange={handleLowLightChanged} />
             </RightColumn>
           </ControlRow>
+          <StyledPaletteButton>
+            <PaletteButton
+              onClick={handlePaletteButton}
+              text={"Select Palette"}
+              colors={palette}
+            />
+          </StyledPaletteButton>
         </Scroller>
         <ShutterContainer>
           <LameShutterButton onClick={handleShutterButton} />

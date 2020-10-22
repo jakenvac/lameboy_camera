@@ -1,50 +1,68 @@
 type palette = {
   name: string;
+  black: string;
+  dark_gray: string;
+  light_gray: string;
+  white: string;
+};
+
+type bytePalette = {
+  name: string;
   black: number[];
   dark_gray: number[];
   light_gray: number[];
   white: number[];
 };
 
-const defaultPalette: palette = {
+const defaultPalette = {
   name: "default",
-  black: [0x00, 0x00, 0x00],
-  dark_gray: [0x55, 0x55, 0x55],
-  light_gray: [0xab, 0xab, 0xab],
-  white: [0xff, 0xff, 0xff],
+  black: 0x00,
+  dark_gray: 0x55,
+  light_gray: 0xab,
+  white: 0xff,
 };
 
-const peaGreenPalette: palette = {
-  name: "pea soup",
-  black: [0x2d, 0x1b, 0x00],
-  dark_gray: [0x1e, 0x60, 0x6e],
-  light_gray: [0x5a, 0xb9, 0xa8],
-  white: [0xc4, 0xf0, 0xc2],
+const colorStringToByteArray = (color: string) => {
+  const r = parseInt(`0x${color.substring(1, 3)}`);
+  const g = parseInt(`0x${color.substring(3, 5)}`);
+  const b = parseInt(`0x${color.substring(5)}`);
+  return [r, g, b];
+};
+
+const convertToBytes = (p: palette) => {
+  return {
+    name: p.name,
+    black: colorStringToByteArray(p.black),
+    dark_gray: colorStringToByteArray(p.dark_gray),
+    light_gray: colorStringToByteArray(p.light_gray),
+    white: colorStringToByteArray(p.white),
+  };
 };
 
 const paletteMap = (imageData: ImageData, palette: palette) => {
+  const bytePalette: bytePalette = convertToBytes(palette);
   const d = imageData.data;
   for (let i = 0; i < d.length; i += 4) {
     const color = d[i];
     let r = color,
       g = color,
       b = color;
-    if (color === defaultPalette.black[0]) {
-      r = palette.black[0];
-      g = palette.black[1];
-      b = palette.black[2];
-    } else if (color === defaultPalette.dark_gray[0]) {
-      r = palette.dark_gray[0];
-      g = palette.dark_gray[1];
-      b = palette.dark_gray[2];
-    } else if (color === defaultPalette.light_gray[0]) {
-      r = palette.light_gray[0];
-      g = palette.light_gray[1];
-      b = palette.light_gray[2];
-    } else if (color === defaultPalette.white[0]) {
-      r = palette.white[0];
-      g = palette.white[1];
-      b = palette.white[2];
+    if (color === defaultPalette.black) {
+      r = bytePalette.black[0];
+      g = bytePalette.black[1];
+      b = bytePalette.black[2];
+    } else if (color === defaultPalette.dark_gray) {
+      r = bytePalette.dark_gray[0];
+      g = bytePalette.dark_gray[1];
+      b = bytePalette.dark_gray[2];
+    } else if (color === defaultPalette.light_gray) {
+      r = bytePalette.light_gray[0];
+      g = bytePalette.light_gray[1];
+      b = bytePalette.light_gray[2];
+    } else if (color === defaultPalette.white) {
+      r = bytePalette.white[0];
+      g = bytePalette.white[1];
+      b = bytePalette.white[2];
     }
     d[i] = r;
     d[i + 1] = g;
@@ -53,4 +71,4 @@ const paletteMap = (imageData: ImageData, palette: palette) => {
   return imageData;
 };
 
-export { paletteMap, palette, peaGreenPalette };
+export { paletteMap, palette };

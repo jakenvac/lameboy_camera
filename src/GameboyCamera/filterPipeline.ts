@@ -1,12 +1,13 @@
 // import Dither from "ditherjs";
 
 import { ditherFilter } from "./dither";
-import { paletteMap, peaGreenPalette } from "./paletteMap";
+import { paletteMap, palette } from "./paletteMap";
 
 type filterOptions = {
   brightness: number;
   contrast: number;
   lowLight: boolean;
+  palette?: palette;
 };
 
 const minMax = (value: number, min: number, max: number) => {
@@ -57,12 +58,12 @@ const lumaFilter = (imageData: ImageData) => {
 
 const filterPipeline = (
   imageData: ImageData,
-  { brightness, contrast, lowLight }: filterOptions
+  { brightness, contrast, lowLight, palette }: filterOptions
 ) => {
   imageData = brightnessFilter(imageData, brightness);
   imageData = lumaFilter(imageData);
   imageData = ditherFilter(imageData, contrast, lowLight);
-  //imageData = paletteMap(imageData, peaGreenPalette);
+  if (palette) imageData = paletteMap(imageData, palette);
   return imageData;
 };
 

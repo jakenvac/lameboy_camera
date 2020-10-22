@@ -6,7 +6,11 @@ import ImageCanvas from "./ImageCanvas";
 import Controls from "./controls";
 import { filterPipeline } from "./filterPipeline";
 
+import palettes from "./data/palettes.json";
+
 const StyledGameboyCamera = styled.div`
+  color: white;
+
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -53,6 +57,7 @@ const GameboyCamera = () => {
   const contrast = useRef<number>(7);
   const brightness = useRef<number>(50);
   const lowLight = useRef<boolean>(false);
+  const palette = useRef<string>();
 
   const interval = 16;
 
@@ -85,10 +90,12 @@ const GameboyCamera = () => {
     const workingCanvas = document.createElement("canvas");
     const ctx = workingCanvas.getContext("2d");
     ctx.drawImage(cameraRef.current, 0, 0);
+    const p = palettes.find((p) => p.name === palette.current);
     const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
       contrast: contrast.current,
       lowLight: lowLight.current,
+      palette: p,
     });
 
     setFrame(imageData);
@@ -125,6 +132,7 @@ const GameboyCamera = () => {
         onLowLightChange={(l) => (lowLight.current = l)}
         cameras={devices}
         onCameraChange={(c) => setActiveDeviceId(c)}
+        onPaletteChange={(p) => (palette.current = p)}
       />
     </StyledGameboyCamera>
   );
