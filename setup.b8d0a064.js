@@ -30982,12 +30982,6 @@ exports.filterPipeline = void 0;
 var _dither = require("./dither");
 
 // import Dither from "ditherjs";
-var ditherOptions = {
-  step: 1,
-  algorithm: "ordered",
-  palette: [[0, 0, 0, 255], [85, 85, 85, 255], [171, 171, 171, 255], [255, 255, 255, 255]]
-};
-
 var minMax = function minMax(value, min, max) {
   value = value > max ? max : value;
   value = value < min ? min : value;
@@ -31227,13 +31221,15 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
   }
 };
 
-var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 80vmin;\n  @media (min-width: 800px) {\n    min-width: 50vmin;\n  }\n  padding: 20px;\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 80vmin;\n  @media (min-width: 800px) {\n    min-width: 50vmin;\n  }\n  padding: 20px;\n"])));
+var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 100%;\n  @media (min-width: 600px) {\n    min-width: 80vmin;\n  }\n  @media (min-width: 800px) {\n    min-width: 50vmin;\n  }\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 100%;\n  @media (min-width: 600px) {\n    min-width: 80vmin;\n  }\n  @media (min-width: 800px) {\n    min-width: 50vmin;\n  }\n"])));
 
-var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n"], ["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n"])));
+var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n  margin-left: 20px;\n  margin-right: 20px;\n"], ["\n  font-size: 30px;\n  font-family: \"Nunito Sans\", sans-serif;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n  span {\n    color: #fff;\n    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,\n      1px 1px 0 #000;\n    -webkit-text-stroke: 1px black;\n  }\n  margin-left: 20px;\n  margin-right: 20px;\n"])));
 
 var StyledLabel = _styledComponents.default.label(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  margin-top: 10px;\n  font-family: \"Nunito Sans\", sans-serif;\n"], ["\n  margin-top: 10px;\n  font-family: \"Nunito Sans\", sans-serif;\n"])));
 
 var StyledButton = _styledComponents.default.button(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n\n  margin-bottom: 10px;\n  margin-top: 10px;\n"], ["\n  border-radius: 30px;\n  border: none;\n  font-family: \"Nunito Sans\", sans-serif;\n  color: #ffcc00;\n  background: black;\n  font-size: 25px;\n  padding: 5px;\n  border: 5px solid black;\n\n  transition: background 300ms, color 300ms;\n\n  &:hover {\n    color: black;\n    background: #ffcc00;\n    cursor: pointer;\n  }\n\n  margin-bottom: 10px;\n  margin-top: 10px;\n"])));
+
+var StyledControls = _styledComponents.default.div(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  padding: 20px;\n  @media (min-width: 600px) {\n    min-width: padding: none;\n  }\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 100%;\n"], ["\n  padding: 20px;\n  @media (min-width: 600px) {\n    min-width: padding: none;\n  }\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-width: 100%;\n"])));
 
 var GameboyCamera = function GameboyCamera() {
   var cameraRef = (0, _react.useRef)();
@@ -31329,7 +31325,7 @@ var GameboyCamera = function GameboyCamera() {
     hidden: true
   }), _react.default.createElement(_ImageCanvas.default, {
     frame: frame
-  }), _react.default.createElement(StyledButton, {
+  }), _react.default.createElement(StyledControls, null, _react.default.createElement(StyledButton, {
     onClick: function onClick() {
       return takePhoto();
     }
@@ -31376,12 +31372,12 @@ var GameboyCamera = function GameboyCamera() {
       console.log(e.target.value);
       lowLight.current = e.target.checked;
     }
-  }));
+  })));
 };
 
 var _default = GameboyCamera;
 exports.default = _default;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5;
 },{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts"}],"setup.tsx":[function(require,module,exports) {
 "use strict";
 
@@ -31445,7 +31441,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62258" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62884" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
