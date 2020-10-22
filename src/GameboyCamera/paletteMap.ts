@@ -1,18 +1,21 @@
 type palette = {
+  name: string;
   black: number[];
   dark_gray: number[];
   light_gray: number[];
   white: number[];
 };
 
-const defaultPalette = {
-  black: 0x00,
-  dark_gray: 0x55,
-  light_gray: 0xab,
-  white: 0xff,
+const defaultPalette: palette = {
+  name: "default",
+  black: [0x00, 0x00, 0x00],
+  dark_gray: [0x55, 0x55, 0x55],
+  light_gray: [0xab, 0xab, 0xab],
+  white: [0xff, 0xff, 0xff],
 };
 
 const peaGreenPalette: palette = {
+  name: "pea soup",
   black: [0x2d, 0x1b, 0x00],
   dark_gray: [0x1e, 0x60, 0x6e],
   light_gray: [0x5a, 0xb9, 0xa8],
@@ -26,19 +29,19 @@ const paletteMap = (imageData: ImageData, palette: palette) => {
     let r = color,
       g = color,
       b = color;
-    if (color === defaultPalette.black) {
+    if (color === defaultPalette.black[0]) {
       r = palette.black[0];
       g = palette.black[1];
       b = palette.black[2];
-    } else if (color === defaultPalette.dark_gray) {
+    } else if (color === defaultPalette.dark_gray[0]) {
       r = palette.dark_gray[0];
       g = palette.dark_gray[1];
       b = palette.dark_gray[2];
-    } else if (color === defaultPalette.light_gray) {
+    } else if (color === defaultPalette.light_gray[0]) {
       r = palette.light_gray[0];
       g = palette.light_gray[1];
       b = palette.light_gray[2];
-    } else if (color === defaultPalette.white) {
+    } else if (color === defaultPalette.white[0]) {
       r = palette.white[0];
       g = palette.white[1];
       b = palette.white[2];

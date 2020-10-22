@@ -9,17 +9,6 @@ type filterOptions = {
   lowLight: boolean;
 };
 
-const ditherOptions = {
-  step: 1,
-  algorithm: "ordered",
-  palette: [
-    [0, 0, 0, 255],
-    [85, 85, 85, 255],
-    [171, 171, 171, 255],
-    [255, 255, 255, 255],
-  ],
-};
-
 const minMax = (value: number, min: number, max: number) => {
   value = value > max ? max : value;
   value = value < min ? min : value;

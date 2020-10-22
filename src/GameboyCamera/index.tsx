@@ -9,11 +9,13 @@ const StyledGameboyCamera = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 80vmin;
+  min-width: 100%;
+  @media (min-width: 600px) {
+    min-width: 80vmin;
+  }
   @media (min-width: 800px) {
     min-width: 50vmin;
   }
-  padding: 20px;
 `;
 
 const StyledH2 = styled.h2`
@@ -28,6 +30,8 @@ const StyledH2 = styled.h2`
       1px 1px 0 #000;
     -webkit-text-stroke: 1px black;
   }
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 const StyledLabel = styled.label`
@@ -55,6 +59,17 @@ const StyledButton = styled.button`
 
   margin-bottom: 10px;
   margin-top: 10px;
+`;
+
+const StyledControls = styled.div`
+  padding: 20px;
+  @media (min-width: 600px) {
+    min-width: padding: none;
+  }
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 100%;
 `;
 
 const GameboyCamera = () => {
@@ -129,54 +144,56 @@ const GameboyCamera = () => {
         hidden
       />
       <ImageCanvas frame={frame} />
-      <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
-      <StyledLabel>Select Camera</StyledLabel>
-      <select
-        value={activeDeviceId}
-        onChange={(e) => {
-          setActiveDeviceId(e.target.value);
-          console.log(e.target.value);
-        }}
-      >
-        {devices &&
-          devices.map((d) => (
-            <option key={d.deviceId} value={d.deviceId}>
-              {d.label}
-            </option>
-          ))}
-      </select>
-      <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
-      <input
-        name="contrast"
-        type="range"
-        min="0"
-        max="15"
-        value={contrast.current}
-        onChange={(e) =>
-          (contrast.current = (e.target.value as unknown) as number)
-        }
-      />
-      <StyledLabel htmlFor="brightness">Brightness</StyledLabel>
-      <input
-        name="brightness"
-        type="range"
-        min="-100"
-        max="100"
-        step={200 / 16}
-        value={brightness.current}
-        onChange={(e) =>
-          (brightness.current = (e.target.value as unknown) as number)
-        }
-      />
-      <StyledLabel htmlFor="lowLight">Low Light</StyledLabel>
-      <input
-        type="checkbox"
-        checked={lowLight.current}
-        onChange={(e) => {
-          console.log(e.target.value);
-          lowLight.current = e.target.checked;
-        }}
-      />
+      <StyledControls>
+        <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
+        <StyledLabel>Select Camera</StyledLabel>
+        <select
+          value={activeDeviceId}
+          onChange={(e) => {
+            setActiveDeviceId(e.target.value);
+            console.log(e.target.value);
+          }}
+        >
+          {devices &&
+            devices.map((d) => (
+              <option key={d.deviceId} value={d.deviceId}>
+                {d.label}
+              </option>
+            ))}
+        </select>
+        <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
+        <input
+          name="contrast"
+          type="range"
+          min="0"
+          max="15"
+          value={contrast.current}
+          onChange={(e) =>
+            (contrast.current = (e.target.value as unknown) as number)
+          }
+        />
+        <StyledLabel htmlFor="brightness">Brightness</StyledLabel>
+        <input
+          name="brightness"
+          type="range"
+          min="-100"
+          max="100"
+          step={200 / 16}
+          value={brightness.current}
+          onChange={(e) =>
+            (brightness.current = (e.target.value as unknown) as number)
+          }
+        />
+        <StyledLabel htmlFor="lowLight">Low Light</StyledLabel>
+        <input
+          type="checkbox"
+          checked={lowLight.current}
+          onChange={(e) => {
+            console.log(e.target.value);
+            lowLight.current = e.target.checked;
+          }}
+        />
+      </StyledControls>
     </StyledGameboyCamera>
   );
 };
