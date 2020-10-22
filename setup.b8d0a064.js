@@ -41523,7 +41523,7 @@ exports.fas = _iconsCache;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LameShutterButton = exports.LameButton = void 0;
+exports.LameShutterButton = exports.LameButtonInverted = exports.LameButton = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -41576,7 +41576,11 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-var StyledButton = _styledComponents.default.button(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  border: 2px solid #ffcc00;\n  background: ", ";\n  color: black;\n  border-radius: 2rem;\n  font-weight: bold;\n  font-size: 1.2rem;\n  padding: 0.5rem;\n  transition: background-color 300ms, color 300ms;\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      color: ", ";\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    color: ", ";\n    cursor: pointer;\n  }\n"], ["\n  border: 2px solid #ffcc00;\n  background: ", ";\n  color: black;\n  border-radius: 2rem;\n  font-weight: bold;\n  font-size: 1.2rem;\n  padding: 0.5rem;\n  transition: background-color 300ms, color 300ms;\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      color: ", ";\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    color: ", ";\n    cursor: pointer;\n  }\n"])), function (p) {
+var StyledButton = _styledComponents.default.button(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  border: 2px solid ", ";\n  background: ", ";\n  color: black;\n  border-radius: 2rem;\n  font-weight: bold;\n  font-size: 1.2rem;\n  padding: 0.5rem;\n  transition: background-color 300ms, color 300ms;\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      color: ", ";\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    color: ", ";\n    cursor: pointer;\n  }\n"], ["\n  border: 2px solid ", ";\n  background: ", ";\n  color: black;\n  border-radius: 2rem;\n  font-weight: bold;\n  font-size: 1.2rem;\n  padding: 0.5rem;\n  transition: background-color 300ms, color 300ms;\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      color: ", ";\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    color: ", ";\n    cursor: pointer;\n  }\n"])), function (p) {
+  var _a;
+
+  return (_a = p.color) !== null && _a !== void 0 ? _a : "#ffcc00";
+}, function (p) {
   var _a;
 
   return (_a = p.color) !== null && _a !== void 0 ? _a : "#ffcc00";
@@ -41598,7 +41602,33 @@ var LameButton = function LameButton(_a) {
 };
 
 exports.LameButton = LameButton;
-var StyledShutterButton = (0, _styledComponents.default)(StyledButton)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  width: 4rem;\n  height: 4rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  border-radius: 100%;\n  path {\n    color: black;\n  }\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      path {\n        color: #ffcc00;\n      }\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    path {\n      color: #ffcc00;\n    }\n    cursor: pointer;\n  }\n"], ["\n  width: 4rem;\n  height: 4rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  border-radius: 100%;\n  path {\n    color: black;\n  }\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      path {\n        color: #ffcc00;\n      }\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    path {\n      color: #ffcc00;\n    }\n    cursor: pointer;\n  }\n"])));
+var StyledButtonInverted = (0, _styledComponents.default)(StyledButton)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  background: black;\n  border-color: ", ";\n  color: ", ";\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: ", ";\n      color: black;\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: ", ";\n    color: black;\n    cursor: pointer;\n  }\n"], ["\n  background: black;\n  border-color: ", ";\n  color: ", ";\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: ", ";\n      color: black;\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: ", ";\n    color: black;\n    cursor: pointer;\n  }\n"])), function (p) {
+  var _a;
+
+  return (_a = p.color) !== null && _a !== void 0 ? _a : "white";
+}, function (p) {
+  var _a;
+
+  return (_a = p.color) !== null && _a !== void 0 ? _a : "white";
+}, function (p) {
+  var _a;
+
+  return (_a = p.color) !== null && _a !== void 0 ? _a : "white";
+}, function (p) {
+  var _a;
+
+  return (_a = p.color) !== null && _a !== void 0 ? _a : "white";
+});
+
+var LameButtonInverted = function LameButtonInverted(_a) {
+  var children = _a.children,
+      props = __rest(_a, ["children"]);
+
+  return _react.default.createElement(StyledButtonInverted, __assign({}, props), children);
+};
+
+exports.LameButtonInverted = LameButtonInverted;
+var StyledShutterButton = (0, _styledComponents.default)(StyledButton)(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  width: 4rem;\n  height: 4rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  border-radius: 100%;\n  path {\n    color: black;\n  }\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      path {\n        color: #ffcc00;\n      }\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    path {\n      color: #ffcc00;\n    }\n    cursor: pointer;\n  }\n"], ["\n  width: 4rem;\n  height: 4rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n\n  border-radius: 100%;\n  path {\n    color: black;\n  }\n  &:hover {\n    @media (hover: hover) and (pointer: fine) {\n      background: black;\n      path {\n        color: #ffcc00;\n      }\n      cursor: pointer;\n    }\n  }\n  &:active {\n    background: black;\n    path {\n      color: #ffcc00;\n    }\n    cursor: pointer;\n  }\n"])));
 
 var LameShutterButton = function LameShutterButton(_a) {
   var props = __rest(_a, []);
@@ -41611,8 +41641,183 @@ var LameShutterButton = function LameShutterButton(_a) {
 };
 
 exports.LameShutterButton = LameShutterButton;
-var templateObject_1, templateObject_2;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","@fortawesome/react-fontawesome":"../node_modules/@fortawesome/react-fontawesome/index.es.js","@fortawesome/free-solid-svg-icons":"../node_modules/@fortawesome/free-solid-svg-icons/index.es.js"}],"GameboyCamera/controls.tsx":[function(require,module,exports) {
+var templateObject_1, templateObject_2, templateObject_3;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","@fortawesome/react-fontawesome":"../node_modules/@fortawesome/react-fontawesome/index.es.js","@fortawesome/free-solid-svg-icons":"../node_modules/@fortawesome/free-solid-svg-icons/index.es.js"}],"GameboyCamera/components/paletteTile.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PaletteButton = exports.PaletteTile = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _button = require("./button");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __rest = void 0 && (void 0).__rest || function (s, e) {
+  var t = {};
+
+  for (var p in s) {
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  }
+
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+var Palette = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  background: black;\n\n  display: flex;\n  flex-direction: row;\n\n  border: 1px solid white;\n"], ["\n  background: black;\n\n  display: flex;\n  flex-direction: row;\n\n  border: 1px solid white;\n"])));
+
+var Color = _styledComponents.default.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  width: 1rem;\n  height: 1rem;\n  background: ", ";\n"], ["\n  width: 1rem;\n  height: 1rem;\n  background: ", ";\n"])), function (p) {
+  return p.fill;
+});
+
+var PaletteTile = function PaletteTile(_a) {
+  var black = _a.black,
+      dark_gray = _a.dark_gray,
+      light_gray = _a.light_gray,
+      white = _a.white;
+  return _react.default.createElement(Palette, null, _react.default.createElement(Color, {
+    fill: black
+  }), _react.default.createElement(Color, {
+    fill: dark_gray
+  }), _react.default.createElement(Color, {
+    fill: light_gray
+  }), _react.default.createElement(Color, {
+    fill: white
+  }));
+};
+
+exports.PaletteTile = PaletteTile;
+
+var Row = _styledComponents.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n"], ["\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n"])));
+
+var Text = _styledComponents.default.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  align-text: center;\n  flex: 1;\n  justify-content: center;\n  align-items: center;\n  display: flex;\n"], ["\n  align-text: center;\n  flex: 1;\n  justify-content: center;\n  align-items: center;\n  display: flex;\n"])));
+
+var PaletteButton = function PaletteButton(_a) {
+  var text = _a.text,
+      colors = _a.colors,
+      props = __rest(_a, ["text", "colors"]);
+
+  return _react.default.createElement(_button.LameButtonInverted, __assign({
+    color: "white"
+  }, props), _react.default.createElement(Row, null, _react.default.createElement(PaletteTile, __assign({}, colors)), _react.default.createElement(Text, null, text)));
+};
+
+exports.PaletteButton = PaletteButton;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./button":"GameboyCamera/components/button.tsx"}],"GameboyCamera/data/palettes.json":[function(require,module,exports) {
+module.exports = [{
+  "name": "default",
+  "black": "#000000",
+  "dark_gray": "#555555",
+  "light_gray": "#ababab",
+  "white": "#ffffff"
+}, {
+  "name": "pea soup",
+  "black": "#2d1b00",
+  "dark_gray": "#1e606e",
+  "light_gray": "#5ab9a8",
+  "white": "#c4f0c2"
+}];
+},{}],"GameboyCamera/components/paletteList.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PaletteList = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _paletteTile = require("./paletteTile");
+
+var _palettes = _interopRequireDefault(require("../data/palettes.json"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
+
+var FullScreen = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 99999;\n  background: rgba(0, 0, 0, 0.8);\n"], ["\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 99999;\n  background: rgba(0, 0, 0, 0.8);\n"])));
+
+var List = _styledComponents.default.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  margin: auto;\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n  overflow-y: auto;\n  max-height: 100%;\n\n  display: flex;\n  flex-direction: column;\n"], ["\n  margin: auto;\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n  overflow-y: auto;\n  max-height: 100%;\n\n  display: flex;\n  flex-direction: column;\n"])));
+
+var ListItem = _styledComponents.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  margin-top: 1rem;\n"], ["\n  display: flex;\n  flex-direction: column;\n  margin-top: 1rem;\n"])));
+
+var PaletteList = function PaletteList(props) {
+  return _react.default.createElement(FullScreen, {
+    onClick: function onClick() {}
+  }, _react.default.createElement(List, null, _palettes.default.map(function (_a) {
+    var name = _a.name,
+        black = _a.black,
+        dark_gray = _a.dark_gray,
+        light_gray = _a.light_gray,
+        white = _a.white;
+    return _react.default.createElement(ListItem, {
+      key: name
+    }, _react.default.createElement(_paletteTile.PaletteButton, {
+      onClick: function onClick() {
+        return props.onPaletteSelect(name);
+      },
+      text: name,
+      colors: {
+        black: black,
+        dark_gray: dark_gray,
+        light_gray: light_gray,
+        white: white
+      }
+    }));
+  })));
+};
+
+exports.PaletteList = PaletteList;
+var templateObject_1, templateObject_2, templateObject_3;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./paletteTile":"GameboyCamera/components/paletteTile.tsx","../data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/controls.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41625,6 +41830,12 @@ var _react = _interopRequireWildcard(require("react"));
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _button = require("./components/button");
+
+var _paletteTile = require("./components/paletteTile");
+
+var _paletteList = require("./components/paletteList");
+
+var _palettes = _interopRequireDefault(require("./data/palettes.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41662,6 +41873,8 @@ var StyledSelect = _styledComponents.default.select(templateObject_8 || (templat
 
 var StyledLabel = _styledComponents.default.label(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"], ["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"])));
 
+var StyledPaletteButton = _styledComponents.default.div(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"], ["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"])));
+
 var CameraList = function CameraList(_a) {
   var onChange = _a.onChange,
       cameraList = _a.cameraList;
@@ -41676,9 +41889,21 @@ var CameraList = function CameraList(_a) {
 };
 
 var Controls = function Controls(props) {
-  var _a = (0, _react.useState)(props.cameras),
-      cameraList = _a[0],
-      setCameraList = _a[1];
+  var _a = (0, _react.useState)(false),
+      showPalettes = _a[0],
+      setShowPalettes = _a[1];
+
+  var _b = (0, _react.useState)(props.cameras),
+      cameraList = _b[0],
+      setCameraList = _b[1];
+
+  var _c = (0, _react.useState)("default"),
+      paletteName = _c[0],
+      setPaletteName = _c[1];
+
+  var palette = _palettes.default.find(function (p) {
+    return p.name === paletteName;
+  });
 
   (0, _react.useEffect)(function () {
     setCameraList(props.cameras);
@@ -41700,11 +41925,21 @@ var Controls = function Controls(props) {
     return props.onCameraChange(e.target.value);
   };
 
+  var handlePaletteButton = function handlePaletteButton() {
+    setShowPalettes(true);
+  };
+
   var handleShutterButton = function handleShutterButton() {
     return props.onShutterButton();
   };
 
-  return _react.default.createElement(ControlsRoot, null, _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 1 && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
+  return _react.default.createElement(ControlsRoot, null, showPalettes && _react.default.createElement(_paletteList.PaletteList, {
+    onPaletteSelect: function onPaletteSelect(p) {
+      setShowPalettes(false);
+      setPaletteName(p);
+      props.onPaletteChange(p);
+    }
+  }), _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 1 && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
     cameraList: cameraList,
     onChange: handleCameraChange
   })), _react.default.createElement(StyledLabel, null, "Contrast"), _react.default.createElement("input", {
@@ -41723,15 +41958,19 @@ var Controls = function Controls(props) {
   })), _react.default.createElement(RightColumn, null, _react.default.createElement(StyledLabel, null, "Low Light"), _react.default.createElement("input", {
     type: "checkbox",
     onChange: handleLowLightChanged
-  })))), _react.default.createElement(ShutterContainer, null, _react.default.createElement(_button.LameShutterButton, {
+  }))), _react.default.createElement(StyledPaletteButton, null, _react.default.createElement(_paletteTile.PaletteButton, {
+    onClick: handlePaletteButton,
+    text: "Select Palette",
+    colors: palette
+  }))), _react.default.createElement(ShutterContainer, null, _react.default.createElement(_button.LameShutterButton, {
     onClick: handleShutterButton
   }))));
 };
 
 var _default = Controls;
 exports.default = _default;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./components/button":"GameboyCamera/components/button.tsx"}],"GameboyCamera/highLightDitherMatricies.ts":[function(require,module,exports) {
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./components/button":"GameboyCamera/components/button.tsx","./components/paletteTile":"GameboyCamera/components/paletteTile.tsx","./components/paletteList":"GameboyCamera/components/paletteList.tsx","./data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/highLightDitherMatricies.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41827,7 +42066,76 @@ var ditherFilter = function ditherFilter(imageData, contrast, lowLight) {
 };
 
 exports.ditherFilter = ditherFilter;
-},{"./highLightDitherMatricies":"GameboyCamera/highLightDitherMatricies.ts","./lowLightDitherMatricies":"GameboyCamera/lowLightDitherMatricies.ts"}],"GameboyCamera/filterPipeline.ts":[function(require,module,exports) {
+},{"./highLightDitherMatricies":"GameboyCamera/highLightDitherMatricies.ts","./lowLightDitherMatricies":"GameboyCamera/lowLightDitherMatricies.ts"}],"GameboyCamera/paletteMap.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.paletteMap = void 0;
+var defaultPalette = {
+  name: "default",
+  black: 0x00,
+  dark_gray: 0x55,
+  light_gray: 0xab,
+  white: 0xff
+};
+
+var colorStringToByteArray = function colorStringToByteArray(color) {
+  var r = parseInt("0x" + color.substring(1, 3));
+  var g = parseInt("0x" + color.substring(3, 5));
+  var b = parseInt("0x" + color.substring(5));
+  return [r, g, b];
+};
+
+var convertToBytes = function convertToBytes(p) {
+  return {
+    name: p.name,
+    black: colorStringToByteArray(p.black),
+    dark_gray: colorStringToByteArray(p.dark_gray),
+    light_gray: colorStringToByteArray(p.light_gray),
+    white: colorStringToByteArray(p.white)
+  };
+};
+
+var paletteMap = function paletteMap(imageData, palette) {
+  var bytePalette = convertToBytes(palette);
+  var d = imageData.data;
+
+  for (var i = 0; i < d.length; i += 4) {
+    var color = d[i];
+    var r = color,
+        g = color,
+        b = color;
+
+    if (color === defaultPalette.black) {
+      r = bytePalette.black[0];
+      g = bytePalette.black[1];
+      b = bytePalette.black[2];
+    } else if (color === defaultPalette.dark_gray) {
+      r = bytePalette.dark_gray[0];
+      g = bytePalette.dark_gray[1];
+      b = bytePalette.dark_gray[2];
+    } else if (color === defaultPalette.light_gray) {
+      r = bytePalette.light_gray[0];
+      g = bytePalette.light_gray[1];
+      b = bytePalette.light_gray[2];
+    } else if (color === defaultPalette.white) {
+      r = bytePalette.white[0];
+      g = bytePalette.white[1];
+      b = bytePalette.white[2];
+    }
+
+    d[i] = r;
+    d[i + 1] = g;
+    d[i + 2] = b;
+  }
+
+  return imageData;
+};
+
+exports.paletteMap = paletteMap;
+},{}],"GameboyCamera/filterPipeline.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41836,6 +42144,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.filterPipeline = void 0;
 
 var _dither = require("./dither");
+
+var _paletteMap = require("./paletteMap");
 
 // import Dither from "ditherjs";
 var minMax = function minMax(value, min, max) {
@@ -41889,16 +42199,17 @@ var lumaFilter = function lumaFilter(imageData) {
 var filterPipeline = function filterPipeline(imageData, _a) {
   var brightness = _a.brightness,
       contrast = _a.contrast,
-      lowLight = _a.lowLight;
+      lowLight = _a.lowLight,
+      palette = _a.palette;
   imageData = brightnessFilter(imageData, brightness);
   imageData = lumaFilter(imageData);
-  imageData = (0, _dither.ditherFilter)(imageData, contrast, lowLight); //imageData = paletteMap(imageData, peaGreenPalette);
-
+  imageData = (0, _dither.ditherFilter)(imageData, contrast, lowLight);
+  if (palette) imageData = (0, _paletteMap.paletteMap)(imageData, palette);
   return imageData;
 };
 
 exports.filterPipeline = filterPipeline;
-},{"./dither":"GameboyCamera/dither.ts"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
+},{"./dither":"GameboyCamera/dither.ts","./paletteMap":"GameboyCamera/paletteMap.ts"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41917,6 +42228,8 @@ var _ImageCanvas = _interopRequireDefault(require("./ImageCanvas"));
 var _controls = _interopRequireDefault(require("./controls"));
 
 var _filterPipeline = require("./filterPipeline");
+
+var _palettes = _interopRequireDefault(require("./data/palettes.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42079,7 +42392,7 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
   }
 };
 
-var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-height: 100%;\n  max-height: 100%;\n  margin: auto;\n\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n\n  border: 2px solid #ffcc00;\n  border-radius: 1rem 1rem 4rem 1rem;\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-height: 100%;\n  max-height: 100%;\n  margin: auto;\n\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n\n  border: 2px solid #ffcc00;\n  border-radius: 1rem 1rem 4rem 1rem;\n"])));
+var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  color: white;\n\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-height: 100%;\n  max-height: 100%;\n  margin: auto;\n\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n\n  border: 2px solid #ffcc00;\n  border-radius: 1rem 1rem 4rem 1rem;\n"], ["\n  color: white;\n\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-height: 100%;\n  max-height: 100%;\n  margin: auto;\n\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n\n  border: 2px solid #ffcc00;\n  border-radius: 1rem 1rem 4rem 1rem;\n"])));
 
 var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 1.3rem;\n  font-family: \"nunito\", sans-serif;\n  font-style: italic;\n  font-weight: 900;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n"], ["\n  font-size: 1.3rem;\n  font-family: \"nunito\", sans-serif;\n  font-style: italic;\n  font-weight: 900;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n"])));
 
@@ -42103,6 +42416,7 @@ var GameboyCamera = function GameboyCamera() {
   var contrast = (0, _react.useRef)(7);
   var brightness = (0, _react.useRef)(50);
   var lowLight = (0, _react.useRef)(false);
+  var palette = (0, _react.useRef)();
   var interval = 16;
 
   var updateDevices = function updateDevices() {
@@ -42152,10 +42466,16 @@ var GameboyCamera = function GameboyCamera() {
     var workingCanvas = document.createElement("canvas");
     var ctx = workingCanvas.getContext("2d");
     ctx.drawImage(cameraRef.current, 0, 0);
+
+    var p = _palettes.default.find(function (p) {
+      return p.name === palette.current;
+    });
+
     var imageData = (0, _filterPipeline.filterPipeline)(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
       contrast: contrast.current,
-      lowLight: lowLight.current
+      lowLight: lowLight.current,
+      palette: p
     });
     setFrame(imageData);
   };
@@ -42194,6 +42514,9 @@ var GameboyCamera = function GameboyCamera() {
     cameras: devices,
     onCameraChange: function onCameraChange(c) {
       return setActiveDeviceId(c);
+    },
+    onPaletteChange: function onPaletteChange(p) {
+      return palette.current = p;
     }
   }));
 };
@@ -42201,7 +42524,7 @@ var GameboyCamera = function GameboyCamera() {
 var _default = GameboyCamera;
 exports.default = _default;
 var templateObject_1, templateObject_2, templateObject_3;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./controls":"GameboyCamera/controls.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts"}],"setup.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./controls":"GameboyCamera/controls.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts","./data/palettes.json":"GameboyCamera/data/palettes.json"}],"setup.tsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -42232,7 +42555,7 @@ var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (
 
 var StyledContainer = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n"], ["\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n"])));
 
-var GlobalCSS = (0, _styledComponents.createGlobalStyle)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  :root {\n    font-size: 18px;\n  }\n  body {\n    background: black;//#ffcc00;\n    margin: 0;\n  }\n  * {\n    box-sizing: border-box;\n    color: white;\n    font-family: Nunito, sans-serif;\n  }\n"], ["\n  :root {\n    font-size: 18px;\n  }\n  body {\n    background: black;//#ffcc00;\n    margin: 0;\n  }\n  * {\n    box-sizing: border-box;\n    color: white;\n    font-family: Nunito, sans-serif;\n  }\n"])));
+var GlobalCSS = (0, _styledComponents.createGlobalStyle)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  :root {\n    font-size: 18px;\n  }\n  body {\n    background: black;//#ffcc00;\n    margin: 0;\n  }\n  * {\n    box-sizing: border-box;\n    font-family: Nunito, sans-serif;\n  }\n"], ["\n  :root {\n    font-size: 18px;\n  }\n  body {\n    background: black;//#ffcc00;\n    margin: 0;\n  }\n  * {\n    box-sizing: border-box;\n    font-family: Nunito, sans-serif;\n  }\n"])));
 var app = document.getElementById("app");
 
 var Root = function Root() {
@@ -42269,7 +42592,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53301" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54574" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
