@@ -72,6 +72,13 @@ const StyledControls = styled.div`
   min-width: 100%;
 `;
 
+const StyledViewfinder = styled.div`
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+`;
+
 const GameboyCamera = () => {
   const cameraRef = useRef<HTMLVideoElement>();
 
@@ -137,15 +144,17 @@ const GameboyCamera = () => {
       <StyledH2>
         LAME BOY <span>camera</span>
       </StyledH2>
-      <Camera
-        ref={cameraRef}
-        deviceId={activeDeviceId}
-        frameInterval={interval}
-        hidden
-      />
-      <ImageCanvas frame={frame} />
-      <StyledControls>
+      <StyledViewfinder>
+        <Camera
+          ref={cameraRef}
+          deviceId={activeDeviceId}
+          frameInterval={interval}
+          hidden
+        />
+        <ImageCanvas frame={frame} />
         <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
+      </StyledViewfinder>
+      <StyledControls>
         <StyledLabel>Select Camera</StyledLabel>
         <select
           value={activeDeviceId}

@@ -30,7 +30,7 @@ const Camera = React.forwardRef(
         audio: false,
         video: {
           width: { exact: 128 },
-          height: { exact: 112 },
+          height: { exact: 128 },
           deviceId: deviceId,
         },
       });
