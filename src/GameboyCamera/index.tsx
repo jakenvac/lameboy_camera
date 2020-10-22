@@ -3,73 +3,37 @@ import styled from "styled-components";
 
 import Camera from "./camera";
 import ImageCanvas from "./ImageCanvas";
+import Controls from "./controls";
 import { filterPipeline } from "./filterPipeline";
 
 const StyledGameboyCamera = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 100%;
-  @media (min-width: 600px) {
-    min-width: 80vmin;
+  min-height: 100%;
+  max-height: 100%;
+  margin: auto;
+
+  max-width: 100%;
+  @media (min-width: 500px) {
+    max-width: 80vmin;
   }
-  @media (min-width: 800px) {
-    min-width: 50vmin;
+  @media (min-width: 700px) {
+    max-width: 50vmin;
   }
+
+  border: 2px solid #ffcc00;
+  border-radius: 1rem 1rem 4rem 1rem;
 `;
 
 const StyledH2 = styled.h2`
-  font-size: 30px;
-  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.3rem;
+  font-family: "nunito", sans-serif;
+  font-style: italic;
+  font-weight: 900;
   margin: 0;
   align-text: left;
   width: 100%;
-  span {
-    color: #fff;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-      1px 1px 0 #000;
-    -webkit-text-stroke: 1px black;
-  }
-  margin-left: 20px;
-  margin-right: 20px;
-`;
-
-const StyledLabel = styled.label`
-  margin-top: 10px;
-  font-family: "Nunito Sans", sans-serif;
-`;
-
-const StyledButton = styled.button`
-  border-radius: 30px;
-  border: none;
-  font-family: "Nunito Sans", sans-serif;
-  color: #ffcc00;
-  background: black;
-  font-size: 25px;
-  padding: 5px;
-  border: 5px solid black;
-
-  transition: background 300ms, color 300ms;
-
-  &:hover {
-    color: black;
-    background: #ffcc00;
-    cursor: pointer;
-  }
-
-  margin-bottom: 10px;
-  margin-top: 10px;
-`;
-
-const StyledControls = styled.div`
-  padding: 20px;
-  @media (min-width: 600px) {
-    min-width: padding: none;
-  }
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 100%;
 `;
 
 const StyledViewfinder = styled.div`
@@ -77,23 +41,24 @@ const StyledViewfinder = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 100%;
+  padding: 1rem;
 `;
 
 const GameboyCamera = () => {
   const cameraRef = useRef<HTMLVideoElement>();
 
   const [frame, setFrame] = useState<ImageData>();
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>();
+  const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
   const contrast = useRef<number>(7);
   const brightness = useRef<number>(50);
   const lowLight = useRef<boolean>(false);
-  const [devices, setDevices] = useState<MediaDeviceInfo[]>();
-  const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
 
   const interval = 16;
 
   const updateDevices = async () => {
-    const devices = navigator.mediaDevices.enumerateDevices();
-    const inputs = (await devices).filter((d) => d.kind === "videoinput");
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const inputs = devices.filter((d) => d.kind === "videoinput");
     if (inputs.length > 0) {
       setActiveDeviceId(inputs[0].deviceId);
       setDevices(inputs);
@@ -141,10 +106,10 @@ const GameboyCamera = () => {
 
   return (
     <StyledGameboyCamera>
-      <StyledH2>
-        LAME BOY <span>camera</span>
-      </StyledH2>
       <StyledViewfinder>
+        <StyledH2>
+          LAME BOY <span>camera</span>
+        </StyledH2>
         <Camera
           ref={cameraRef}
           deviceId={activeDeviceId}
@@ -152,57 +117,15 @@ const GameboyCamera = () => {
           hidden
         />
         <ImageCanvas frame={frame} />
-        <StyledButton onClick={() => takePhoto()}>Take Photo</StyledButton>
       </StyledViewfinder>
-      <StyledControls>
-        <StyledLabel>Select Camera</StyledLabel>
-        <select
-          value={activeDeviceId}
-          onChange={(e) => {
-            setActiveDeviceId(e.target.value);
-            console.log(e.target.value);
-          }}
-        >
-          {devices &&
-            devices.map((d) => (
-              <option key={d.deviceId} value={d.deviceId}>
-                {d.label}
-              </option>
-            ))}
-        </select>
-        <StyledLabel htmlFor="contrast">Contrast</StyledLabel>
-        <input
-          name="contrast"
-          type="range"
-          min="0"
-          max="15"
-          value={contrast.current}
-          onChange={(e) =>
-            (contrast.current = (e.target.value as unknown) as number)
-          }
-        />
-        <StyledLabel htmlFor="brightness">Brightness</StyledLabel>
-        <input
-          name="brightness"
-          type="range"
-          min="-100"
-          max="100"
-          step={200 / 16}
-          value={brightness.current}
-          onChange={(e) =>
-            (brightness.current = (e.target.value as unknown) as number)
-          }
-        />
-        <StyledLabel htmlFor="lowLight">Low Light</StyledLabel>
-        <input
-          type="checkbox"
-          checked={lowLight.current}
-          onChange={(e) => {
-            console.log(e.target.value);
-            lowLight.current = e.target.checked;
-          }}
-        />
-      </StyledControls>
+      <Controls
+        onShutterButton={() => takePhoto()}
+        onContrastChange={(c) => (contrast.current = c)}
+        onBrightnessChange={(b) => (brightness.current = b)}
+        onLowLightChange={(l) => (lowLight.current = l)}
+        cameras={devices}
+        onCameraChange={(c) => setActiveDeviceId(c)}
+      />
     </StyledGameboyCamera>
   );
 };
