@@ -1,1 +1,1 @@
-{"short_name":"lbcam","name":"Lameboy Camera","icons":[{"src":"logo192.4c5119a9.png","type":"image/png","sizes":"192x192"}],"start_url":"https://jakehl.github.io/lameboy_camera","display":"standalone","theme_color":"#000000","background_color":"#000000"}
+{"short_name":"lbcam","name":"Lameboy Camera","icons":[{"src":"logo192.4c5119a9.png","type":"image/png","sizes":"192x192"}],"start_url":"https://jakehl.github.io/lameboy_camera","display":"fullscreen","theme_color":"#000000","background_color":"#000000"}
