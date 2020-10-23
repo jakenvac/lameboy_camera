@@ -30776,12 +30776,6 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
             , navigator.mediaDevices.getUserMedia({
               audio: false,
               video: {
-                width: {
-                  exact: 128
-                },
-                height: {
-                  exact: 128
-                },
                 deviceId: deviceId
               }
             })];
@@ -30815,8 +30809,7 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
     },
     autoPlay: true,
     playsInline: true,
-    muted: true,
-    hidden: true
+    muted: true
   }, props)));
 });
 
@@ -42465,7 +42458,12 @@ var GameboyCamera = function GameboyCamera() {
     if (!cameraRef.current) return;
     var workingCanvas = document.createElement("canvas");
     var ctx = workingCanvas.getContext("2d");
-    ctx.drawImage(cameraRef.current, 0, 0);
+    var videoWidth = cameraRef.current.videoWidth;
+    var videoHeight = cameraRef.current.videoHeight;
+    var smallest = videoWidth > videoHeight ? videoHeight : videoWidth;
+    var left = (videoWidth - smallest) / 2;
+    var top = (videoHeight - smallest) / 2;
+    ctx.drawImage(cameraRef.current, left, top, smallest, smallest, 0, 0, 128, 128);
 
     var p = _palettes.default.find(function (p) {
       return p.name === palette.current;
@@ -42592,7 +42590,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54574" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59502" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
