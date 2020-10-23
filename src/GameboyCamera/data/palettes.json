@@ -8,9 +8,40 @@
   },
   {
     "name": "pea soup",
-    "black": "#2d1b00",
-    "dark_gray": "#1e606e",
-    "light_gray": "#5ab9a8",
-    "white": "#c4f0c2"
+    "black": "#0f380f",
+    "dark_gray": "#306230",
+    "light_gray": "#8bac0f",
+    "white": "#9bbc0f"
+  },
+  {
+    "name": "keen",
+    "black": "#000000",
+    "dark_gray": "#E829F0",
+    "light_gray": "#56F7F4",
+    "white": "#ffffff"
+  },
+  {
+    "author": "lospec.com/palette-list/blk-aqu4",
+    "name": "aqua",
+    "black": "#002b59",
+    "dark_gray": "#005f8c",
+    "light_gray": "#00b9be",
+    "white": "#9ff4e5"
+  },
+  {
+    "author": "lospec.com/palette-list/amber-crtgb",
+    "name": "amber",
+    "black": "#0d0405",
+    "dark_gray": "#5e1210",
+    "light_gray": "#d35600",
+    "white": "#fed018"
+  },
+  {
+    "author": "lospec.com/palette-list/spacehaze",
+    "name": "space",
+    "black": "#0b0630",
+    "dark_gray": "#6b1fb1",
+    "light_gray": "#cc3495",
+    "white": "#f8e3c4"
   }
 ]
