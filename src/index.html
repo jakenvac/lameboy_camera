@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,800&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,800&display=swap");
   </style>
   <head>
+    <link rel="manifest" href="manifest.json" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lameboy Camera</title>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListiner("load", () => {
+          navigator.serviceWorker
+            .register("sw.js")
+            .then((registration) => {
+              console.log(
+                `service worker registered succesfully ${registration}`
+              );
+            })
+            .catch((err) => {
+              console.log(`Error registring ${err}`);
+            });
+        });
+      } else {
+        console.log(`Service worker is not supported in this browser.`);
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
