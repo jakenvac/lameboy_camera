@@ -29,8 +29,6 @@ const Camera = React.forwardRef(
       const s = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
-          width: { exact: 128 },
-          height: { exact: 128 },
           deviceId: deviceId,
         },
       });
@@ -55,7 +53,6 @@ const Camera = React.forwardRef(
           autoPlay
           playsInline
           muted
-          hidden
           {...props}
         />
       </>

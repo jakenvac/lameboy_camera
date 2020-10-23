@@ -89,7 +89,24 @@ const GameboyCamera = () => {
     if (!cameraRef.current) return;
     const workingCanvas = document.createElement("canvas");
     const ctx = workingCanvas.getContext("2d");
-    ctx.drawImage(cameraRef.current, 0, 0);
+
+    const videoWidth = cameraRef.current.videoWidth;
+    const videoHeight = cameraRef.current.videoHeight;
+    const smallest = videoWidth > videoHeight ? videoHeight : videoWidth;
+    const left = (videoWidth - smallest) / 2;
+    const top = (videoHeight - smallest) / 2;
+
+    ctx.drawImage(
+      cameraRef.current,
+      left,
+      top,
+      smallest,
+      smallest,
+      0,
+      0,
+      128,
+      128
+    );
     const p = palettes.find((p) => p.name === palette.current);
     const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
