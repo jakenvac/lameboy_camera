@@ -30745,7 +30745,8 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
 var Camera = _react.default.forwardRef(function (_a, ref) {
   var deviceId = _a.deviceId,
       frameInterval = _a.frameInterval,
-      props = __rest(_a, ["deviceId", "frameInterval"]);
+      setFacingCallback = _a.setFacingCallback,
+      props = __rest(_a, ["deviceId", "frameInterval", "setFacingCallback"]);
 
   var videoRef = ref !== null && ref !== void 0 ? ref : (0, _react.useRef)();
 
@@ -30766,7 +30767,7 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
 
   var setUp = function setUp() {
     return __awaiter(void 0, void 0, void 0, function () {
-      var s;
+      var s, facing;
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
@@ -30786,6 +30787,8 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
             if (s && videoRef.current) {
               setStream(s);
               videoRef.current.srcObject = s;
+              facing = s.getVideoTracks()[0].getSettings().facingMode;
+              setFacingCallback(facing === 'user' ? 'front' : 'back');
             }
 
             return [2
@@ -30854,14 +30857,14 @@ var ImageCanvas = function ImageCanvas(_a) {
   var canvasRef = (0, _react.useRef)();
   (0, _react.useEffect)(function () {
     if (!frame || !frame.data) return;
-    var ctx = canvasRef.current.getContext("2d");
+    var ctx = canvasRef.current.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     ctx.putImageData(frame, 0, 0);
   }, [frame]);
   return _react.default.createElement(StyledSquare, null, _react.default.createElement(StyledCanvas, {
     ref: canvasRef,
-    width: 128,
-    height: 112
+    width: frame === null || frame === void 0 ? void 0 : frame.width,
+    height: frame === null || frame === void 0 ? void 0 : frame.height
   }));
 };
 
@@ -42414,7 +42417,7 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
 
 var StyledGameboyCamera = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  color: white;\n\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-height: 100%;\n  max-height: 100%;\n  margin: auto;\n\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n\n  border: 2px solid #ffcc00;\n  border-radius: 1rem 1rem 4rem 1rem;\n"], ["\n  color: white;\n\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n  min-height: 100%;\n  max-height: 100%;\n  margin: auto;\n\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n\n  border: 2px solid #ffcc00;\n  border-radius: 1rem 1rem 4rem 1rem;\n"])));
 
-var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 1.3rem;\n  font-family: \"nunito\", sans-serif;\n  font-style: italic;\n  font-weight: 900;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n"], ["\n  font-size: 1.3rem;\n  font-family: \"nunito\", sans-serif;\n  font-style: italic;\n  font-weight: 900;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n"])));
+var StyledH2 = _styledComponents.default.h2(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  font-size: 1.3rem;\n  font-family: 'nunito', sans-serif;\n  font-style: italic;\n  font-weight: 900;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n"], ["\n  font-size: 1.3rem;\n  font-family: 'nunito', sans-serif;\n  font-style: italic;\n  font-weight: 900;\n  margin: 0;\n  align-text: left;\n  width: 100%;\n"])));
 
 var StyledViewfinder = _styledComponents.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  flex-shrink: 0;\n  display: flex;\n  flex-direction: column;\n  min-width: 100%;\n  padding: 1rem;\n"], ["\n  flex-shrink: 0;\n  display: flex;\n  flex-direction: column;\n  min-width: 100%;\n  padding: 1rem;\n"])));
 
@@ -42437,6 +42440,7 @@ var GameboyCamera = function GameboyCamera() {
   var brightness = (0, _react.useRef)(50);
   var lowLight = (0, _react.useRef)(false);
   var palette = (0, _react.useRef)();
+  var facing = (0, _react.useRef)('front');
   var interval = 16;
 
   var updateDevices = function updateDevices() {
@@ -42452,7 +42456,7 @@ var GameboyCamera = function GameboyCamera() {
           case 1:
             devices = _a.sent();
             inputs = devices.filter(function (d) {
-              return d.kind === "videoinput";
+              return d.kind === 'videoinput';
             });
 
             if (inputs.length > 0) {
@@ -42469,12 +42473,12 @@ var GameboyCamera = function GameboyCamera() {
   };
 
   var takePhoto = function takePhoto() {
-    var workingCanvas = document.createElement("canvas");
+    var workingCanvas = document.createElement('canvas');
     workingCanvas.width = 128;
     workingCanvas.height = 112;
-    var ctx = workingCanvas.getContext("2d");
+    var ctx = workingCanvas.getContext('2d');
     ctx.putImageData(frame, 0, 0);
-    var link = document.createElement("a");
+    var link = document.createElement('a');
     var today = new Date();
     link.download = "lbc_" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + "_" + today.getMilliseconds() + ".png";
     link.href = workingCanvas.toDataURL();
@@ -42483,13 +42487,19 @@ var GameboyCamera = function GameboyCamera() {
 
   var updateFrame = function updateFrame() {
     if (!cameraRef.current) return;
-    var workingCanvas = document.createElement("canvas");
-    var ctx = workingCanvas.getContext("2d");
+    var workingCanvas = document.createElement('canvas');
+    var ctx = workingCanvas.getContext('2d');
     var videoWidth = cameraRef.current.videoWidth;
     var videoHeight = cameraRef.current.videoHeight;
     var smallest = videoWidth > videoHeight ? videoHeight : videoWidth;
     var left = (videoWidth - smallest) / 2;
     var top = (videoHeight - smallest) / 2;
+
+    if (facing.current == 'front') {
+      ctx.translate(128, 0);
+      ctx.scale(-1, 1);
+    }
+
     ctx.drawImage(cameraRef.current, left, top, smallest, smallest, 0, 0, 128, 128);
 
     var p = _palettes.default.find(function (p) {
@@ -42520,6 +42530,9 @@ var GameboyCamera = function GameboyCamera() {
     ref: cameraRef,
     deviceId: activeDeviceId,
     frameInterval: interval,
+    setFacingCallback: function setFacingCallback(f) {
+      return facing.current = f;
+    },
     hidden: true
   }), _react.default.createElement(_ImageCanvas.default, {
     frame: frame
@@ -42578,7 +42591,7 @@ var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (
   return cooked;
 };
 
-var StyledContainer = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n"], ["\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n"])));
+var StyledContainer = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  padding: 1rem;\n"], ["\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  padding: 1rem;\n"])));
 
 var GlobalCSS = (0, _styledComponents.createGlobalStyle)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  :root {\n    font-size: 18px;\n  }\n  body {\n    background: black;//#ffcc00;\n    margin: 0;\n  }\n  * {\n    box-sizing: border-box;\n    font-family: Nunito, sans-serif;\n  }\n"], ["\n  :root {\n    font-size: 18px;\n  }\n  body {\n    background: black;//#ffcc00;\n    margin: 0;\n  }\n  * {\n    box-sizing: border-box;\n    font-family: Nunito, sans-serif;\n  }\n"])));
 var app = document.getElementById("app");
@@ -42617,7 +42630,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61711" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64092" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
