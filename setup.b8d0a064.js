@@ -41775,6 +41775,18 @@ module.exports = [{
   "dark_gray": "#6b1fb1",
   "light_gray": "#cc3495",
   "white": "#f8e3c4"
+}, {
+  "name": "maroon",
+  "black": "#230000",
+  "dark_gray": "#a73d3c",
+  "light_gray": "#c19595",
+  "white": "#e8c4ad"
+}, {
+  "name": "infra",
+  "black": "#100000",
+  "dark_gray": "#550000",
+  "light_gray": "#ab0000",
+  "white": "#ff0000"
 }];
 },{}],"GameboyCamera/components/paletteList.tsx":[function(require,module,exports) {
 "use strict";
@@ -42630,7 +42642,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64092" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49990" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
