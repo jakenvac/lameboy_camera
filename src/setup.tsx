@@ -9,6 +9,7 @@ const StyledContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
+  padding: 1rem;
 `;
 
 const GlobalCSS = createGlobalStyle`

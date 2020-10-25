@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
 const StyledSquare = styled.div`
   width: 100%;
@@ -27,14 +27,18 @@ const ImageCanvas = ({ frame }: ImageCanvasProps) => {
 
   useEffect(() => {
     if (!frame || !frame.data) return;
-    const ctx = canvasRef.current.getContext("2d");
+    const ctx = canvasRef.current.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     ctx.putImageData(frame, 0, 0);
   }, [frame]);
 
   return (
     <StyledSquare>
-      <StyledCanvas ref={canvasRef} width={128} height={112} />
+      <StyledCanvas
+        ref={canvasRef}
+        width={frame?.width}
+        height={frame?.height}
+      />
     </StyledSquare>
   );
 };

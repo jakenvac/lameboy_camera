@@ -26,7 +26,6 @@
   "scripts": {
     "dev": "parcel serve ./src/index.html",
     "build": "parcel build ./src/index.html --public-url ./",
-    "postbuild": "copyfiles -f ./src/logo192.png ./dist/",
     "deploy": "gh-pages -d ./dist"
   }
 }

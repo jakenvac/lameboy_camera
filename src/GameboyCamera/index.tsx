@@ -1,12 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useRef, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import Camera from "./camera";
-import ImageCanvas from "./ImageCanvas";
-import Controls from "./controls";
-import { filterPipeline } from "./filterPipeline";
+import Camera from './camera';
+import ImageCanvas from './ImageCanvas';
+import Controls from './controls';
+import { filterPipeline } from './filterPipeline';
 
-import palettes from "./data/palettes.json";
+import palettes from './data/palettes.json';
 
 const StyledGameboyCamera = styled.div`
   color: white;
@@ -32,7 +32,7 @@ const StyledGameboyCamera = styled.div`
 
 const StyledH2 = styled.h2`
   font-size: 1.3rem;
-  font-family: "nunito", sans-serif;
+  font-family: 'nunito', sans-serif;
   font-style: italic;
   font-weight: 900;
   margin: 0;
@@ -58,12 +58,13 @@ const GameboyCamera = () => {
   const brightness = useRef<number>(50);
   const lowLight = useRef<boolean>(false);
   const palette = useRef<string>();
+  const facing = useRef<string>('front');
 
   const interval = 16;
 
   const updateDevices = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
-    const inputs = devices.filter((d) => d.kind === "videoinput");
+    const inputs = devices.filter((d) => d.kind === 'videoinput');
     if (inputs.length > 0) {
       setActiveDeviceId(inputs[0].deviceId);
       setDevices(inputs);
@@ -71,12 +72,12 @@ const GameboyCamera = () => {
   };
 
   const takePhoto = () => {
-    const workingCanvas = document.createElement("canvas");
+    const workingCanvas = document.createElement('canvas');
     workingCanvas.width = 128;
     workingCanvas.height = 112;
-    const ctx = workingCanvas.getContext("2d");
+    const ctx = workingCanvas.getContext('2d');
     ctx.putImageData(frame, 0, 0);
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     const today = new Date();
     link.download = `lbc_${today.getFullYear()}_${
       today.getMonth() + 1
@@ -87,14 +88,19 @@ const GameboyCamera = () => {
 
   const updateFrame = () => {
     if (!cameraRef.current) return;
-    const workingCanvas = document.createElement("canvas");
-    const ctx = workingCanvas.getContext("2d");
+    const workingCanvas = document.createElement('canvas');
+    const ctx = workingCanvas.getContext('2d');
 
     const videoWidth = cameraRef.current.videoWidth;
     const videoHeight = cameraRef.current.videoHeight;
     const smallest = videoWidth > videoHeight ? videoHeight : videoWidth;
     const left = (videoWidth - smallest) / 2;
     const top = (videoHeight - smallest) / 2;
+
+    if (facing.current == 'front') {
+      ctx.translate(128, 0);
+      ctx.scale(-1, 1);
+    }
 
     ctx.drawImage(
       cameraRef.current,
@@ -105,8 +111,9 @@ const GameboyCamera = () => {
       0,
       0,
       128,
-      128
+      128,
     );
+
     const p = palettes.find((p) => p.name === palette.current);
     const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
@@ -138,6 +145,7 @@ const GameboyCamera = () => {
           ref={cameraRef}
           deviceId={activeDeviceId}
           frameInterval={interval}
+          setFacingCallback={(f) => (facing.current = f)}
           hidden
         />
         <ImageCanvas frame={frame} />
