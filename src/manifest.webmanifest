@@ -8,8 +8,8 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
+  "start_url": "https://jakehl.github.io/lameboy_camera",
+  "display": "fullscreen",
   "theme_color": "#000000",
   "background_color": "#000000"
 }
