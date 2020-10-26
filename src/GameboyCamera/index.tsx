@@ -86,7 +86,7 @@ const GameboyCamera = () => {
     workingCanvas.width = 160;
     workingCanvas.height = 144;
     const ctx = workingCanvas.getContext('2d');
-    ctx.putImageData(capture.current, 0, 0);
+    ctx.putImageData(composite, 0, 0);
     const link = document.createElement('a');
     const today = new Date();
     link.download = `lbc_${today.getFullYear()}_${
