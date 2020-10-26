@@ -14,24 +14,26 @@ const StyledGameboyCamera = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: 100%;
   max-height: 100%;
   margin: auto;
 
-  max-width: 100%;
+  min-width: 100%;
   @media (min-width: 500px) {
-    max-width: 80vmin;
+    min-width: 80vmin;
   }
   @media (min-width: 700px) {
-    max-width: 50vmin;
+    min-width: 50vmin;
   }
 
   border: 2px solid #ffcc00;
   border-radius: 1rem 1rem 4rem 1rem;
 `;
 
-const StyledH2 = styled.h2`
-  font-size: 1.3rem;
+const Title = styled.h1`
+  position: absolute;
+  bottom: 0.2rem;
+  left: 0.5rem;
+  font-size: 1rem;
   font-family: 'nunito', sans-serif;
   font-style: italic;
   font-weight: 900;
@@ -41,11 +43,16 @@ const StyledH2 = styled.h2`
 `;
 
 const StyledViewfinder = styled.div`
+  position: relative;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  min-width: 100%;
-  padding: 1rem;
+  border: 1px solid #ffcc00;
+  padding: 2rem;
+  padding-top: 1.5rem;
+  margin: 1rem;
+  border-radius: 0.5rem 0.5rem 3rem 0.5rem;
+  background: #222;
 `;
 
 const GameboyCamera = () => {
@@ -73,8 +80,8 @@ const GameboyCamera = () => {
 
   const takePhoto = () => {
     const workingCanvas = document.createElement('canvas');
-    workingCanvas.width = 128;
-    workingCanvas.height = 112;
+    workingCanvas.width = 160;
+    workingCanvas.height = 144;
     const ctx = workingCanvas.getContext('2d');
     ctx.putImageData(frame, 0, 0);
     const link = document.createElement('a');
@@ -138,9 +145,6 @@ const GameboyCamera = () => {
   return (
     <StyledGameboyCamera>
       <StyledViewfinder>
-        <StyledH2>
-          LAME BOY <span>camera</span>
-        </StyledH2>
         <Camera
           ref={cameraRef}
           deviceId={activeDeviceId}
@@ -149,6 +153,7 @@ const GameboyCamera = () => {
           hidden
         />
         <ImageCanvas frame={frame} />
+        <Title>LAME BOY camera</Title>
       </StyledViewfinder>
       <Controls
         onShutterButton={() => takePhoto()}

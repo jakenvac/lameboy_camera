@@ -1,7 +1,8 @@
 // import Dither from "ditherjs";
 
-import { ditherFilter } from "./dither";
-import { paletteMap, palette } from "./paletteMap";
+import { ditherFilter } from './dither';
+import { paletteMap, palette } from './paletteMap';
+import addFrame from './addFrame';
 
 type filterOptions = {
   brightness: number;
@@ -58,11 +59,12 @@ const lumaFilter = (imageData: ImageData) => {
 
 const filterPipeline = (
   imageData: ImageData,
-  { brightness, contrast, lowLight, palette }: filterOptions
+  { brightness, contrast, lowLight, palette }: filterOptions,
 ) => {
   imageData = brightnessFilter(imageData, brightness);
   imageData = lumaFilter(imageData);
   imageData = ditherFilter(imageData, contrast, lowLight);
+  imageData = addFrame(imageData, 'lameboy');
   if (palette) imageData = paletteMap(imageData, palette);
   return imageData;
 };

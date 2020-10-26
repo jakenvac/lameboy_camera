@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const StyledSquare = styled.div`
+const StyledSquare = styled.div<{ ratio: number }>`
   width: 100%;
-  padding-top: 87.5%;
+  padding-top: ${(p) => p.ratio * 100}%;
   position: relative;
 `;
 
@@ -33,7 +33,7 @@ const ImageCanvas = ({ frame }: ImageCanvasProps) => {
   }, [frame]);
 
   return (
-    <StyledSquare>
+    <StyledSquare ratio={frame && frame?.height / frame?.width}>
       <StyledCanvas
         ref={canvasRef}
         width={frame?.width}

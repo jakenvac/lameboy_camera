@@ -1,6 +1,6 @@
-import React from "react";
-import { render } from "react-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import React from 'react';
+import { render } from 'react-dom';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const StyledContainer = styled.div`
   overflow: hidden;
@@ -10,6 +10,28 @@ const StyledContainer = styled.div`
   left: 0;
   right: 0;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+const StyledFooter = styled.footer`
+  font-family: nunito, sans-serif;
+  color: #ccc;
+  text-align: center;
+  font-size: 0.8rem;
+
+  a {
+    color: #ccc;
+    &:visited {
+      color: #ccc;
+    }
+    &:hover,
+    &:active {
+      cursor: pointer;
+      color: white;
+    }
+  }
 `;
 
 const GlobalCSS = createGlobalStyle`
@@ -26,15 +48,19 @@ const GlobalCSS = createGlobalStyle`
   }
 `;
 
-import Camera from "./GameboyCamera";
+import Camera from './GameboyCamera';
 
-const app = document.getElementById("app");
+const app = document.getElementById('app');
 
 const Root = () => {
   return (
     <StyledContainer>
       <GlobalCSS />
       <Camera />
+      <StyledFooter>
+        &copy; jakenvac {new Date().getFullYear()} |{' '}
+        <a href="https://github.com/jakehl/lameboy_camera">github</a>
+      </StyledFooter>
     </StyledContainer>
   );
 };
