@@ -30852,23 +30852,28 @@ var StyledSquare = _styledComponents.default.div(templateObject_1 || (templateOb
   return p.ratio * 100;
 });
 
-var StyledCanvas = _styledComponents.default.canvas(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n  background: black;\n"], ["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n  background: black;\n"])));
+var StyledCanvas = _styledComponents.default.canvas(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n"], ["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n"])));
 
 var ImageCanvas = function ImageCanvas(_a) {
-  var frame = _a.frame;
+  var scene = _a.scene;
   var canvasRef = (0, _react.useRef)();
-  (0, _react.useEffect)(function () {
-    if (!frame || !frame.data) return;
+
+  var insertScene = function insertScene() {
     var ctx = canvasRef.current.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    ctx.putImageData(frame, 0, 0);
-  }, [frame]);
+    ctx.putImageData(scene, 0, 0);
+  };
+
+  (0, _react.useEffect)(function () {
+    if (!scene || !scene.data) return;
+    insertScene();
+  }, [scene]);
   return _react.default.createElement(StyledSquare, {
-    ratio: frame && (frame === null || frame === void 0 ? void 0 : frame.height) / (frame === null || frame === void 0 ? void 0 : frame.width)
+    ratio: 144 / 160
   }, _react.default.createElement(StyledCanvas, {
     ref: canvasRef,
-    width: frame === null || frame === void 0 ? void 0 : frame.width,
-    height: frame === null || frame === void 0 ? void 0 : frame.height
+    width: 160,
+    height: 144
   }));
 };
 
@@ -41856,7 +41861,203 @@ var PaletteList = function PaletteList(props) {
 
 exports.PaletteList = PaletteList;
 var templateObject_1, templateObject_2, templateObject_3;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./paletteTile":"GameboyCamera/components/paletteTile.tsx","../data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/controls.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./paletteTile":"GameboyCamera/components/paletteTile.tsx","../data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/data/frames/lameboy.png":[function(require,module,exports) {
+module.exports = "/lameboy.2a944b23.png";
+},{}],"GameboyCamera/data/frames/simtendo.png":[function(require,module,exports) {
+module.exports = "/simtendo.c90be598.png";
+},{}],"GameboyCamera/data/frames/black.png":[function(require,module,exports) {
+module.exports = "/black.3b487db8.png";
+},{}],"GameboyCamera/data/frames/film.png":[function(require,module,exports) {
+module.exports = "/film.f60e83bd.png";
+},{}],"GameboyCamera/data/frames/reddit.png":[function(require,module,exports) {
+module.exports = "/reddit.c13e4522.png";
+},{}],"GameboyCamera/data/frames/index.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _lameboy = _interopRequireDefault(require("./lameboy.png"));
+
+var _simtendo = _interopRequireDefault(require("./simtendo.png"));
+
+var _black = _interopRequireDefault(require("./black.png"));
+
+var _film = _interopRequireDefault(require("./film.png"));
+
+var _reddit = _interopRequireDefault(require("./reddit.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var lameboy = {
+  name: 'Lameboy',
+  resource: _lameboy.default
+};
+var film = {
+  name: 'Film',
+  resource: _film.default
+};
+var simtendo = {
+  name: 'Simtendo',
+  resource: _simtendo.default
+};
+var none = {
+  name: 'None',
+  resource: _black.default
+};
+var reddit = {
+  name: 'Reddit',
+  resource: _reddit.default
+};
+var frameDictionary = {
+  lameboy: lameboy,
+  film: film,
+  simtendo: simtendo,
+  none: none,
+  reddit: reddit
+};
+var _default = frameDictionary;
+exports.default = _default;
+},{"./lameboy.png":"GameboyCamera/data/frames/lameboy.png","./simtendo.png":"GameboyCamera/data/frames/simtendo.png","./black.png":"GameboyCamera/data/frames/black.png","./film.png":"GameboyCamera/data/frames/film.png","./reddit.png":"GameboyCamera/data/frames/reddit.png"}],"GameboyCamera/components/frameButton.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FrameButton = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _button = require("./button");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __rest = void 0 && (void 0).__rest || function (s, e) {
+  var t = {};
+
+  for (var p in s) {
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  }
+
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+var Row = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n"], ["\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n"])));
+
+var Text = _styledComponents.default.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  align-text: center;\n  flex: 1;\n  justify-content: center;\n  align-items: center;\n  display: flex;\n"], ["\n  align-text: center;\n  flex: 1;\n  justify-content: center;\n  align-items: center;\n  display: flex;\n"])));
+
+var Image = _styledComponents.default.img(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  width: ", ";\n"], ["\n  width: ", ";\n"])), function (p) {
+  return p.preview === 'lg' ? '50%' : '4rem';
+});
+
+var FrameButton = function FrameButton(_a) {
+  var text = _a.text,
+      imageSrc = _a.imageSrc,
+      size = _a.size,
+      props = __rest(_a, ["text", "imageSrc", "size"]);
+
+  return _react.default.createElement(_button.LameButtonInverted, __assign({
+    color: "white"
+  }, props), _react.default.createElement(Row, null, _react.default.createElement(Image, {
+    preview: size,
+    src: imageSrc
+  }), _react.default.createElement(Text, null, text)));
+};
+
+exports.FrameButton = FrameButton;
+var templateObject_1, templateObject_2, templateObject_3;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./button":"GameboyCamera/components/button.tsx"}],"GameboyCamera/components/frameList.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FrameList = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _frames = _interopRequireDefault(require("../data/frames"));
+
+var _frameButton = require("./frameButton");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
+
+var FullScreen = _styledComponents.default.div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 99999;\n  background: rgba(0, 0, 0, 0.8);\n"], ["\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 99999;\n  background: rgba(0, 0, 0, 0.8);\n"])));
+
+var List = _styledComponents.default.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  margin: auto;\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n  overflow-y: auto;\n  max-height: 100%;\n\n  display: flex;\n  flex-direction: column;\n"], ["\n  margin: auto;\n  max-width: 100%;\n  @media (min-width: 500px) {\n    max-width: 80vmin;\n  }\n  @media (min-width: 700px) {\n    max-width: 50vmin;\n  }\n  overflow-y: auto;\n  max-height: 100%;\n\n  display: flex;\n  flex-direction: column;\n"])));
+
+var ListItem = _styledComponents.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  margin-top: 1rem;\n"], ["\n  display: flex;\n  flex-direction: column;\n  margin-top: 1rem;\n"])));
+
+var FrameList = function FrameList(props) {
+  var f = Object.keys(_frames.default);
+  return _react.default.createElement(FullScreen, {
+    onClick: function onClick() {}
+  }, _react.default.createElement(List, null, f.map(function (f) {
+    return _react.default.createElement(ListItem, {
+      key: f
+    }, _react.default.createElement(_frameButton.FrameButton, {
+      onClick: function onClick() {
+        return props.onFrameSelect(f);
+      },
+      text: f,
+      imageSrc: _frames.default[f].resource,
+      size: 'lg'
+    }));
+  })));
+};
+
+exports.FrameList = FrameList;
+var templateObject_1, templateObject_2, templateObject_3;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","../data/frames":"GameboyCamera/data/frames/index.ts","./frameButton":"GameboyCamera/components/frameButton.tsx"}],"GameboyCamera/controls.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41874,7 +42075,13 @@ var _paletteTile = require("./components/paletteTile");
 
 var _paletteList = require("./components/paletteList");
 
+var _frames = _interopRequireDefault(require("./data/frames"));
+
 var _palettes = _interopRequireDefault(require("./data/palettes.json"));
+
+var _frameButton = require("./components/frameButton");
+
+var _frameList = require("./components/frameList");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41912,7 +42119,7 @@ var StyledSelect = _styledComponents.default.select(templateObject_8 || (templat
 
 var StyledLabel = _styledComponents.default.label(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"], ["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"])));
 
-var StyledPaletteButton = _styledComponents.default.div(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"], ["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"])));
+var ButtonContainer = _styledComponents.default.div(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"], ["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"])));
 
 var CameraList = function CameraList(_a) {
   var onChange = _a.onChange,
@@ -41932,17 +42139,25 @@ var Controls = function Controls(props) {
       showPalettes = _a[0],
       setShowPalettes = _a[1];
 
-  var _b = (0, _react.useState)(props.cameras),
-      cameraList = _b[0],
-      setCameraList = _b[1];
+  var _b = (0, _react.useState)(false),
+      showFrames = _b[0],
+      setShowFrames = _b[1];
 
-  var _c = (0, _react.useState)("default"),
-      paletteName = _c[0],
-      setPaletteName = _c[1];
+  var _c = (0, _react.useState)(props.cameras),
+      cameraList = _c[0],
+      setCameraList = _c[1];
+
+  var _d = (0, _react.useState)('default'),
+      paletteName = _d[0],
+      setPaletteName = _d[1];
 
   var palette = _palettes.default.find(function (p) {
     return p.name === paletteName;
   });
+
+  var _e = (0, _react.useState)('lameboy'),
+      frameName = _e[0],
+      setFrameName = _e[1];
 
   (0, _react.useEffect)(function () {
     setCameraList(props.cameras);
@@ -41968,6 +42183,10 @@ var Controls = function Controls(props) {
     setShowPalettes(true);
   };
 
+  var handleFrameButton = function handleFrameButton() {
+    setShowFrames(true);
+  };
+
   var handleShutterButton = function handleShutterButton() {
     return props.onShutterButton();
   };
@@ -41977,6 +42196,12 @@ var Controls = function Controls(props) {
       setShowPalettes(false);
       setPaletteName(p);
       props.onPaletteChange(p);
+    }
+  }), showFrames && _react.default.createElement(_frameList.FrameList, {
+    onFrameSelect: function onFrameSelect(f) {
+      setShowFrames(false);
+      setFrameName(f);
+      props.onFrameChange(f);
     }
   }), _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 1 && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
     cameraList: cameraList,
@@ -41997,10 +42222,15 @@ var Controls = function Controls(props) {
   })), _react.default.createElement(RightColumn, null, _react.default.createElement(StyledLabel, null, "Low Light"), _react.default.createElement("input", {
     type: "checkbox",
     onChange: handleLowLightChanged
-  }))), _react.default.createElement(StyledPaletteButton, null, _react.default.createElement(_paletteTile.PaletteButton, {
+  }))), _react.default.createElement(ButtonContainer, null, _react.default.createElement(_paletteTile.PaletteButton, {
     onClick: handlePaletteButton,
-    text: "Select Palette",
+    text: 'Select Palette',
     colors: palette
+  })), _react.default.createElement(ButtonContainer, null, _react.default.createElement(_frameButton.FrameButton, {
+    onClick: handleFrameButton,
+    text: 'Select Frame',
+    imageSrc: _frames.default[frameName].resource,
+    size: 'sm'
   }))), _react.default.createElement(ShutterContainer, null, _react.default.createElement(_button.LameShutterButton, {
     onClick: handleShutterButton
   }))));
@@ -42009,7 +42239,7 @@ var Controls = function Controls(props) {
 var _default = Controls;
 exports.default = _default;
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./components/button":"GameboyCamera/components/button.tsx","./components/paletteTile":"GameboyCamera/components/paletteTile.tsx","./components/paletteList":"GameboyCamera/components/paletteList.tsx","./data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/highLightDitherMatricies.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./components/button":"GameboyCamera/components/button.tsx","./components/paletteTile":"GameboyCamera/components/paletteTile.tsx","./components/paletteList":"GameboyCamera/components/paletteList.tsx","./data/frames":"GameboyCamera/data/frames/index.ts","./data/palettes.json":"GameboyCamera/data/palettes.json","./components/frameButton":"GameboyCamera/components/frameButton.tsx","./components/frameList":"GameboyCamera/components/frameList.tsx"}],"GameboyCamera/highLightDitherMatricies.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42105,144 +42335,7 @@ var ditherFilter = function ditherFilter(imageData, contrast, lowLight) {
 };
 
 exports.ditherFilter = ditherFilter;
-},{"./highLightDitherMatricies":"GameboyCamera/highLightDitherMatricies.ts","./lowLightDitherMatricies":"GameboyCamera/lowLightDitherMatricies.ts"}],"GameboyCamera/paletteMap.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.paletteMap = void 0;
-var defaultPalette = {
-  name: "default",
-  black: 0x00,
-  dark_gray: 0x55,
-  light_gray: 0xab,
-  white: 0xff
-};
-
-var colorStringToByteArray = function colorStringToByteArray(color) {
-  var r = parseInt("0x" + color.substring(1, 3));
-  var g = parseInt("0x" + color.substring(3, 5));
-  var b = parseInt("0x" + color.substring(5));
-  return [r, g, b];
-};
-
-var convertToBytes = function convertToBytes(p) {
-  return {
-    name: p.name,
-    black: colorStringToByteArray(p.black),
-    dark_gray: colorStringToByteArray(p.dark_gray),
-    light_gray: colorStringToByteArray(p.light_gray),
-    white: colorStringToByteArray(p.white)
-  };
-};
-
-var paletteMap = function paletteMap(imageData, palette) {
-  var bytePalette = convertToBytes(palette);
-  var d = imageData.data;
-
-  for (var i = 0; i < d.length; i += 4) {
-    var color = d[i];
-    var r = color,
-        g = color,
-        b = color;
-
-    if (color === defaultPalette.black) {
-      r = bytePalette.black[0];
-      g = bytePalette.black[1];
-      b = bytePalette.black[2];
-    } else if (color === defaultPalette.dark_gray) {
-      r = bytePalette.dark_gray[0];
-      g = bytePalette.dark_gray[1];
-      b = bytePalette.dark_gray[2];
-    } else if (color === defaultPalette.light_gray) {
-      r = bytePalette.light_gray[0];
-      g = bytePalette.light_gray[1];
-      b = bytePalette.light_gray[2];
-    } else if (color === defaultPalette.white) {
-      r = bytePalette.white[0];
-      g = bytePalette.white[1];
-      b = bytePalette.white[2];
-    }
-
-    d[i] = r;
-    d[i + 1] = g;
-    d[i + 2] = b;
-  }
-
-  return imageData;
-};
-
-exports.paletteMap = paletteMap;
-},{}],"GameboyCamera/data/frames/simtendo.png":[function(require,module,exports) {
-module.exports = "/simtendo.c90be598.png";
-},{}],"GameboyCamera/data/frames/reddit.png":[function(require,module,exports) {
-module.exports = "/reddit.c13e4522.png";
-},{}],"GameboyCamera/data/frames/lameboy.png":[function(require,module,exports) {
-module.exports = "/lameboy.2a944b23.png";
-},{}],"GameboyCamera/data/frames/index.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _simtendo = _interopRequireDefault(require("./simtendo.png"));
-
-var _reddit = _interopRequireDefault(require("./reddit.png"));
-
-var _lameboy = _interopRequireDefault(require("./lameboy.png"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var simtendo = {
-  name: 'Simtendo',
-  resource: _simtendo.default
-};
-var reddit = {
-  name: 'Reddit',
-  resource: _reddit.default
-};
-var lameboy = {
-  name: 'Lameboy',
-  resource: _lameboy.default
-};
-var frameDictionary = {
-  simtendo: simtendo,
-  reddit: reddit,
-  lameboy: lameboy
-};
-var _default = frameDictionary;
-exports.default = _default;
-},{"./simtendo.png":"GameboyCamera/data/frames/simtendo.png","./reddit.png":"GameboyCamera/data/frames/reddit.png","./lameboy.png":"GameboyCamera/data/frames/lameboy.png"}],"GameboyCamera/addFrame.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _frames = _interopRequireDefault(require("./data/frames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var addFrame = function addFrame(imageData, frameName) {
-  var frame = _frames.default[frameName.toLowerCase()];
-
-  if (!frame || !frame.resource) return imageData;
-  var frameImage = document.createElement('img');
-  frameImage.src = frame.resource;
-  var canvas = document.createElement('canvas');
-  var ctx = canvas.getContext('2d');
-  ctx.drawImage(frameImage, 0, 0, 160, 144);
-  ctx.putImageData(imageData, 16, 16);
-  return ctx.getImageData(0, 0, 160, 144);
-};
-
-var _default = addFrame;
-exports.default = _default;
-},{"./data/frames":"GameboyCamera/data/frames/index.ts"}],"GameboyCamera/filterPipeline.ts":[function(require,module,exports) {
+},{"./highLightDitherMatricies":"GameboyCamera/highLightDitherMatricies.ts","./lowLightDitherMatricies":"GameboyCamera/lowLightDitherMatricies.ts"}],"GameboyCamera/filterPipeline.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42251,12 +42344,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.filterPipeline = void 0;
 
 var _dither = require("./dither");
-
-var _paletteMap = require("./paletteMap");
-
-var _addFrame = _interopRequireDefault(require("./addFrame"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import Dither from "ditherjs";
 var minMax = function minMax(value, min, max) {
@@ -42311,17 +42398,94 @@ var filterPipeline = function filterPipeline(imageData, _a) {
   var brightness = _a.brightness,
       contrast = _a.contrast,
       lowLight = _a.lowLight,
-      palette = _a.palette;
+      palette = _a.palette,
+      frame = _a.frame;
   imageData = brightnessFilter(imageData, brightness);
   imageData = lumaFilter(imageData);
   imageData = (0, _dither.ditherFilter)(imageData, contrast, lowLight);
-  imageData = (0, _addFrame.default)(imageData, 'lameboy');
-  if (palette) imageData = (0, _paletteMap.paletteMap)(imageData, palette);
   return imageData;
 };
 
 exports.filterPipeline = filterPipeline;
-},{"./dither":"GameboyCamera/dither.ts","./paletteMap":"GameboyCamera/paletteMap.ts","./addFrame":"GameboyCamera/addFrame.ts"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
+},{"./dither":"GameboyCamera/dither.ts"}],"GameboyCamera/paletteMap.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.paletteMap = void 0;
+
+var _palettes = _interopRequireDefault(require("./data/palettes.json"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultPalette = {
+  name: 'default',
+  black: 0x00,
+  dark_gray: 0x55,
+  light_gray: 0xab,
+  white: 0xff
+};
+
+var colorStringToByteArray = function colorStringToByteArray(color) {
+  var r = parseInt("0x" + color.substring(1, 3));
+  var g = parseInt("0x" + color.substring(3, 5));
+  var b = parseInt("0x" + color.substring(5));
+  return [r, g, b];
+};
+
+var convertToBytes = function convertToBytes(p) {
+  return {
+    name: p.name,
+    black: colorStringToByteArray(p.black),
+    dark_gray: colorStringToByteArray(p.dark_gray),
+    light_gray: colorStringToByteArray(p.light_gray),
+    white: colorStringToByteArray(p.white)
+  };
+};
+
+var paletteMap = function paletteMap(imageData, paletteName) {
+  var palette = _palettes.default.find(function (f) {
+    return f.name == paletteName;
+  });
+
+  var bytePalette = convertToBytes(palette);
+  var d = imageData.data;
+
+  for (var i = 0; i < d.length; i += 4) {
+    var color = d[i];
+    var r = color,
+        g = color,
+        b = color;
+
+    if (color === defaultPalette.black) {
+      r = bytePalette.black[0];
+      g = bytePalette.black[1];
+      b = bytePalette.black[2];
+    } else if (color === defaultPalette.dark_gray) {
+      r = bytePalette.dark_gray[0];
+      g = bytePalette.dark_gray[1];
+      b = bytePalette.dark_gray[2];
+    } else if (color === defaultPalette.light_gray) {
+      r = bytePalette.light_gray[0];
+      g = bytePalette.light_gray[1];
+      b = bytePalette.light_gray[2];
+    } else if (color === defaultPalette.white) {
+      r = bytePalette.white[0];
+      g = bytePalette.white[1];
+      b = bytePalette.white[2];
+    }
+
+    d[i] = r;
+    d[i + 1] = g;
+    d[i + 2] = b;
+  }
+
+  return imageData;
+};
+
+exports.paletteMap = paletteMap;
+},{"./data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42341,7 +42505,9 @@ var _controls = _interopRequireDefault(require("./controls"));
 
 var _filterPipeline = require("./filterPipeline");
 
-var _palettes = _interopRequireDefault(require("./data/palettes.json"));
+var _frames = _interopRequireDefault(require("./data/frames"));
+
+var _paletteMap = require("./paletteMap");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42514,8 +42680,8 @@ var GameboyCamera = function GameboyCamera() {
   var cameraRef = (0, _react.useRef)();
 
   var _a = (0, _react.useState)(),
-      frame = _a[0],
-      setFrame = _a[1];
+      composite = _a[0],
+      setComposite = _a[1];
 
   var _b = (0, _react.useState)(),
       devices = _b[0],
@@ -42525,12 +42691,15 @@ var GameboyCamera = function GameboyCamera() {
       activeDeviceId = _c[0],
       setActiveDeviceId = _c[1];
 
+  var capture = (0, _react.useRef)();
+  var frameData = (0, _react.useRef)();
   var contrast = (0, _react.useRef)(7);
   var brightness = (0, _react.useRef)(50);
   var lowLight = (0, _react.useRef)(false);
-  var palette = (0, _react.useRef)();
+  var paletteName = (0, _react.useRef)('default');
+  var frameName = (0, _react.useRef)('lameboy');
   var facing = (0, _react.useRef)('front');
-  var interval = 16;
+  var interval = 64;
 
   var updateDevices = function updateDevices() {
     return __awaiter(void 0, void 0, void 0, function () {
@@ -42566,7 +42735,7 @@ var GameboyCamera = function GameboyCamera() {
     workingCanvas.width = 160;
     workingCanvas.height = 144;
     var ctx = workingCanvas.getContext('2d');
-    ctx.putImageData(frame, 0, 0);
+    ctx.putImageData(capture.current, 0, 0);
     var link = document.createElement('a');
     var today = new Date();
     link.download = "lbc_" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + "_" + today.getMilliseconds() + ".png";
@@ -42574,7 +42743,27 @@ var GameboyCamera = function GameboyCamera() {
     link.click();
   };
 
-  var updateFrame = function updateFrame() {
+  var updateFrame = function updateFrame(frameName) {
+    var _a;
+
+    var frameUrl = (_a = _frames.default[frameName]) === null || _a === void 0 ? void 0 : _a.resource;
+    console.log(frameUrl);
+    if (!frameUrl) return;
+    var image = new Image();
+
+    image.onload = function () {
+      var workingCanvas = document.createElement('canvas');
+      workingCanvas.width = 160;
+      workingCanvas.height = 144;
+      var ctx = workingCanvas.getContext('2d');
+      ctx.drawImage(image, 0, 0);
+      frameData.current = ctx.getImageData(0, 0, 160, 144);
+    };
+
+    image.src = frameUrl;
+  };
+
+  var updateCapture = function updateCapture() {
     if (!cameraRef.current) return;
     var workingCanvas = document.createElement('canvas');
     var ctx = workingCanvas.getContext('2d');
@@ -42590,22 +42779,28 @@ var GameboyCamera = function GameboyCamera() {
     }
 
     ctx.drawImage(cameraRef.current, left, top, smallest, smallest, 0, 0, 128, 128);
-
-    var p = _palettes.default.find(function (p) {
-      return p.name === palette.current;
-    });
-
     var imageData = (0, _filterPipeline.filterPipeline)(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
       contrast: contrast.current,
-      lowLight: lowLight.current,
-      palette: p
+      lowLight: lowLight.current
     });
-    setFrame(imageData);
+    capture.current = imageData;
+  };
+
+  var composeImage = function composeImage() {
+    var workingCanvas = document.createElement('canvas');
+    workingCanvas.width = 160;
+    workingCanvas.height = 144;
+    var ctx = workingCanvas.getContext('2d');
+    if (frameData.current) ctx.putImageData(frameData.current, 0, 0);
+    if (capture.current) ctx.putImageData(capture.current, 16, 16);
+    var palettedImage = (0, _paletteMap.paletteMap)(ctx.getImageData(0, 0, 160, 144), paletteName.current);
+    setComposite(palettedImage);
   };
 
   var frameTimer = function frameTimer() {
-    updateFrame();
+    updateCapture();
+    composeImage();
     setTimeout(function () {
       return frameTimer();
     }, interval);
@@ -42613,6 +42808,7 @@ var GameboyCamera = function GameboyCamera() {
 
   (0, _react.useEffect)(function () {
     updateDevices();
+    updateFrame('lameboy');
     frameTimer();
   }, []);
   return _react.default.createElement(StyledGameboyCamera, null, _react.default.createElement(StyledViewfinder, null, _react.default.createElement(_camera.default, {
@@ -42624,7 +42820,7 @@ var GameboyCamera = function GameboyCamera() {
     },
     hidden: true
   }), _react.default.createElement(_ImageCanvas.default, {
-    frame: frame
+    scene: composite
   }), _react.default.createElement(Title, null, "LAME BOY camera")), _react.default.createElement(_controls.default, {
     onShutterButton: function onShutterButton() {
       return takePhoto();
@@ -42643,7 +42839,10 @@ var GameboyCamera = function GameboyCamera() {
       return setActiveDeviceId(c);
     },
     onPaletteChange: function onPaletteChange(p) {
-      return palette.current = p;
+      return paletteName.current = p;
+    },
+    onFrameChange: function onFrameChange(f) {
+      return updateFrame(f);
     }
   }));
 };
@@ -42651,7 +42850,7 @@ var GameboyCamera = function GameboyCamera() {
 var _default = GameboyCamera;
 exports.default = _default;
 var templateObject_1, templateObject_2, templateObject_3;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./controls":"GameboyCamera/controls.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts","./data/palettes.json":"GameboyCamera/data/palettes.json"}],"setup.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./controls":"GameboyCamera/controls.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts","./data/frames":"GameboyCamera/data/frames/index.ts","./paletteMap":"GameboyCamera/paletteMap.ts"}],"setup.tsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -42723,7 +42922,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50207" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
