@@ -1,3 +1,5 @@
+import palettes from './data/palettes.json';
+
 type palette = {
   name: string;
   black: string;
@@ -15,7 +17,7 @@ type bytePalette = {
 };
 
 const defaultPalette = {
-  name: "default",
+  name: 'default',
   black: 0x00,
   dark_gray: 0x55,
   light_gray: 0xab,
@@ -39,7 +41,9 @@ const convertToBytes = (p: palette) => {
   };
 };
 
-const paletteMap = (imageData: ImageData, palette: palette) => {
+const paletteMap = (imageData: ImageData, paletteName: string) => {
+  const palette = palettes.find((f) => f.name == paletteName);
+
   const bytePalette: bytePalette = convertToBytes(palette);
   const d = imageData.data;
   for (let i = 0; i < d.length; i += 4) {

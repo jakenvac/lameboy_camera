@@ -5,8 +5,8 @@ import Camera from './camera';
 import ImageCanvas from './ImageCanvas';
 import Controls from './controls';
 import { filterPipeline } from './filterPipeline';
-
-import palettes from './data/palettes.json';
+import frames from './data/frames';
+import { paletteMap } from './paletteMap';
 
 const StyledGameboyCamera = styled.div`
   color: white;
@@ -58,16 +58,19 @@ const StyledViewfinder = styled.div`
 const GameboyCamera = () => {
   const cameraRef = useRef<HTMLVideoElement>();
 
-  const [frame, setFrame] = useState<ImageData>();
+  const [composite, setComposite] = useState<ImageData>();
   const [devices, setDevices] = useState<MediaDeviceInfo[]>();
   const [activeDeviceId, setActiveDeviceId] = useState<string>(undefined);
+  const capture = useRef<ImageData>();
+  const frameData = useRef<ImageData>();
   const contrast = useRef<number>(7);
   const brightness = useRef<number>(50);
   const lowLight = useRef<boolean>(false);
-  const palette = useRef<string>();
+  const paletteName = useRef<string>('default');
+  const frameName = useRef<string>('lameboy');
   const facing = useRef<string>('front');
 
-  const interval = 16;
+  const interval = 64;
 
   const updateDevices = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -83,7 +86,7 @@ const GameboyCamera = () => {
     workingCanvas.width = 160;
     workingCanvas.height = 144;
     const ctx = workingCanvas.getContext('2d');
-    ctx.putImageData(frame, 0, 0);
+    ctx.putImageData(capture.current, 0, 0);
     const link = document.createElement('a');
     const today = new Date();
     link.download = `lbc_${today.getFullYear()}_${
@@ -93,7 +96,23 @@ const GameboyCamera = () => {
     link.click();
   };
 
-  const updateFrame = () => {
+  const updateFrame = (frameName: string) => {
+    const frameUrl = frames[frameName]?.resource;
+    console.log(frameUrl);
+    if (!frameUrl) return;
+    const image = new Image();
+    image.onload = () => {
+      const workingCanvas = document.createElement('canvas');
+      workingCanvas.width = 160;
+      workingCanvas.height = 144;
+      const ctx = workingCanvas.getContext('2d');
+      ctx.drawImage(image, 0, 0);
+      frameData.current = ctx.getImageData(0, 0, 160, 144);
+    };
+    image.src = frameUrl;
+  };
+
+  const updateCapture = () => {
     if (!cameraRef.current) return;
     const workingCanvas = document.createElement('canvas');
     const ctx = workingCanvas.getContext('2d');
@@ -121,24 +140,38 @@ const GameboyCamera = () => {
       128,
     );
 
-    const p = palettes.find((p) => p.name === palette.current);
     const imageData = filterPipeline(ctx.getImageData(0, 0, 128, 112), {
       brightness: brightness.current,
       contrast: contrast.current,
       lowLight: lowLight.current,
-      palette: p,
     });
 
-    setFrame(imageData);
+    capture.current = imageData;
+  };
+
+  const composeImage = () => {
+    const workingCanvas = document.createElement('canvas');
+    workingCanvas.width = 160;
+    workingCanvas.height = 144;
+    const ctx = workingCanvas.getContext('2d');
+    if (frameData.current) ctx.putImageData(frameData.current, 0, 0);
+    if (capture.current) ctx.putImageData(capture.current, 16, 16);
+    const palettedImage = paletteMap(
+      ctx.getImageData(0, 0, 160, 144),
+      paletteName.current,
+    );
+    setComposite(palettedImage);
   };
 
   const frameTimer = () => {
-    updateFrame();
+    updateCapture();
+    composeImage();
     setTimeout(() => frameTimer(), interval);
   };
 
   useEffect(() => {
     updateDevices();
+    updateFrame('lameboy');
     frameTimer();
   }, []);
 
@@ -152,7 +185,7 @@ const GameboyCamera = () => {
           setFacingCallback={(f) => (facing.current = f)}
           hidden
         />
-        <ImageCanvas frame={frame} />
+        <ImageCanvas scene={composite} />
         <Title>LAME BOY camera</Title>
       </StyledViewfinder>
       <Controls
@@ -162,7 +195,8 @@ const GameboyCamera = () => {
         onLowLightChange={(l) => (lowLight.current = l)}
         cameras={devices}
         onCameraChange={(c) => setActiveDeviceId(c)}
-        onPaletteChange={(p) => (palette.current = p)}
+        onPaletteChange={(p) => (paletteName.current = p)}
+        onFrameChange={(f) => updateFrame(f)}
       />
     </StyledGameboyCamera>
   );

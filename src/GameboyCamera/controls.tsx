@@ -1,9 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import { LameShutterButton } from "./components/button";
-import { PaletteButton, PaletteTile } from "./components/paletteTile";
-import { PaletteList } from "./components/paletteList";
-import palettes from "./data/palettes.json";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { LameShutterButton } from './components/button';
+import { PaletteButton, PaletteTile } from './components/paletteTile';
+import { PaletteList } from './components/paletteList';
+import frames from './data/frames';
+import palettes from './data/palettes.json';
+import { FrameButton } from './components/frameButton';
+import { FrameList } from './components/frameList';
 
 const ControlsRoot = styled.div`
   flex: 1;
@@ -82,7 +85,7 @@ const StyledLabel = styled.label`
   }
 `;
 
-const StyledPaletteButton = styled.div`
+const ButtonContainer = styled.div`
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -100,6 +103,7 @@ type ControlsProps = {
   onLowLightChange: (value: boolean) => void;
   onCameraChange: (value: string) => void;
   onPaletteChange: (value: string) => void;
+  onFrameChange: (value: string) => void;
   onShutterButton: () => void;
 };
 
@@ -121,12 +125,15 @@ const CameraList = ({
 
 const Controls = (props: ControlsProps) => {
   const [showPalettes, setShowPalettes] = useState<boolean>(false);
+  const [showFrames, setShowFrames] = useState<boolean>(false);
   const [cameraList, setCameraList] = useState<CameraDescriptor[]>(
-    props.cameras
+    props.cameras,
   );
 
-  const [paletteName, setPaletteName] = useState<string>("default");
+  const [paletteName, setPaletteName] = useState<string>('default');
   const palette = palettes.find((p) => p.name === paletteName);
+
+  const [frameName, setFrameName] = useState<string>('lameboy');
 
   useEffect(() => {
     setCameraList(props.cameras);
@@ -148,6 +155,10 @@ const Controls = (props: ControlsProps) => {
     setShowPalettes(true);
   };
 
+  const handleFrameButton = () => {
+    setShowFrames(true);
+  };
+
   const handleShutterButton = () => props.onShutterButton();
 
   return (
@@ -158,6 +169,15 @@ const Controls = (props: ControlsProps) => {
             setShowPalettes(false);
             setPaletteName(p);
             props.onPaletteChange(p);
+          }}
+        />
+      )}
+      {showFrames && (
+        <FrameList
+          onFrameSelect={(f) => {
+            setShowFrames(false);
+            setFrameName(f);
+            props.onFrameChange(f);
           }}
         />
       )}
@@ -197,13 +217,21 @@ const Controls = (props: ControlsProps) => {
               <input type="checkbox" onChange={handleLowLightChanged} />
             </RightColumn>
           </ControlRow>
-          <StyledPaletteButton>
+          <ButtonContainer>
             <PaletteButton
               onClick={handlePaletteButton}
-              text={"Select Palette"}
+              text={'Select Palette'}
               colors={palette}
             />
-          </StyledPaletteButton>
+          </ButtonContainer>
+          <ButtonContainer>
+            <FrameButton
+              onClick={handleFrameButton}
+              text={'Select Frame'}
+              imageSrc={frames[frameName].resource}
+              size={'sm'}
+            />
+          </ButtonContainer>
         </Scroller>
         <ShutterContainer>
           <LameShutterButton onClick={handleShutterButton} />

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import addFrame from './addFrame';
+import { paletteMap } from './paletteMap';
 
 const StyledSquare = styled.div<{ ratio: number }>`
   width: 100%;
@@ -15,30 +17,29 @@ const StyledCanvas = styled.canvas`
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
-  background: black;
 `;
 
 type ImageCanvasProps = {
-  frame?: ImageData;
+  scene: ImageData;
 };
 
-const ImageCanvas = ({ frame }: ImageCanvasProps) => {
+const ImageCanvas = ({ scene }: ImageCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>();
 
-  useEffect(() => {
-    if (!frame || !frame.data) return;
+  const insertScene = () => {
     const ctx = canvasRef.current.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    ctx.putImageData(frame, 0, 0);
-  }, [frame]);
+    ctx.putImageData(scene, 0, 0);
+  };
+
+  useEffect(() => {
+    if (!scene || !scene.data) return;
+    insertScene();
+  }, [scene]);
 
   return (
-    <StyledSquare ratio={frame && frame?.height / frame?.width}>
-      <StyledCanvas
-        ref={canvasRef}
-        width={frame?.width}
-        height={frame?.height}
-      />
+    <StyledSquare ratio={144 / 160}>
+      <StyledCanvas ref={canvasRef} width={160} height={144} />
     </StyledSquare>
   );
 };

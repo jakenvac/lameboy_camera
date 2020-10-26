@@ -9,6 +9,7 @@ type filterOptions = {
   contrast: number;
   lowLight: boolean;
   palette?: palette;
+  frame?: string;
 };
 
 const minMax = (value: number, min: number, max: number) => {
@@ -59,13 +60,11 @@ const lumaFilter = (imageData: ImageData) => {
 
 const filterPipeline = (
   imageData: ImageData,
-  { brightness, contrast, lowLight, palette }: filterOptions,
+  { brightness, contrast, lowLight, palette, frame }: filterOptions,
 ) => {
   imageData = brightnessFilter(imageData, brightness);
   imageData = lumaFilter(imageData);
   imageData = ditherFilter(imageData, contrast, lowLight);
-  imageData = addFrame(imageData, 'lameboy');
-  if (palette) imageData = paletteMap(imageData, palette);
   return imageData;
 };
 
