@@ -40,8 +40,8 @@ const Camera = React.forwardRef(
         setStream(s);
         videoRef.current.srcObject = s;
         const facing = s.getVideoTracks()[0].getSettings().facingMode;
-        onCameraStarted();
-        onSetFacing(facing === 'user' ? 'front' : 'back');
+        if (onCameraStarted) onCameraStarted();
+        if (onSetFacing) onSetFacing(facing === 'user' ? 'front' : 'back');
       }
     };
 

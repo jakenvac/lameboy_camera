@@ -98,7 +98,6 @@ const GameboyCamera = () => {
 
   const updateFrame = (frameName: string) => {
     const frameUrl = frames[frameName]?.resource;
-    console.log(frameUrl);
     if (!frameUrl) return;
     const image = new Image();
     image.onload = () => {
