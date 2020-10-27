@@ -3,7 +3,8 @@ import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 type CameraProps = {
   deviceId?: string;
   frameInterval?: number;
-  setFacingCallback?: (facing: 'front' | 'back') => void;
+  onCameraStarted?: () => void;
+  onSetFacing?: (facing: 'front' | 'back') => void;
 };
 
 const Camera = React.forwardRef(
@@ -11,7 +12,8 @@ const Camera = React.forwardRef(
     {
       deviceId,
       frameInterval,
-      setFacingCallback,
+      onSetFacing,
+      onCameraStarted,
       ...props
     }: React.HTMLAttributes<HTMLVideoElement> & CameraProps,
     ref: MutableRefObject<HTMLVideoElement>,
@@ -38,7 +40,8 @@ const Camera = React.forwardRef(
         setStream(s);
         videoRef.current.srcObject = s;
         const facing = s.getVideoTracks()[0].getSettings().facingMode;
-        setFacingCallback(facing === 'user' ? 'front' : 'back');
+        onCameraStarted();
+        onSetFacing(facing === 'user' ? 'front' : 'back');
       }
     };
 

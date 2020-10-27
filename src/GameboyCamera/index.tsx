@@ -67,7 +67,6 @@ const GameboyCamera = () => {
   const brightness = useRef<number>(50);
   const lowLight = useRef<boolean>(false);
   const paletteName = useRef<string>('default');
-  const frameName = useRef<string>('lameboy');
   const facing = useRef<string>('front');
 
   const interval = 64;
@@ -182,7 +181,8 @@ const GameboyCamera = () => {
           ref={cameraRef}
           deviceId={activeDeviceId}
           frameInterval={interval}
-          setFacingCallback={(f) => (facing.current = f)}
+          onCameraStarted={updateDevices}
+          onSetFacing={(f) => (facing.current = f)}
           hidden
         />
         <ImageCanvas scene={composite} />
