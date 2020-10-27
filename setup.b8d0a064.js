@@ -42132,7 +42132,7 @@ var CameraList = function CameraList(_a) {
     return _react.default.createElement("option", {
       key: c.deviceId,
       value: c.deviceId
-    }, c.label);
+    }, c.label || c.deviceId);
   }));
 };
 
@@ -42205,7 +42205,7 @@ var Controls = function Controls(props) {
       setFrameName(f);
       props.onFrameChange(f);
     }
-  }), _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 1 && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
+  }), _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 0 && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
     cameraList: cameraList,
     onChange: handleCameraChange
   })), _react.default.createElement(StyledLabel, null, "Contrast"), _react.default.createElement("input", {
@@ -42819,7 +42819,6 @@ var GameboyCamera = function GameboyCamera() {
     ref: cameraRef,
     deviceId: activeDeviceId,
     frameInterval: interval,
-    // onCameraStarted={updateDevices}
     onSetFacing: function onSetFacing(f) {
       return facing.current = f;
     },
@@ -42927,7 +42926,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64290" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65280" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
