@@ -42704,17 +42704,20 @@ var GameboyCamera = function GameboyCamera() {
 
   var updateDevices = function updateDevices() {
     return __awaiter(void 0, void 0, void 0, function () {
-      var devices, inputs;
+      var d, inputs;
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
+            if ((devices === null || devices === void 0 ? void 0 : devices.length) > 0) return [2
+            /*return*/
+            ];
             return [4
             /*yield*/
             , navigator.mediaDevices.enumerateDevices()];
 
           case 1:
-            devices = _a.sent();
-            inputs = devices.filter(function (d) {
+            d = _a.sent();
+            inputs = d.filter(function (d) {
               return d.kind === 'videoinput';
             });
 
@@ -42816,7 +42819,7 @@ var GameboyCamera = function GameboyCamera() {
     ref: cameraRef,
     deviceId: activeDeviceId,
     frameInterval: interval,
-    onCameraStarted: updateDevices,
+    // onCameraStarted={updateDevices}
     onSetFacing: function onSetFacing(f) {
       return facing.current = f;
     },
@@ -42924,7 +42927,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63872" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64290" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
