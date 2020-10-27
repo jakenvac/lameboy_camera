@@ -72,8 +72,9 @@ const GameboyCamera = () => {
   const interval = 64;
 
   const updateDevices = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const inputs = devices.filter((d) => d.kind === 'videoinput');
+    if (devices?.length > 0) return;
+    const d = await navigator.mediaDevices.enumerateDevices();
+    const inputs = d.filter((d) => d.kind === 'videoinput');
     if (inputs.length > 0) {
       setActiveDeviceId(inputs[0].deviceId);
       setDevices(inputs);
@@ -181,7 +182,6 @@ const GameboyCamera = () => {
           ref={cameraRef}
           deviceId={activeDeviceId}
           frameInterval={interval}
-          onCameraStarted={updateDevices}
           onSetFacing={(f) => (facing.current = f)}
           hidden
         />

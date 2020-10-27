@@ -117,7 +117,7 @@ const CameraList = ({
   <StyledSelect onChange={onChange}>
     {cameraList.map((c) => (
       <option key={c.deviceId} value={c.deviceId}>
-        {c.label}
+        {c.label || c.deviceId}
       </option>
     ))}
   </StyledSelect>
@@ -183,7 +183,7 @@ const Controls = (props: ControlsProps) => {
       )}
       <ControlsContainer>
         <Scroller>
-          {cameraList && cameraList.length > 1 && (
+          {cameraList && cameraList.length > 0 && (
             <>
               <StyledLabel>Select Camera</StyledLabel>
               <CameraList
