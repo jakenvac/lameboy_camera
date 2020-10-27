@@ -30745,8 +30745,9 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
 var Camera = _react.default.forwardRef(function (_a, ref) {
   var deviceId = _a.deviceId,
       frameInterval = _a.frameInterval,
-      setFacingCallback = _a.setFacingCallback,
-      props = __rest(_a, ["deviceId", "frameInterval", "setFacingCallback"]);
+      onSetFacing = _a.onSetFacing,
+      onCameraStarted = _a.onCameraStarted,
+      props = __rest(_a, ["deviceId", "frameInterval", "onSetFacing", "onCameraStarted"]);
 
   var videoRef = ref !== null && ref !== void 0 ? ref : (0, _react.useRef)();
 
@@ -30788,7 +30789,8 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
               setStream(s);
               videoRef.current.srcObject = s;
               facing = s.getVideoTracks()[0].getSettings().facingMode;
-              setFacingCallback(facing === 'user' ? 'front' : 'back');
+              onCameraStarted();
+              onSetFacing(facing === 'user' ? 'front' : 'back');
             }
 
             return [2
@@ -42697,7 +42699,6 @@ var GameboyCamera = function GameboyCamera() {
   var brightness = (0, _react.useRef)(50);
   var lowLight = (0, _react.useRef)(false);
   var paletteName = (0, _react.useRef)('default');
-  var frameName = (0, _react.useRef)('lameboy');
   var facing = (0, _react.useRef)('front');
   var interval = 64;
 
@@ -42735,7 +42736,7 @@ var GameboyCamera = function GameboyCamera() {
     workingCanvas.width = 160;
     workingCanvas.height = 144;
     var ctx = workingCanvas.getContext('2d');
-    ctx.putImageData(capture.current, 0, 0);
+    ctx.putImageData(composite, 0, 0);
     var link = document.createElement('a');
     var today = new Date();
     link.download = "lbc_" + today.getFullYear() + "_" + (today.getMonth() + 1) + "_" + today.getDate() + "_" + today.getMilliseconds() + ".png";
@@ -42815,7 +42816,8 @@ var GameboyCamera = function GameboyCamera() {
     ref: cameraRef,
     deviceId: activeDeviceId,
     frameInterval: interval,
-    setFacingCallback: function setFacingCallback(f) {
+    onCameraStarted: updateDevices,
+    onSetFacing: function onSetFacing(f) {
       return facing.current = f;
     },
     hidden: true
@@ -42922,7 +42924,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50207" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63872" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
