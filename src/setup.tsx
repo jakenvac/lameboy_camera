@@ -49,12 +49,14 @@ const GlobalCSS = createGlobalStyle`
 `;
 
 import Camera from './GameboyCamera';
+import SiteMetadata from './metadata';
 
 const app = document.getElementById('app');
 
 const Root = () => {
   return (
     <StyledContainer>
+      <SiteMetadata />
       <GlobalCSS />
       <Camera />
       <StyledFooter>
