@@ -30789,7 +30789,7 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
               setStream(s);
               videoRef.current.srcObject = s;
               facing = s.getVideoTracks()[0].getSettings().facingMode;
-              onCameraStarted();
+              if (onCameraStarted) onCameraStarted();
               onSetFacing(facing === 'user' ? 'front' : 'back');
             }
 
@@ -42751,7 +42751,6 @@ var GameboyCamera = function GameboyCamera() {
     var _a;
 
     var frameUrl = (_a = _frames.default[frameName]) === null || _a === void 0 ? void 0 : _a.resource;
-    console.log(frameUrl);
     if (!frameUrl) return;
     var image = new Image();
 
@@ -42926,7 +42925,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65280" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53853" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
