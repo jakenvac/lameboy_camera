@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import styled, { createGlobalStyle } from 'styled-components';
+import ReactGA from 'react-ga';
+import Camera from './GameboyCamera';
 
 const StyledContainer = styled.div`
   overflow: hidden;
@@ -48,15 +50,13 @@ const GlobalCSS = createGlobalStyle`
   }
 `;
 
-import Camera from './GameboyCamera';
-import SiteMetadata from './metadata';
-
 const app = document.getElementById('app');
 
 const Root = () => {
+  ReactGA.initialize('G-L6QR4BZJ4M');
+  ReactGA.pageview('Lameboy Camera');
   return (
     <StyledContainer>
-      <SiteMetadata />
       <GlobalCSS />
       <Camera />
       <StyledFooter>
