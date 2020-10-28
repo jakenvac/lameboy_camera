@@ -2,24 +2,14 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import preview from './metadata/preview.png';
+import ReactGA from 'react-ga';
 
 const SiteMetadata = () => {
+  ReactGA.initialize('G-L6QR4BZJ4M');
+  ReactGA.pageview('Lameboy Camera');
+
   return (
     <Helmet>
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-L6QR4BZJ4M"
-      ></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-L6QR4BZJ4M');
-        `,
-        }}
-      />
       <meta name="og:title" content="Lameboy Camera" />
       <meta
         name="og:description"
