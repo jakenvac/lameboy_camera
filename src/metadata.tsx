@@ -10,14 +10,20 @@ const SiteMetadata = () => {
 
   return (
     <Helmet>
-      <meta name="og:title" content="Lameboy Camera" />
+      <meta name="title" content="Lameboy Camera"></meta>
       <meta
-        name="og:description"
-        content="Take gameboy camera photos in your web browser"
+        name="description"
+        content="Take game boy camera selfies in your web browser"
+      ></meta>
+      <meta property="og:type" content="website"></meta>
+      <meta property="og:url" content="https://lbcam.xyz/"></meta>
+      <meta property="og:title" content="Lameboy Camera"></meta>
+      <meta
+        property="og:description"
+        content="Take game boy camera photos in your web browser"
       />
-      <meta name="og:image" content={preview} />
-      <meta name="og:url" content=" https://lbcam.xyz" />
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="og:image" content={preview} />
+      <meta property="twitter:card" content="summary_large_image" />
     </Helmet>
   );
 };
