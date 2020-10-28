@@ -44040,14 +44040,7 @@ var _preview = _interopRequireDefault(require("./metadata/preview.png"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SiteMetadata = function SiteMetadata() {
-  return _react.default.createElement(_reactHelmet.Helmet, null, _react.default.createElement("script", {
-    async: true,
-    src: "https://www.googletagmanager.com/gtag/js?id=G-L6QR4BZJ4M"
-  }), _react.default.createElement("script", {
-    dangerouslySetInnerHTML: {
-      __html: "\n        window.dataLayer = window.dataLayer || [];\n        function gtag(){dataLayer.push(arguments);}\n        gtag('js', new Date());\n        gtag('config', 'G-L6QR4BZJ4M');\n        "
-    }
-  }), _react.default.createElement("meta", {
+  return _react.default.createElement(_reactHelmet.Helmet, null, _react.default.createElement("meta", {
     name: "og:title",
     content: "Lameboy Camera"
   }), _react.default.createElement("meta", {
@@ -44141,7 +44134,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54749" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54953" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
