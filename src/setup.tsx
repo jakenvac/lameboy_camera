@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import styled, { createGlobalStyle } from 'styled-components';
+import ReactGa from 'react-ga';
 import Camera from './GameboyCamera';
 
 const StyledContainer = styled.div`
@@ -52,8 +53,17 @@ const GlobalCSS = createGlobalStyle`
 const app = document.getElementById('app');
 
 const Root = () => {
+  ReactGa.initialize('G-V5YQGZNFY3');
+  ReactGa.pageview('home');
+
   return (
     <StyledContainer>
+      <img
+        alt="Clicky"
+        width="1"
+        height="1"
+        src="//in.getclicky.com/101284784ns.gif"
+      />
       <GlobalCSS />
       <Camera />
       <StyledFooter>
