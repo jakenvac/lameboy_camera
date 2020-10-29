@@ -28,6 +28,8 @@ const List = styled.div`
 
   display: flex;
   flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `;
 
 const ListItem = styled.div`
