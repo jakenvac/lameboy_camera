@@ -43526,19 +43526,21 @@ var ControlsContainer = _styledComponents.default.div(templateObject_2 || (templ
 
 var Scroller = _styledComponents.default.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  padding: 1rem;\n  padding-top: 0;\n  flex: 1;\n  overflow: auto;\n  overflow-x: hidden;\n\n  display: flex;\n  flex-direction: column;\n\n  &::-webkit-slider-thumb {\n    -webkit-appearance: none;\n    width: 15px;\n    height: 15px;\n    background: red;\n  }\n\n  background: linear-gradient(0deg, rgba(50, 50, 50, 0.5) 0%, rgba(0, 0, 0, 1));\n"], ["\n  padding: 1rem;\n  padding-top: 0;\n  flex: 1;\n  overflow: auto;\n  overflow-x: hidden;\n\n  display: flex;\n  flex-direction: column;\n\n  &::-webkit-slider-thumb {\n    -webkit-appearance: none;\n    width: 15px;\n    height: 15px;\n    background: red;\n  }\n\n  background: linear-gradient(0deg, rgba(50, 50, 50, 0.5) 0%, rgba(0, 0, 0, 1));\n"])));
 
-var ControlRow = _styledComponents.default.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: row;\n  margin-top: 1rem;\n"], ["\n  display: flex;\n  flex-direction: row;\n  margin-top: 1rem;\n"])));
+var ControlRow = _styledComponents.default.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  display: flex;\n  flex-shrink: 0;\n  flex-direction: row;\n  margin-top: 1rem;\n"], ["\n  display: flex;\n  flex-shrink: 0;\n  flex-direction: row;\n  margin-top: 1rem;\n"])));
 
-var RightColumn = _styledComponents.default.div(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n  margin-left: 1rem;\n"], ["\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n  margin-left: 1rem;\n"])));
+var ControlRowSingle = _styledComponents.default.div(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  flex-shrink: 0;\n  margin-top: 1rem;\n  * {\n    width: 100%;\n  }\n  &:first-of-type {\n    margin-top: 0;\n  }\n"], ["\n  flex-shrink: 0;\n  margin-top: 1rem;\n  * {\n    width: 100%;\n  }\n  &:first-of-type {\n    margin-top: 0;\n  }\n"])));
 
-var LeftColumn = _styledComponents.default.div(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n"])));
+var RightColumn = _styledComponents.default.div(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n  margin-left: 1rem;\n"], ["\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n  margin-left: 1rem;\n"])));
 
-var ShutterContainer = _styledComponents.default.div(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1rem;\n"], ["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1rem;\n"])));
+var LeftColumn = _styledComponents.default.div(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n"], ["\n  display: flex;\n  flex-direction: column;\n  flex: 1;\n"])));
 
-var StyledSelect = _styledComponents.default.select(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n  color: black;\n  option {\n    color: black;\n  }\n"], ["\n  color: black;\n  option {\n    color: black;\n  }\n"])));
+var ShutterContainer = _styledComponents.default.div(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1rem;\n"], ["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1rem;\n"])));
 
-var StyledLabel = _styledComponents.default.label(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"], ["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"])));
+var StyledSelect = _styledComponents.default.select(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n  color: black;\n  option {\n    color: black;\n  }\n"], ["\n  color: black;\n  option {\n    color: black;\n  }\n"])));
 
-var ButtonContainer = _styledComponents.default.div(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"], ["\n  margin-top: 1rem;\n  display: flex;\n  flex-direction: column;\n"])));
+var StyledLabel = _styledComponents.default.label(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"], ["\n  display: block;\n  margin-top: 1rem;\n  &:first-of-type {\n    margin-top: 0;\n  }\n"])));
+
+var ButtonContainer = _styledComponents.default.div(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n  margin-top: 1rem;\n  display: flex;\n  flex-shrink: 0;\n  flex-direction: column;\n"], ["\n  margin-top: 1rem;\n  display: flex;\n  flex-shrink: 0;\n  flex-direction: column;\n"])));
 
 var CameraList = function CameraList(_a) {
   var onChange = _a.onChange,
@@ -43622,16 +43624,16 @@ var Controls = function Controls(props) {
       setFrameName(f);
       props.onFrameChange(f);
     }
-  }), _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 0 && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
+  }), _react.default.createElement(ControlsContainer, null, _react.default.createElement(Scroller, null, cameraList && cameraList.length > 0 && _react.default.createElement(ControlRowSingle, null, _react.default.createElement(StyledLabel, null, "Select Camera"), _react.default.createElement(CameraList, {
     cameraList: cameraList,
     onChange: handleCameraChange
-  })), _react.default.createElement(StyledLabel, null, "Contrast"), _react.default.createElement("input", {
+  })), _react.default.createElement(ControlRowSingle, null, _react.default.createElement(StyledLabel, null, "Contrast"), _react.default.createElement("input", {
     type: "range",
     min: 0,
     max: 15,
     defaultValue: 7,
     onChange: handleContrastChange
-  }), _react.default.createElement(ControlRow, null, _react.default.createElement(LeftColumn, null, _react.default.createElement(StyledLabel, null, "Brightness"), _react.default.createElement("input", {
+  })), _react.default.createElement(ControlRow, null, _react.default.createElement(LeftColumn, null, _react.default.createElement(StyledLabel, null, "Brightness"), _react.default.createElement("input", {
     type: "range",
     min: -100,
     max: 100,
@@ -43657,7 +43659,7 @@ var Controls = function Controls(props) {
 
 var _default = Controls;
 exports.default = _default;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11;
 },{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./components/button":"GameboyCamera/components/button.tsx","./components/paletteTile":"GameboyCamera/components/paletteTile.tsx","./components/paletteList":"GameboyCamera/components/paletteList.tsx","./data/frames":"GameboyCamera/data/frames/index.ts","./data/palettes.json":"GameboyCamera/data/palettes.json","./components/frameButton":"GameboyCamera/components/frameButton.tsx","./components/frameList":"GameboyCamera/components/frameList.tsx"}],"GameboyCamera/highLightDitherMatricies.ts":[function(require,module,exports) {
 "use strict";
 
@@ -44349,7 +44351,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50356" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54273" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
