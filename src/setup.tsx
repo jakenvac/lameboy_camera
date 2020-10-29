@@ -53,7 +53,7 @@ const GlobalCSS = createGlobalStyle`
 const app = document.getElementById('app');
 
 const Root = () => {
-  ReactGa.initialize('G-V5YQGZNFY3');
+  ReactGa.initialize('UA-181467663-1');
   ReactGa.pageview('home');
 
   return (
