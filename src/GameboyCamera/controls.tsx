@@ -46,8 +46,20 @@ const Scroller = styled.div`
 
 const ControlRow = styled.div`
   display: flex;
+  flex-shrink: 0;
   flex-direction: row;
   margin-top: 1rem;
+`;
+
+const ControlRowSingle = styled.div`
+  flex-shrink: 0;
+  margin-top: 1rem;
+  * {
+    width: 100%;
+  }
+  &:first-of-type {
+    margin-top: 0;
+  }
 `;
 
 const RightColumn = styled.div`
@@ -88,6 +100,7 @@ const StyledLabel = styled.label`
 const ButtonContainer = styled.div`
   margin-top: 1rem;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
 `;
 
@@ -184,22 +197,24 @@ const Controls = (props: ControlsProps) => {
       <ControlsContainer>
         <Scroller>
           {cameraList && cameraList.length > 0 && (
-            <>
+            <ControlRowSingle>
               <StyledLabel>Select Camera</StyledLabel>
               <CameraList
                 cameraList={cameraList}
                 onChange={handleCameraChange}
               />
-            </>
+            </ControlRowSingle>
           )}
-          <StyledLabel>Contrast</StyledLabel>
-          <input
-            type="range"
-            min={0}
-            max={15}
-            defaultValue={7}
-            onChange={handleContrastChange}
-          />
+          <ControlRowSingle>
+            <StyledLabel>Contrast</StyledLabel>
+            <input
+              type="range"
+              min={0}
+              max={15}
+              defaultValue={7}
+              onChange={handleContrastChange}
+            />
+          </ControlRowSingle>
           <ControlRow>
             <LeftColumn>
               <StyledLabel>Brightness</StyledLabel>

@@ -28,6 +28,7 @@
   "scripts": {
     "dev": "parcel serve ./src/index.html",
     "build": "parcel build ./src/index.html --public-url ./",
+    "build:ex": "parcel build ./src/index.html -d ./dist/experimental --public-url ./",
     "postbuild": "copyfiles CNAME ./dist",
     "deploy": "gh-pages -d ./dist"
   }
