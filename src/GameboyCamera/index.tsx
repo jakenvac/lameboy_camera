@@ -182,6 +182,7 @@ const GameboyCamera = () => {
           deviceId={activeDeviceId}
           frameInterval={interval}
           onSetFacing={(f) => (facing.current = f)}
+          onCameraStarted={updateDevices}
           hidden
         />
         <ImageCanvas scene={composite} />
