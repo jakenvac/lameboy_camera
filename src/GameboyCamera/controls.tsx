@@ -222,8 +222,7 @@ const Controls = (props: ControlsProps) => {
                 type="range"
                 min={-100}
                 max={100}
-                defaultValue={50}
-                step={200 / 16}
+                defaultValue={0}
                 onChange={handleBrightnessChange}
               />
             </LeftColumn>
