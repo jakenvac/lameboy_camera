@@ -10,6 +10,7 @@ const StyledSquare = styled.div<{ ratio: number }>`
 `;
 
 const StyledCanvas = styled.canvas`
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
   position: absolute;
   top: 0;
