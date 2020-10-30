@@ -32934,7 +32934,7 @@ var StyledSquare = _styledComponents.default.div(templateObject_1 || (templateOb
   return p.ratio * 100;
 });
 
-var StyledCanvas = _styledComponents.default.canvas(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n"], ["\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n"])));
+var StyledCanvas = _styledComponents.default.canvas(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  image-rendering: crisp-edges;\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n"], ["\n  image-rendering: crisp-edges;\n  image-rendering: pixelated;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n"])));
 
 var ImageCanvas = function ImageCanvas(_a) {
   var scene = _a.scene;
@@ -43637,8 +43637,7 @@ var Controls = function Controls(props) {
     type: "range",
     min: -100,
     max: 100,
-    defaultValue: 50,
-    step: 200 / 16,
+    defaultValue: 0,
     onChange: handleBrightnessChange
   })), _react.default.createElement(RightColumn, null, _react.default.createElement(StyledLabel, null, "Low Light"), _react.default.createElement("input", {
     type: "checkbox",
@@ -44127,7 +44126,7 @@ var GameboyCamera = function GameboyCamera() {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            if ((devices === null || devices === void 0 ? void 0 : devices.length) > 0) return [2
+            if (devices && devices.length > 0 && devices[0].label) return [2
             /*return*/
             ];
             return [4
@@ -44139,9 +44138,9 @@ var GameboyCamera = function GameboyCamera() {
             inputs = d.filter(function (d) {
               return d.kind === 'videoinput';
             });
+            console.table(d, inputs);
 
             if (inputs.length > 0) {
-              setActiveDeviceId(inputs[0].deviceId);
               setDevices(inputs);
             }
 
@@ -44229,7 +44228,6 @@ var GameboyCamera = function GameboyCamera() {
   };
 
   (0, _react.useEffect)(function () {
-    updateDevices();
     updateFrame('lameboy');
     frameTimer();
   }, []);
@@ -44356,7 +44354,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58684" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55706" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
