@@ -77,7 +77,6 @@ const GameboyCamera = () => {
     const inputs = d.filter((d) => d.kind === 'videoinput');
     console.table(d, inputs);
     if (inputs.length > 0) {
-      setActiveDeviceId(inputs[0].deviceId);
       setDevices(inputs);
     }
   };
