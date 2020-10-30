@@ -44127,7 +44127,7 @@ var GameboyCamera = function GameboyCamera() {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            if (devices && devices.length > 0 && devices[0].label) return [2
+            if ((devices === null || devices === void 0 ? void 0 : devices.length) > 0) return [2
             /*return*/
             ];
             return [4
@@ -44139,7 +44139,6 @@ var GameboyCamera = function GameboyCamera() {
             inputs = d.filter(function (d) {
               return d.kind === 'videoinput';
             });
-            console.table(d, inputs);
 
             if (inputs.length > 0) {
               setActiveDeviceId(inputs[0].deviceId);
@@ -44230,6 +44229,7 @@ var GameboyCamera = function GameboyCamera() {
   };
 
   (0, _react.useEffect)(function () {
+    updateDevices();
     updateFrame('lameboy');
     frameTimer();
   }, []);
@@ -44356,7 +44356,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58750" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58684" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
