@@ -72,9 +72,10 @@ const GameboyCamera = () => {
   const interval = 64;
 
   const updateDevices = async () => {
-    if (devices?.length > 0) return;
+    if (devices && devices.length > 0 && devices[0].label) return;
     const d = await navigator.mediaDevices.enumerateDevices();
     const inputs = d.filter((d) => d.kind === 'videoinput');
+    console.table(d, inputs);
     if (inputs.length > 0) {
       setActiveDeviceId(inputs[0].deviceId);
       setDevices(inputs);
@@ -169,7 +170,6 @@ const GameboyCamera = () => {
   };
 
   useEffect(() => {
-    updateDevices();
     updateFrame('lameboy');
     frameTimer();
   }, []);
