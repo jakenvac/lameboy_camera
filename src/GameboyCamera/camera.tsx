@@ -22,14 +22,12 @@ const Camera = React.forwardRef(
     const [stream, setStream] = useState<MediaStream>();
 
     const tearDown = () => {
-      stream?.getTracks().forEach((t) => t.stop());
-      stream?.getAudioTracks().forEach((t) => t.stop());
+      stream?.getVideoTracks().forEach((t) => t.stop());
       setStream(undefined);
       videoRef.current.srcObject = undefined;
     };
 
     const setUp = async () => {
-      tearDown();
       const s = await navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
@@ -47,7 +45,7 @@ const Camera = React.forwardRef(
 
     useEffect(() => {
       setUp();
-      return tearDown();
+      return tearDown;
     }, [deviceId]);
 
     return (
