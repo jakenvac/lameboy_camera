@@ -32646,9 +32646,25 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var __makeTemplateObject = void 0 && (void 0).__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+
+  return cooked;
+};
 
 var __assign = void 0 && (void 0).__assign || function () {
   __assign = Object.assign || function (t) {
@@ -32822,6 +32838,8 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
+var HiddenCamera = _styledComponents.default.video(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  max-width: 0px;\n  max-height: 0px;\n"], ["\n  max-width: 0px;\n  max-height: 0px;\n"])));
+
 var Camera = _react.default.forwardRef(function (_a, ref) {
   var deviceId = _a.deviceId,
       frameInterval = _a.frameInterval,
@@ -32883,9 +32901,9 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
 
   (0, _react.useEffect)(function () {
     setUp();
-    return tearDown();
+    return tearDown;
   }, [deviceId]);
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("video", __assign({
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(HiddenCamera, __assign({
     ref: videoRef,
     onCanPlay: function onCanPlay() {
       var _a;
@@ -32900,7 +32918,8 @@ var Camera = _react.default.forwardRef(function (_a, ref) {
 
 var _default = Camera;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"GameboyCamera/ImageCanvas.tsx":[function(require,module,exports) {
+var templateObject_1;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"GameboyCamera/ImageCanvas.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44238,8 +44257,7 @@ var GameboyCamera = function GameboyCamera() {
     onSetFacing: function onSetFacing(f) {
       return facing.current = f;
     },
-    onCameraStarted: updateDevices,
-    hidden: true
+    onCameraStarted: updateDevices
   }), _react.default.createElement(_ImageCanvas.default, {
     scene: composite
   }), _react.default.createElement(Title, null, "LAME BOY camera")), _react.default.createElement(_controls.default, {
@@ -44354,7 +44372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55706" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63012" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
