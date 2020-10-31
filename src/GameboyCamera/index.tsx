@@ -182,7 +182,6 @@ const GameboyCamera = () => {
           frameInterval={interval}
           onSetFacing={(f) => (facing.current = f)}
           onCameraStarted={updateDevices}
-          hidden
         />
         <ImageCanvas scene={composite} />
         <Title>LAME BOY camera</Title>

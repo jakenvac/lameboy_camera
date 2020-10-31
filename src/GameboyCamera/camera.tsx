@@ -1,4 +1,10 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+
+const VideoBuffer = styled.video`
+  width: 0;
+  height: 0;
+`;
 
 type CameraProps = {
   deviceId?: string;
@@ -51,18 +57,16 @@ const Camera = React.forwardRef(
     }, [deviceId]);
 
     return (
-      <>
-        <video
-          ref={videoRef}
-          onCanPlay={() => {
-            videoRef.current?.play();
-          }}
-          autoPlay
-          playsInline
-          muted
-          {...props}
-        />
-      </>
+      <VideoBuffer
+        ref={videoRef}
+        onCanPlay={() => {
+          videoRef.current?.play();
+        }}
+        autoPlay
+        playsInline
+        muted
+        {...props}
+      />
     );
   },
 );
