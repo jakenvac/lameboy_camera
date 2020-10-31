@@ -58,12 +58,14 @@ const Root = () => {
 
   return (
     <StyledContainer>
-      <img
-        alt="Clicky"
-        width="1"
-        height="1"
-        src="//in.getclicky.com/101284784ns.gif"
-      />
+      <noscript>
+        <img
+          alt="Clicky"
+          width="1"
+          height="1"
+          src="//in.getclicky.com/101284784ns.gif"
+        />
+      </noscript>
       <GlobalCSS />
       <Camera />
       <StyledFooter>
