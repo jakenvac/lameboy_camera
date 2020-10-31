@@ -1,4 +1,5 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 type CameraProps = {
   deviceId?: string;
@@ -6,6 +7,11 @@ type CameraProps = {
   onCameraStarted?: () => void;
   onSetFacing?: (facing: 'front' | 'back') => void;
 };
+
+const HiddenCamera = styled.video`
+  max-width: 0px;
+  max-height: 0px;
+`;
 
 const Camera = React.forwardRef(
   (
@@ -47,12 +53,12 @@ const Camera = React.forwardRef(
 
     useEffect(() => {
       setUp();
-      return tearDown();
+      return tearDown;
     }, [deviceId]);
 
     return (
       <>
-        <video
+        <HiddenCamera
           ref={videoRef}
           onCanPlay={() => {
             videoRef.current?.play();
