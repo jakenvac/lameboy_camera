@@ -43656,7 +43656,7 @@ var Controls = function Controls(props) {
     type: "range",
     min: -100,
     max: 100,
-    defaultValue: 0,
+    defaultValue: -25,
     onChange: handleBrightnessChange
   })), _react.default.createElement(RightColumn, null, _react.default.createElement(StyledLabel, null, "Low Light"), _react.default.createElement("input", {
     type: "checkbox",
@@ -43734,7 +43734,7 @@ exports.lowLightDitherMatricies = lowLightDitherMatricies;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ditherFilter = void 0;
+exports.ditherFilterRgb = exports.ditherFilter = void 0;
 
 var _highLightDitherMatricies = require("./highLightDitherMatricies");
 
@@ -43774,6 +43774,39 @@ var ditherFilter = function ditherFilter(imageData, contrast, lowLight) {
 };
 
 exports.ditherFilter = ditherFilter;
+
+var ditherFilterRgb = function ditherFilterRgb(imageData, contrast, lowLight) {
+  contrast = contrast > 15 ? 15 : contrast;
+  contrast = contrast < 0 ? 0 : contrast;
+  contrast = contrast !== null && contrast !== void 0 ? contrast : 7;
+  var black = defaultPalette.black,
+      dark_gray = defaultPalette.dark_gray,
+      light_gray = defaultPalette.light_gray,
+      white = defaultPalette.white;
+  var contrastMatrix = (lowLight ? _lowLightDitherMatricies.lowLightDitherMatricies : _highLightDitherMatricies.highLightDitherMatricies)[contrast];
+  var w = imageData.width;
+  var pixels = imageData.data;
+
+  for (var i = 0; i < pixels.length; i += 4) {
+    var x = pixelCount % w % 4;
+    var y = Math.ceil(pixelCount / w) % 4;
+    var ditherGroup = contrastMatrix[x][y];
+    var r = pixels[i];
+    if (r < ditherGroup[0]) r = black;else if (r < ditherGroup[1]) r = dark_gray;else if (r < ditherGroup[2]) r = light_gray;else r = white;
+    pixels[i] = r;
+    var g = pixels[i + 1];
+    if (g < ditherGroup[0]) g = black;else if (g < ditherGroup[1]) g = dark_gray;else if (g < ditherGroup[2]) g = light_gray;else g = white;
+    pixels[i + 1] = g;
+    var b = pixels[i + 2];
+    if (b < ditherGroup[0]) b = black;else if (b < ditherGroup[1]) b = dark_gray;else if (b < ditherGroup[2]) b = light_gray;else b = white;
+    pixels[i + 2] = b;
+    pixelCount++;
+  }
+
+  return imageData;
+};
+
+exports.ditherFilterRgb = ditherFilterRgb;
 },{"./highLightDitherMatricies":"GameboyCamera/highLightDitherMatricies.ts","./lowLightDitherMatricies":"GameboyCamera/lowLightDitherMatricies.ts"}],"GameboyCamera/filterPipeline.ts":[function(require,module,exports) {
 "use strict";
 
@@ -43804,16 +43837,12 @@ var brightnessFilter = function brightnessFilter(imageData, value) {
   return imageData;
 };
 
-var contrastFilter = function contrastFilter(imageData, value) {
-  value = minMax(value, -100, 300);
+var channelFilter = function channelFilter(imageData, channel) {
+  var offset = channel == 'r' ? 0 : channel == 'g' ? 1 : 2;
   var d = imageData.data;
-  value = value / 100 + 1;
-  var intercept = 128 * (1 - value);
 
   for (var i = 0; i < d.length; i += 4) {
-    d[i] = d[i] * value + intercept;
-    d[i + 1] = d[i + 1] * value + intercept;
-    d[i + 2] = d[i + 2] * value + intercept;
+    d[i] = d[i + 1] = d[i + 2] = d[i + offset];
   }
 
   return imageData;
@@ -43839,92 +43868,14 @@ var filterPipeline = function filterPipeline(imageData, _a) {
       lowLight = _a.lowLight,
       palette = _a.palette,
       frame = _a.frame;
-  imageData = brightnessFilter(imageData, brightness);
-  imageData = lumaFilter(imageData);
-  imageData = (0, _dither.ditherFilter)(imageData, contrast, lowLight);
+  imageData = brightnessFilter(imageData, brightness); // imageData = lumaFilter(imageData);
+
+  imageData = (0, _dither.ditherFilterRgb)(imageData, contrast, lowLight);
   return imageData;
 };
 
 exports.filterPipeline = filterPipeline;
-},{"./dither":"GameboyCamera/dither.ts"}],"GameboyCamera/paletteMap.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.paletteMap = void 0;
-
-var _palettes = _interopRequireDefault(require("./data/palettes.json"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var defaultPalette = {
-  name: 'default',
-  black: 0x00,
-  dark_gray: 0x55,
-  light_gray: 0xab,
-  white: 0xff
-};
-
-var colorStringToByteArray = function colorStringToByteArray(color) {
-  var r = parseInt("0x" + color.substring(1, 3));
-  var g = parseInt("0x" + color.substring(3, 5));
-  var b = parseInt("0x" + color.substring(5));
-  return [r, g, b];
-};
-
-var convertToBytes = function convertToBytes(p) {
-  return {
-    name: p.name,
-    black: colorStringToByteArray(p.black),
-    dark_gray: colorStringToByteArray(p.dark_gray),
-    light_gray: colorStringToByteArray(p.light_gray),
-    white: colorStringToByteArray(p.white)
-  };
-};
-
-var paletteMap = function paletteMap(imageData, paletteName) {
-  var palette = _palettes.default.find(function (f) {
-    return f.name == paletteName;
-  });
-
-  var bytePalette = convertToBytes(palette);
-  var d = imageData.data;
-
-  for (var i = 0; i < d.length; i += 4) {
-    var color = d[i];
-    var r = color,
-        g = color,
-        b = color;
-
-    if (color === defaultPalette.black) {
-      r = bytePalette.black[0];
-      g = bytePalette.black[1];
-      b = bytePalette.black[2];
-    } else if (color === defaultPalette.dark_gray) {
-      r = bytePalette.dark_gray[0];
-      g = bytePalette.dark_gray[1];
-      b = bytePalette.dark_gray[2];
-    } else if (color === defaultPalette.light_gray) {
-      r = bytePalette.light_gray[0];
-      g = bytePalette.light_gray[1];
-      b = bytePalette.light_gray[2];
-    } else if (color === defaultPalette.white) {
-      r = bytePalette.white[0];
-      g = bytePalette.white[1];
-      b = bytePalette.white[2];
-    }
-
-    d[i] = r;
-    d[i + 1] = g;
-    d[i + 2] = b;
-  }
-
-  return imageData;
-};
-
-exports.paletteMap = paletteMap;
-},{"./data/palettes.json":"GameboyCamera/data/palettes.json"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
+},{"./dither":"GameboyCamera/dither.ts"}],"GameboyCamera/index.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43945,8 +43896,6 @@ var _controls = _interopRequireDefault(require("./controls"));
 var _filterPipeline = require("./filterPipeline");
 
 var _frames = _interopRequireDefault(require("./data/frames"));
-
-var _paletteMap = require("./paletteMap");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44133,7 +44082,7 @@ var GameboyCamera = function GameboyCamera() {
   var capture = (0, _react.useRef)();
   var frameData = (0, _react.useRef)();
   var contrast = (0, _react.useRef)(7);
-  var brightness = (0, _react.useRef)(50);
+  var brightness = (0, _react.useRef)(-10);
   var lowLight = (0, _react.useRef)(false);
   var paletteName = (0, _react.useRef)('default');
   var facing = (0, _react.useRef)('front');
@@ -44233,9 +44182,12 @@ var GameboyCamera = function GameboyCamera() {
     workingCanvas.height = 144;
     var ctx = workingCanvas.getContext('2d');
     if (frameData.current) ctx.putImageData(frameData.current, 0, 0);
-    if (capture.current) ctx.putImageData(capture.current, 16, 16);
-    var palettedImage = (0, _paletteMap.paletteMap)(ctx.getImageData(0, 0, 160, 144), paletteName.current);
-    setComposite(palettedImage);
+    if (capture.current) ctx.putImageData(capture.current, 16, 16); // const palettedImage = paletteMap(
+    //   ctx.getImageData(0, 0, 160, 144),
+    //   paletteName.current,
+    // );
+
+    setComposite(ctx.getImageData(0, 0, 160, 144));
   };
 
   var frameTimer = function frameTimer() {
@@ -44289,7 +44241,7 @@ var GameboyCamera = function GameboyCamera() {
 var _default = GameboyCamera;
 exports.default = _default;
 var templateObject_1, templateObject_2, templateObject_3;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./controls":"GameboyCamera/controls.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts","./data/frames":"GameboyCamera/data/frames/index.ts","./paletteMap":"GameboyCamera/paletteMap.ts"}],"setup.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./camera":"GameboyCamera/camera.tsx","./ImageCanvas":"GameboyCamera/ImageCanvas.tsx","./controls":"GameboyCamera/controls.tsx","./filterPipeline":"GameboyCamera/filterPipeline.ts","./data/frames":"GameboyCamera/data/frames/index.ts"}],"setup.tsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -44332,12 +44284,12 @@ var Root = function Root() {
 
   _reactGa.default.pageview('home');
 
-  return _react.default.createElement(StyledContainer, null, _react.default.createElement("img", {
+  return _react.default.createElement(StyledContainer, null, _react.default.createElement("noscript", null, _react.default.createElement("img", {
     alt: "Clicky",
     width: "1",
     height: "1",
     src: "//in.getclicky.com/101284784ns.gif"
-  }), _react.default.createElement(GlobalCSS, null), _react.default.createElement(_GameboyCamera.default, null), _react.default.createElement(StyledFooter, null, "\xA9 jakenvac ", new Date().getFullYear(), " |", ' ', _react.default.createElement("a", {
+  })), _react.default.createElement(GlobalCSS, null), _react.default.createElement(_GameboyCamera.default, null), _react.default.createElement(StyledFooter, null, "\xA9 jakenvac ", new Date().getFullYear(), " |", ' ', _react.default.createElement("a", {
     href: "https://github.com/jakehl/lameboy_camera"
   }, "github")));
 };
@@ -44372,7 +44324,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63012" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50866" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
