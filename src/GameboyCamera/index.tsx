@@ -64,7 +64,7 @@ const GameboyCamera = () => {
   const capture = useRef<ImageData>();
   const frameData = useRef<ImageData>();
   const contrast = useRef<number>(7);
-  const brightness = useRef<number>(50);
+  const brightness = useRef<number>(0);
   const lowLight = useRef<boolean>(false);
   const paletteName = useRef<string>('default');
   const facing = useRef<string>('front');

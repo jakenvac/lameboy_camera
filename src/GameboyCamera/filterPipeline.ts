@@ -1,8 +1,7 @@
 // import Dither from "ditherjs";
 
 import { ditherFilter } from './dither';
-import { paletteMap, palette } from './paletteMap';
-import addFrame from './addFrame';
+import { palette } from './paletteMap';
 
 type filterOptions = {
   brightness: number;
